@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 fenbi. All rights reserved.
 //
 
-#import "YTKBaseRequestUtils.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "YTKNetworkPrivate.h"
 
-@implementation YTKBaseRequestUtils
+@implementation YTKNetworkPrivate
 
 
 + (BOOL)checkJson:(id)json withValidator:(id)validatorJson {
@@ -72,7 +73,7 @@
     NSString *filteredUrl = originUrlString;
     NSString *paraUrlString = [self urlParametersStringFromParameters:parameters];
     if (paraUrlString && paraUrlString.length > 0) {
-        if ([originUrlString indexOfString:@"?"] != JavaNotFound) {
+        if ([originUrlString rangeOfString:@"?"].location != NSNotFound) {
             filteredUrl = [filteredUrl stringByAppendingString:paraUrlString];
         } else {
             filteredUrl = [filteredUrl stringByAppendingFormat:@"?%@", [paraUrlString substringFromIndex:1]];
@@ -92,5 +93,34 @@
     return result;
 }
 
++ (void)addDoNotBackupAttribute:(NSString *)path {
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSError *error = nil;
+    [url setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:&error];
+    if (error) {
+        YTKLog(@"error to set do not backup attribute, error = %@", error);
+    }
+}
+
++ (NSString *)md5StringFromString:(NSString *)string {
+    if(string == nil || [string length] == 0)
+        return nil;
+    
+    const char *value = [string UTF8String];
+    
+    unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
+    
+    NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
+        [outputString appendFormat:@"%02x",outputBuffer[count]];
+    }
+    
+    return outputString;
+}
+
++ (NSString *)appVersionString {
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
 
 @end

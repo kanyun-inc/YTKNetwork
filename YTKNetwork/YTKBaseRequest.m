@@ -8,29 +8,28 @@
 
 #import "YTKBaseRequest.h"
 #import "YTKNetworkAgent.h"
-#import "YTKAlertUtils.h"
 
 @implementation YTKBaseRequest
 
 /// for subclasses to overwrite
 - (void)requestCompleteFilter {
-    [self hideAnimating];
+//    [self hideAnimating];
 }
 
 - (void)requestFailedFilter {
-    [self hideAnimating];
+//    [self hideAnimating];
 }
 
 - (NSString *)requestUrl {
-    return EMPTY_STRING;
+    return @"";
 }
 
 - (NSString *)cdnUrl {
-    return EMPTY_STRING;
+    return @"";
 }
 
 - (NSString *)baseUrl {
-    return EMPTY_STRING;
+    return @"";
 }
 
 - (id)requestArgument {
@@ -88,13 +87,13 @@
 
 /// append self to request queue
 - (void)start {
-    [self showAnimating];
+//    [self showAnimating];
     [[YTKNetworkAgent sharedInstance] addRequest:self];
 }
 
 /// remove self from request queue
 - (void)stop {
-    [self hideAnimating];
+//    [self hideAnimating];
     self.delegate = nil;
     [[YTKNetworkAgent sharedInstance] cancelRequest:self];
 }
@@ -121,17 +120,17 @@
     self.failureCompletionBlock = nil;
 }
 
-- (void)showAnimating {
-    if (self.animatingView != nil) {
-        [YTKAlertUtils showLoadingAlertView:self.animatingText inView:self.animatingView];
-    }
-}
-
-- (void)hideAnimating {
-    if (self.animatingView != nil) {
-        [YTKAlertUtils hideLoadingAlertView:self.animatingView];
-    }
-}
+//- (void)showAnimating {
+//    if (self.animatingView != nil) {
+//        [YTKAlertUtils showLoadingAlertView:self.animatingText inView:self.animatingView];
+//    }
+//}
+//
+//- (void)hideAnimating {
+//    if (self.animatingView != nil) {
+//        [YTKAlertUtils hideLoadingAlertView:self.animatingView];
+//    }
+//}
 
 - (id)responseJSONObject {
     return self.requestOperation.responseObject;

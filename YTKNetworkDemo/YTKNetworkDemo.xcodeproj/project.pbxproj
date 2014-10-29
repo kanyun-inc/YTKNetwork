@@ -39,7 +39,7 @@
 		BF00804D19FF98EE00816462 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00803919FF98EE00816462 /* UIProgressView+AFNetworking.m */; };
 		BF00804E19FF98EE00816462 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00803B19FF98EE00816462 /* UIRefreshControl+AFNetworking.m */; };
 		BF00804F19FF98EE00816462 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00803D19FF98EE00816462 /* UIWebView+AFNetworking.m */; };
-		BF0080541A00913200816462 /* YTKBaseRequestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0080531A00913200816462 /* YTKBaseRequestUtils.m */; };
+		BF0080541A00913200816462 /* YTKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0080531A00913200816462 /* YTKNetworkPrivate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,8 +118,8 @@
 		BF00803B19FF98EE00816462 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		BF00803C19FF98EE00816462 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		BF00803D19FF98EE00816462 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		BF0080521A00913200816462 /* YTKBaseRequestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKBaseRequestUtils.h; sourceTree = "<group>"; };
-		BF0080531A00913200816462 /* YTKBaseRequestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKBaseRequestUtils.m; sourceTree = "<group>"; };
+		BF0080521A00913200816462 /* YTKNetworkPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKNetworkPrivate.h; sourceTree = "<group>"; };
+		BF0080531A00913200816462 /* YTKNetworkPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKNetworkPrivate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,8 +204,8 @@
 		BF007FFC19FF988A00816462 /* YTKNetwork */ = {
 			isa = PBXGroup;
 			children = (
-				BF0080521A00913200816462 /* YTKBaseRequestUtils.h */,
-				BF0080531A00913200816462 /* YTKBaseRequestUtils.m */,
+				BF0080521A00913200816462 /* YTKNetworkPrivate.h */,
+				BF0080531A00913200816462 /* YTKNetworkPrivate.m */,
 				BF007FFD19FF988A00816462 /* YTKBaseRequest.h */,
 				BF007FFE19FF988A00816462 /* YTKBaseRequest.m */,
 				BF00800119FF988A00816462 /* YTKBatchRequest.h */,
@@ -404,7 +404,7 @@
 				BF007FDC19FF972C00816462 /* AppDelegate.m in Sources */,
 				BF00804319FF98EE00816462 /* AFSecurityPolicy.m in Sources */,
 				BF007FD919FF972C00816462 /* main.m in Sources */,
-				BF0080541A00913200816462 /* YTKBaseRequestUtils.m in Sources */,
+				BF0080541A00913200816462 /* YTKNetworkPrivate.m in Sources */,
 				BF00804519FF98EE00816462 /* AFURLRequestSerialization.m in Sources */,
 				BF00801319FF988A00816462 /* YTKNetworkConfig.m in Sources */,
 				BF00804619FF98EE00816462 /* AFURLResponseSerialization.m in Sources */,
@@ -540,6 +540,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YTKNetworkDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -550,6 +551,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YTKNetworkDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

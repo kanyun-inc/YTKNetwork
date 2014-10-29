@@ -8,7 +8,7 @@
 
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkConfig.h"
-#import "YTKBaseRequestUtils.h"
+#import "YTKNetworkPrivate.h"
 #import "AFDownloadRequestOperation.h"
 
 @implementation YTKNetworkAgent {
@@ -39,7 +39,7 @@
 
 - (NSString *)buildRequestUrl:(YTKBaseRequest *)request {
     NSString *detailUrl = [request requestUrl];
-    if ([detailUrl startsWith:@"http"]) {
+    if ([detailUrl hasPrefix:@"http"]) {
         return detailUrl;
     }
     // filter url
@@ -99,7 +99,7 @@
         if (method == YTKRequestMethodGet) {
             if (request.resumableDownloadPath) {
                 // add parameters to URL;
-                NSString *filteredUrl = [YTKBaseRequestUtils urlStringWithOriginUrlString:url appendParameters:param];
+                NSString *filteredUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:url appendParameters:param];
 
                 NSURLRequest *requestUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:filteredUrl]];
                 AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:requestUrl
@@ -153,12 +153,12 @@
                 [self handleRequestResult:operation];
             }];
         } else {
-            debugLog(@"Error, unsupport method type");
+            YTKLog(@"Error, unsupport method type");
             return;
         }
     }
 
-    debugLog(@"Add request: %@", NSStringFromClass([request class]));
+    YTKLog(@"Add request: %@", NSStringFromClass([request class]));
     [self addOperation:request];
 }
 
@@ -184,7 +184,7 @@
     id validator = [request jsonValidator];
     if (validator != nil) {
         id json = [request responseJSONObject];
-        result = [YTKBaseRequestUtils checkJson:json withValidator:validator];
+        result = [YTKNetworkPrivate checkJson:json withValidator:validator];
     }
     return result;
 }
@@ -192,7 +192,7 @@
 - (void)handleRequestResult:(AFHTTPRequestOperation *)operation {
     NSString *key = [self requestHashKey:operation];
     YTKBaseRequest *request = _requestsRecord[key];
-    debugLog(@"Finished Request: %@", NSStringFromClass([request class]));
+    YTKLog(@"Finished Request: %@", NSStringFromClass([request class]));
     if (request) {
         BOOL succeed = [self checkResult:request];
         if (succeed) {
@@ -204,7 +204,7 @@
                 request.successCompletionBlock(request);
             }
         } else {
-            debugLog(@"Request %@ failed, status code = %ld",
+            YTKLog(@"Request %@ failed, status code = %ld",
                      NSStringFromClass([request class]), (long)request.responseStatusCode);
             [request requestFailedFilter];
             if (request.delegate != nil) {
@@ -234,7 +234,7 @@
 - (void)removeOperation:(AFHTTPRequestOperation *)operation {
     NSString *key = [self requestHashKey:operation];
     [_requestsRecord removeObjectForKey:key];
-    debugLog(@"Request queue size = %lu", (unsigned long)[_requestsRecord count]);
+    YTKLog(@"Request queue size = %lu", (unsigned long)[_requestsRecord count]);
 }
 
 @end

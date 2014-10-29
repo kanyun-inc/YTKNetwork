@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YTKBaseRequest.h"
 
 @protocol YTKUrlFilterProtocol <NSObject>
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(YTKBaseRequest *)request;

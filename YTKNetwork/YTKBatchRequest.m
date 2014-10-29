@@ -7,7 +7,7 @@
 //
 
 #import "YTKBatchRequest.h"
-#import "YTKAlertUtils.h"
+#import "YTKNetworkPrivate.h"
 
 @interface YTKBatchRequest() <YTKRequestDelegate>
 
@@ -24,7 +24,7 @@
         _finishedCount = 0;
         for (YTKRequest * req in _requestArray) {
             if (![req isKindOfClass:[YTKRequest class]]) {
-                debugLog(@"Error, request item must be YTKRequest instance.");
+                YTKLog(@"Error, request item must be YTKRequest instance.");
                 return nil;
             }
         }
@@ -33,19 +33,19 @@
 }
 
 - (void)start {
-    [self showAnimating];
+//    [self showAnimating];
     for (YTKRequest * req in _requestArray) {
         req.delegate = self;
-        if (self.animatingView) {
-            // clear subrequests animating view if batch request has set the animating view
-            req.animatingView = nil;
-        }
+//        if (self.animatingView) {
+//            // clear subrequests animating view if batch request has set the animating view
+//            req.animatingView = nil;
+//        }
         [req start];
     }
 }
 
 - (void)stop {
-    [self hideAnimating];
+//    [self hideAnimating];
     _delegate = nil;
     [self clearRequest];
 }
@@ -88,7 +88,7 @@
 - (void)requestFinished:(YTKRequest *)request {
     _finishedCount++;
     if (_finishedCount == _requestArray.count) {
-        [self hideAnimating];
+//        [self hideAnimating];
         if ([_delegate respondsToSelector:@selector(batchRequestFinished:)]) {
             [_delegate batchRequestFinished:self];
         }
@@ -102,7 +102,7 @@
 - (void)requestFailed:(YTKRequest *)request {
     [self clearRequest];
     if ([_delegate respondsToSelector:@selector(batchRequestFailed:)]) {
-        [self hideAnimating];
+//        [self hideAnimating];
         [_delegate batchRequestFailed:self];
     }
     if (_failureCompletionBlock) {
@@ -112,7 +112,7 @@
 }
 
 - (void)clearRequest {
-    [self hideAnimating];
+//    [self hideAnimating];
     for (YTKRequest * req in _requestArray) {
         [req stop];
     }
@@ -121,16 +121,16 @@
 
 #pragma mark - Animating
 
-- (void)showAnimating {
-    if (_animatingView != nil) {
-        [YTKAlertUtils showLoadingAlertView:_animatingText inView:_animatingView];
-    }
-}
-
-- (void)hideAnimating {
-    if (self.animatingView != nil) {
-        [YTKAlertUtils hideLoadingAlertView:_animatingView];
-    }
-}
+//- (void)showAnimating {
+//    if (_animatingView != nil) {
+//        [YTKAlertUtils showLoadingAlertView:_animatingText inView:_animatingView];
+//    }
+//}
+//
+//- (void)hideAnimating {
+//    if (self.animatingView != nil) {
+//        [YTKAlertUtils hideLoadingAlertView:_animatingView];
+//    }
+//}
 
 @end

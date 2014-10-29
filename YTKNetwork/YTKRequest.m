@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 fenbi. All rights reserved.
 //
 
-#import "FileUtils.h"
 #import "YTKNetworkConfig.h"
 #import "YTKRequest.h"
-#import "NSString+MD5Addition.h"
+#import "YTKNetworkPrivate.h"
 
 @interface YTKRequest()
 
@@ -52,14 +51,15 @@
     [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES
                                                attributes:nil error:&error];
     if (error) {
-        debugLog(@"create cache directory failed, error = %@", error);
+        YTKLog(@"create cache directory failed, error = %@", error);
     } else {
-        [FileUtils addDoNotBackupAttribute:path];
+        [YTKNetworkPrivate addDoNotBackupAttribute:path];
     }
 }
 
 - (NSString *)cacheBasePath {
-    NSString *path = [PATH_OF_LIBRARY stringByAppendingPathComponent:@"LazyRequestCache"];
+    NSString *pathOfLibrary = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [pathOfLibrary stringByAppendingPathComponent:@"LazyRequestCache"];
 
     // filter cache base path
     NSArray *filters = [[YTKNetworkConfig sharedInstance] cacheDirPathFilters];
@@ -79,8 +79,8 @@
     id argument = [self cacheFileNameFilterForRequestArgument:[self requestArgument]];
     NSString *requestInfo = [NSString stringWithFormat:@"Method:%ld Host:%@ Url:%@ Argument:%@ AppVersion:%@ Sensitive:%@",
                                                         (long)[self requestMethod], baseUrl, requestUrl,
-                                                        argument, APP_VERSION, [self cacheSensitiveData]];
-    NSString *cacheFileName = [requestInfo stringFromMD5];
+                                                        argument, [YTKNetworkPrivate appVersionString], [self cacheSensitiveData]];
+    NSString *cacheFileName = [YTKNetworkPrivate md5StringFromString:requestInfo];
     return cacheFileName;
 }
 
@@ -101,7 +101,7 @@
 - (long long)cacheVersionFileContent {
     NSString *path = [self cacheVersionFilePath];
     NSFileManager * fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:path isDirectory:NO]) {
+    if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
         NSNumber *version = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         return [version longLongValue];
     } else {
@@ -116,7 +116,7 @@
     NSDictionary *attributes = [fileManager attributesOfItemAtPath:path
                                                              error:&attributesRetrievalError];
     if (!attributes) {
-        debugLog(@"Error get attributes for file at %@: %@", path, attributesRetrievalError);
+        YTKLog(@"Error get attributes for file at %@: %@", path, attributesRetrievalError);
         return -1;
     }
     int seconds = -[[attributes fileModificationDate] timeIntervalSinceNow];
@@ -144,7 +144,7 @@
     // check cache existance
     NSString *path = [self cacheFilePath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:path isDirectory:NO]) {
+    if (![fileManager fileExistsAtPath:path isDirectory:nil]) {
         [super start];
         return;
     }
@@ -164,8 +164,8 @@
     }
 
     _dataFromCache = YES;
-    self.animatingText = nil;
-    self.animatingView = nil;
+//    self.animatingText = nil;
+//    self.animatingView = nil;
     [self requestCompleteFilter];
     YTKRequest *strongSelf = self;
     [strongSelf.delegate requestFinished:strongSelf];
