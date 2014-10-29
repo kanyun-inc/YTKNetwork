@@ -20,6 +20,7 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+
 #import <Foundation/Foundation.h>
 #import "YTKBaseRequest.h"
 
@@ -37,12 +38,6 @@ typedef void (^ChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *bas
 @interface YTKChainRequest : NSObject
 
 @property (weak, nonatomic) id<YTKChainRequestDelegate> delegate;
-
-// the animating view
-@property (nonatomic, weak) UIView * animatingView;
-
-// the animating text
-@property (nonatomic, strong) NSString * animatingText;
 
 // start chain request
 - (void)start;

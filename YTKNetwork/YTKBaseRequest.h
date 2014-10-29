@@ -61,11 +61,6 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 /// User info
 @property (nonatomic, strong) NSDictionary *userInfo;
 
-///// the animating text
-//@property (nonatomic, strong) NSString *animatingText;
-///// the animating view
-//@property (nonatomic, weak) UIView *animatingView;
-
 @property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
 
 /// request delegate object

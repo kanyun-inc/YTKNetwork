@@ -31,8 +31,7 @@
 
 @implementation YTKChainRequestAgent
 
-+ (YTKChainRequestAgent *)sharedInstance
-{
++ (YTKChainRequestAgent *)sharedInstance {
     static id sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -56,7 +56,6 @@
     }
 
     if ([_requestArray count] > 0) {
-//        [self showAnimating];
         [self startNextRequest];
         [[YTKChainRequestAgent sharedInstance] addChainRequest:self];
     } else {
@@ -66,7 +65,6 @@
 
 - (void)stop {
     [self clearRequest];
-//    [self hideAnimating];
     [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
 }
 
@@ -102,7 +100,6 @@
     ChainCallback callback = _requestCallbackArray[currentRequestIndex];
     callback(self, request);
     if (![self startNextRequest]) {
-//        [self hideAnimating];
         if ([_delegate respondsToSelector:@selector(chainRequestFinished:)]) {
             [_delegate chainRequestFinished:self];
             [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
@@ -111,7 +108,6 @@
 }
 
 - (void)requestFailed:(YTKBaseRequest *)request {
-//    [self hideAnimating];
     if ([_delegate respondsToSelector:@selector(chainRequestFailed:failedBaseRequest:)]) {
         [_delegate chainRequestFailed:self failedBaseRequest:request];
         [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
@@ -127,20 +123,5 @@
     [_requestArray removeAllObjects];
     [_requestCallbackArray removeAllObjects];
 }
-
-
-#pragma mark - Animating
-
-//- (void)showAnimating {
-//    if (_animatingView != nil) {
-//        [YTKAlertUtils showLoadingAlertView:_animatingText inView:_animatingView];
-//    }
-//}
-//
-//- (void)hideAnimating {
-//    if (_animatingView != nil) {
-//        [YTKAlertUtils hideLoadingAlertView:_animatingView];
-//    }
-//}
 
 @end

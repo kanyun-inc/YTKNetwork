@@ -45,12 +45,6 @@
 
 @property (nonatomic) NSInteger tag;
 
-// the animating view
-@property (nonatomic, weak) UIView *animatingView;
-
-// the animating text
-@property (nonatomic, strong) NSString *animatingText;
-
 - (id)initWithRequestArray:(NSArray *)requestArray;
 
 - (void)start;

@@ -20,6 +20,7 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+
 #import "YTKBaseRequest.h"
 #import "YTKNetworkAgent.h"
 
@@ -27,11 +28,9 @@
 
 /// for subclasses to overwrite
 - (void)requestCompleteFilter {
-//    [self hideAnimating];
 }
 
 - (void)requestFailedFilter {
-//    [self hideAnimating];
 }
 
 - (NSString *)requestUrl {
@@ -101,13 +100,11 @@
 
 /// append self to request queue
 - (void)start {
-//    [self showAnimating];
     [[YTKNetworkAgent sharedInstance] addRequest:self];
 }
 
 /// remove self from request queue
 - (void)stop {
-//    [self hideAnimating];
     self.delegate = nil;
     [[YTKNetworkAgent sharedInstance] cancelRequest:self];
 }
@@ -133,18 +130,6 @@
     self.successCompletionBlock = nil;
     self.failureCompletionBlock = nil;
 }
-
-//- (void)showAnimating {
-//    if (self.animatingView != nil) {
-//        [YTKAlertUtils showLoadingAlertView:self.animatingText inView:self.animatingView];
-//    }
-//}
-//
-//- (void)hideAnimating {
-//    if (self.animatingView != nil) {
-//        [YTKAlertUtils hideLoadingAlertView:self.animatingView];
-//    }
-//}
 
 - (id)responseJSONObject {
     return self.requestOperation.responseObject;
