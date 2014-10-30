@@ -45,6 +45,8 @@
 
 @property (nonatomic) NSInteger tag;
 
+@property (nonatomic, strong) NSMutableArray *requestAccessories;
+
 - (id)initWithRequestArray:(NSArray *)requestArray;
 
 - (void)start;
@@ -60,6 +62,9 @@
 
 // 把block置nil来打破循环引用
 - (void)clearCompletionBlock;
+
+// Request Accessory，可以hook Request的start和stop
+- (void)addAccessory:(id<YTKRequestAccessory>)accessory;
 
 // 是否当前的数据从缓存获得
 - (BOOL)isDataFromCache;

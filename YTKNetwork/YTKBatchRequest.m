@@ -48,6 +48,7 @@
 }
 
 - (void)start {
+    [self toggleAccessoriesStartCallBack];
     for (YTKRequest * req in _requestArray) {
         req.delegate = self;
         [req start];
@@ -57,6 +58,7 @@
 - (void)stop {
     _delegate = nil;
     [self clearRequest];
+    [self toggleAccessoriesStopCallBack];
 }
 
 - (void)startWithCompletionBlockWithSuccess:(void (^)(YTKBatchRequest *batchRequest))success
@@ -104,6 +106,7 @@
             _successCompletionBlock(self);
         }
         [self clearCompletionBlock];
+        [self toggleAccessoriesStopCallBack];
     }
 }
 
@@ -116,6 +119,7 @@
         _failureCompletionBlock(self);
     }
     [self clearCompletionBlock];
+    [self toggleAccessoriesStopCallBack];
 }
 
 - (void)clearRequest {
@@ -123,6 +127,32 @@
         [req stop];
     }
     [self clearCompletionBlock];
+    [self toggleAccessoriesStopCallBack];
+}
+
+#pragma mark - Request Accessoies
+
+- (void)addAccessory:(id<YTKRequestAccessory>)accessory {
+    if (!self.requestAccessories) {
+        self.requestAccessories = [NSMutableArray array];
+    }
+    [self.requestAccessories addObject:accessory];
+}
+
+- (void)toggleAccessoriesStartCallBack {
+    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
+        if ([accessory respondsToSelector:@selector(requestWillStart:)]) {
+            [accessory requestWillStart:self];
+        }
+    }
+}
+
+- (void)toggleAccessoriesStopCallBack {
+    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
+        if ([accessory respondsToSelector:@selector(requestDidStop:)]) {
+            [accessory requestDidStop:self];
+        }
+    }
 }
 
 @end

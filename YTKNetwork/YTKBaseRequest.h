@@ -53,6 +53,15 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 
 @end
 
+@protocol YTKRequestAccessory <NSObject>
+
+@optional
+
+- (void)requestWillStart:(id)request;
+- (void)requestDidStop:(id)request;
+
+@end
+
 @interface YTKBaseRequest : NSObject
 
 /// Tag
@@ -79,6 +88,8 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 
 @property (nonatomic, copy) void (^failureCompletionBlock)(YTKBaseRequest *);
 
+@property (nonatomic, strong) NSMutableArray *requestAccessories;
+
 /// append self to request queue
 - (void)start;
 
@@ -96,6 +107,9 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 
 // 把block置nil来打破循环引用
 - (void)clearCompletionBlock;
+
+// Request Accessory，可以hook Request的start和stop
+- (void)addAccessory:(id<YTKRequestAccessory>)accessory;
 
 /// 以下方法由子类继承来覆盖默认值
 

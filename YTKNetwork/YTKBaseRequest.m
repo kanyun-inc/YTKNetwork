@@ -28,9 +28,11 @@
 
 /// for subclasses to overwrite
 - (void)requestCompleteFilter {
+    [self toggleAccessoriesStopCallBack];
 }
 
 - (void)requestFailedFilter {
+    [self toggleAccessoriesStopCallBack];
 }
 
 - (NSString *)requestUrl {
@@ -100,6 +102,7 @@
 
 /// append self to request queue
 - (void)start {
+    [self toggleAccessoriesStartCallBack];
     [[YTKNetworkAgent sharedInstance] addRequest:self];
 }
 
@@ -107,6 +110,7 @@
 - (void)stop {
     self.delegate = nil;
     [[YTKNetworkAgent sharedInstance] cancelRequest:self];
+    [self toggleAccessoriesStopCallBack];
 }
 
 - (BOOL)isExecuting {
@@ -145,6 +149,31 @@
 
 - (NSDictionary *)responseHeaders {
     return self.requestOperation.response.allHeaderFields;
+}
+
+#pragma mark - Request Accessoies
+
+- (void)addAccessory:(id<YTKRequestAccessory>)accessory {
+    if (!self.requestAccessories) {
+        self.requestAccessories = [NSMutableArray array];
+    }
+    [self.requestAccessories addObject:accessory];
+}
+
+- (void)toggleAccessoriesStartCallBack {
+    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
+        if ([accessory respondsToSelector:@selector(requestWillStart:)]) {
+            [accessory requestWillStart:self];
+        }
+    }
+}
+
+- (void)toggleAccessoriesStopCallBack {
+    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
+        if ([accessory respondsToSelector:@selector(requestDidStop:)]) {
+            [accessory requestDidStop:self];
+        }
+    }
 }
 
 @end

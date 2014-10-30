@@ -56,6 +56,7 @@
     }
 
     if ([_requestArray count] > 0) {
+        [self toggleAccessoriesStartCallBack];
         [self startNextRequest];
         [[YTKChainRequestAgent sharedInstance] addChainRequest:self];
     } else {
@@ -66,6 +67,7 @@
 - (void)stop {
     [self clearRequest];
     [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
+    [self toggleAccessoriesStopCallBack];
 }
 
 - (void)addRequest:(YTKBaseRequest *)request callback:(ChainCallback)callback {
@@ -104,6 +106,7 @@
             [_delegate chainRequestFinished:self];
             [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
         }
+        [self toggleAccessoriesStopCallBack];
     }
 }
 
@@ -112,6 +115,7 @@
         [_delegate chainRequestFailed:self failedBaseRequest:request];
         [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
     }
+    [self toggleAccessoriesStopCallBack];
 }
 
 - (void)clearRequest {
@@ -122,6 +126,31 @@
     }
     [_requestArray removeAllObjects];
     [_requestCallbackArray removeAllObjects];
+}
+
+#pragma mark - Request Accessoies
+
+- (void)addAccessory:(id<YTKRequestAccessory>)accessory {
+    if (!self.requestAccessories) {
+        self.requestAccessories = [NSMutableArray array];
+    }
+    [self.requestAccessories addObject:accessory];
+}
+
+- (void)toggleAccessoriesStartCallBack {
+    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
+        if ([accessory respondsToSelector:@selector(requestWillStart:)]) {
+            [accessory requestWillStart:self];
+        }
+    }
+}
+
+- (void)toggleAccessoriesStopCallBack {
+    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
+        if ([accessory respondsToSelector:@selector(requestDidStop:)]) {
+            [accessory requestDidStop:self];
+        }
+    }
 }
 
 @end
