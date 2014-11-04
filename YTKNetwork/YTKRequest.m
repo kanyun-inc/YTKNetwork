@@ -36,7 +36,7 @@
 }
 
 - (NSInteger)cacheTimeInSeconds {
-    return 0;
+    return -1;
 }
 
 - (long long)cacheVersion {
