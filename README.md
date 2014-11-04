@@ -51,7 +51,7 @@ YTKNetwork 的主要作者是：[tangqiaoboy](https://github.com/tangqiaoboy)、
 
 ## 感谢
 
-YTKNetwork 基于[AFNetworking](https://github.com/AFNetworking/AFNetworking)和[AFDownloadRequestOperation](https://github.com/steipete/AFDownloadRequestOperation)进行开发，感谢他们对开源社区做出的贡献。
+YTKNetwork 基于 [AFNetworking](https://github.com/AFNetworking/AFNetworking) 和 [AFDownloadRequestOperation](https://github.com/steipete/AFDownloadRequestOperation) 进行开发，感谢他们对开源社区做出的贡献。
 
 ## 协议
 
