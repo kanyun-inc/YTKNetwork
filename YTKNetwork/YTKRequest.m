@@ -179,8 +179,6 @@
     }
 
     _dataFromCache = YES;
-//    self.animatingText = nil;
-//    self.animatingView = nil;
     [self requestCompleteFilter];
     YTKRequest *strongSelf = self;
     [strongSelf.delegate requestFinished:strongSelf];

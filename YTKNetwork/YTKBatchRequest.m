@@ -127,7 +127,6 @@
         [req stop];
     }
     [self clearCompletionBlock];
-    [self toggleAccessoriesStopCallBack];
 }
 
 #pragma mark - Request Accessoies
