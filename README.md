@@ -1,9 +1,73 @@
 YTKNetwork
 ==========
 
+## What
+
+YTKNetwork is is a high level request util based on [AFNetworking][AFNetworking]. It's developed by the iOS Team of YuanTiKu. It provide High Level API for network request.
+
+YTKNetwork is used in all products of YuanTiKu, include: [YuanTiKu][YuanTiKu], [YuanSoTi][YuanSoTi], [FenBiZhiBoKe][FenBiZhiBoKe].
+
+## Features
+
+* Cache network request by time
+* Cache network request by version number
+* Set common base URL and CDN URL
+* Validate JSON response
+* Resume download
+* `block` and `delegate` callback
+* Batch requests (see `YTKBatchRequest`)
+* Chain requests (see `YTKChainRequest`)
+* URL filter, replace part of URL, or append common parameter 
+* Plugin mechanism, handle request start and finish. A plugin for show "Loading" HUD is provided
+
+## Who
+
+YTKNetowrk is suitable for a slightly more complex project, not for personal simple project.
+
+If you want to cache request, manage the dependences of requests, validate the JSON response, YTKNetwork is helpful. If you want to cache request based on request version, use YTKNetwork, this is one of the greatest advantages of YTKNetwork.
+
+iOS 6+ is required.
+
+## Why 
+
+YTKNetwork provide YTKRequest to handle every network request, you should inherit it and override some methods to define custom request in your project.
+
+The main idea is use the Command Patten. The benefits are:
+
+ * Your code is decouple to detail network request frmawork, it's easy to replace it. Actually, YTKNetwork is originally based on ASIHttpRequest, We just spent two days to switch to AFNetworking.
+ * Handle common logic in base class.
+ * Easier Persistence
+
+But YTKNetwork is not suitable if your project is very simple. You can use AFNetworking directly in controller.
+
+## Demo
+
+coming soon
+
+## Contributors
+
+ * [tangqiaoboy][tangqiaoboyGithub]
+ * [lancy][lancyGithub]
+ * [maojj][maojjGithub]
+
+## Acknowledgements
+
+ * [AFNetworking]
+ * [AFDownloadRequestOperation]
+
+Thanks for their great work.
+ 
+## License
+
+YTKNetwork is available under the MIT license. See the LICENSE file for more info.
+
+
+README(Chinese)
+==========
+
 ## YTKNetwork 是什么
 
-YTKNetwork 是猿题库 iOS 研发团队基于 [AFNetworking](https://github.com/AFNetworking/AFNetworking) 封装的 iOS 网络库，其实现了一套 High Level 的 API，提供了更高层次的网络访问抽象。YTKNetwork 现在同时被使用在猿题库公司的所有产品的 iOS 端，包括：[猿题库](http://www.yuantiku.com/)、[小猿搜题](http://www.yuansouti.com/) 、[粉笔直播课](http://ke.fenbi.com/) 。
+YTKNetwork 是猿题库 iOS 研发团队基于 [AFNetworking][AFNetworking] 封装的 iOS 网络库，其实现了一套 High Level 的 API，提供了更高层次的网络访问抽象。YTKNetwork 现在同时被使用在猿题库公司的所有产品的 iOS 端，包括：[猿题库][YuanTiKu]、[小猿搜题][YuanSoTi] 、[粉笔直播课][FenBiZhiBoKe] 。
 
 ## YTKNetwork提供了哪些功能
 
@@ -47,12 +111,24 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 ## 作者
 
-YTKNetwork 的主要作者是：[tangqiaoboy](https://github.com/tangqiaoboy)、[lancy](https://github.com/lancy)、[maojj](https://github.com/maojj)
+YTKNetwork 的主要作者是：[tangqiaoboy][tangqiaoboyGithub]、[lancy][lancyGithub]、[maojj][maojjGithub]
 
 ## 感谢
 
-YTKNetwork 基于 [AFNetworking](https://github.com/AFNetworking/AFNetworking) 和 [AFDownloadRequestOperation](https://github.com/steipete/AFDownloadRequestOperation) 进行开发，感谢他们对开源社区做出的贡献。
+YTKNetwork 基于 [AFNetworking][AFNetworking] 和 [AFDownloadRequestOperation][AFDownloadRequestOperation] 进行开发，感谢他们对开源社区做出的贡献。
 
 ## 协议
 
 YTKNetwork 被许可在 MIT 协议下使用。查阅 LICENSE 文件来获得更多信息。
+
+
+<!-- external links -->
+
+[YuanTiKu]:http://www.yuantiku.com
+[YuanSoTi]:http://www.yuansouti.com/
+[FenBiZhiBoKe]:http://ke.fenbi.com/
+[tangqiaoboyGithub]:https://github.com/tangqiaoboy
+[lancyGithub]:https://github.com/lancy
+[maojjGithub]:https://github.com/maojj
+[AFNetworking]:https://github.com/AFNetworking/AFNetworking
+[AFDownloadRequestOperation]:https://github.com/steipete/AFDownloadRequestOperation
