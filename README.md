@@ -9,8 +9,8 @@ YTKNetwork is used in all products of YuanTiKu, include: [YuanTiKu][YuanTiKu], [
 
 ## Features
 
-* Cache network request by time
-* Cache network request by version number
+* Response can be cached by expiration time
+* Response can be cached by version number
 * Set common base URL and CDN URL
 * Validate JSON response
 * Resume download
