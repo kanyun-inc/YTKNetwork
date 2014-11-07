@@ -40,6 +40,11 @@ The main idea is use the Command Patten. The benefits are:
 
 But YTKNetwork is not suitable if your project is very simple. You can use AFNetworking directly in controller.
 
+## CocoaPods
+You use YTKNetwork by add the following to your Podfile
+
+    pod 'YTKNetwork'
+
 ## Demo
 
 coming soon
@@ -104,6 +109,12 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
  * 方便做对象的持久化。
 
 当然，如果说它有什么不好，那就是如果你的工程非常简单，这么写会显得没有直接用 AFNetworking 将请求逻辑写在 Controller 中方便，所以 YTKNetwork 并不合适特别简单的项目。
+
+## CocoaPods 支持
+
+你可以在 Podfile 中加入下面一行代码来使用YTKNetwork
+
+    pod 'YTKNetwork'
 
 ## 相关的使用教程和 Demo
 
