@@ -22,6 +22,9 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "YTKBaseRequest.h"
+#import "YTKBatchRequest.h"
+#import "YTKChainRequest.h"
 
 FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
