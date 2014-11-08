@@ -56,7 +56,7 @@
     }
 
     if ([_requestArray count] > 0) {
-        [self toggleAccessoriesStartCallBack];
+        [self toggleAccessoriesWillStartCallBack];
         [self startNextRequest];
         [[YTKChainRequestAgent sharedInstance] addChainRequest:self];
     } else {
@@ -65,9 +65,10 @@
 }
 
 - (void)stop {
+    [self toggleAccessoriesWillStopCallBack];
     [self clearRequest];
     [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
-    [self toggleAccessoriesStopCallBack];
+    [self toggleAccessoriesDidStopCallBack];
 }
 
 - (void)addRequest:(YTKBaseRequest *)request callback:(ChainCallback)callback {
@@ -102,20 +103,22 @@
     ChainCallback callback = _requestCallbackArray[currentRequestIndex];
     callback(self, request);
     if (![self startNextRequest]) {
+        [self toggleAccessoriesWillStopCallBack];
         if ([_delegate respondsToSelector:@selector(chainRequestFinished:)]) {
             [_delegate chainRequestFinished:self];
             [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
         }
-        [self toggleAccessoriesStopCallBack];
+        [self toggleAccessoriesDidStopCallBack];
     }
 }
 
 - (void)requestFailed:(YTKBaseRequest *)request {
+    [self toggleAccessoriesWillStopCallBack];
     if ([_delegate respondsToSelector:@selector(chainRequestFailed:failedBaseRequest:)]) {
         [_delegate chainRequestFailed:self failedBaseRequest:request];
         [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
     }
-    [self toggleAccessoriesStopCallBack];
+    [self toggleAccessoriesDidStopCallBack];
 }
 
 - (void)clearRequest {
@@ -135,22 +138,6 @@
         self.requestAccessories = [NSMutableArray array];
     }
     [self.requestAccessories addObject:accessory];
-}
-
-- (void)toggleAccessoriesStartCallBack {
-    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
-        if ([accessory respondsToSelector:@selector(requestWillStart:)]) {
-            [accessory requestWillStart:self];
-        }
-    }
-}
-
-- (void)toggleAccessoriesStopCallBack {
-    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
-        if ([accessory respondsToSelector:@selector(requestDidStop:)]) {
-            [accessory requestDidStop:self];
-        }
-    }
 }
 
 @end

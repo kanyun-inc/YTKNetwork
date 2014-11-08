@@ -23,16 +23,15 @@
 
 #import "YTKBaseRequest.h"
 #import "YTKNetworkAgent.h"
+#import "YTKNetworkPrivate.h"
 
 @implementation YTKBaseRequest
 
 /// for subclasses to overwrite
 - (void)requestCompleteFilter {
-    [self toggleAccessoriesStopCallBack];
 }
 
 - (void)requestFailedFilter {
-    [self toggleAccessoriesStopCallBack];
 }
 
 - (NSString *)requestUrl {
@@ -102,15 +101,16 @@
 
 /// append self to request queue
 - (void)start {
-    [self toggleAccessoriesStartCallBack];
+    [self toggleAccessoriesWillStartCallBack];
     [[YTKNetworkAgent sharedInstance] addRequest:self];
 }
 
 /// remove self from request queue
 - (void)stop {
+    [self toggleAccessoriesWillStopCallBack];
     self.delegate = nil;
     [[YTKNetworkAgent sharedInstance] cancelRequest:self];
-    [self toggleAccessoriesStopCallBack];
+    [self toggleAccessoriesDidStopCallBack];
 }
 
 - (BOOL)isExecuting {
@@ -158,22 +158,6 @@
         self.requestAccessories = [NSMutableArray array];
     }
     [self.requestAccessories addObject:accessory];
-}
-
-- (void)toggleAccessoriesStartCallBack {
-    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
-        if ([accessory respondsToSelector:@selector(requestWillStart:)]) {
-            [accessory requestWillStart:self];
-        }
-    }
-}
-
-- (void)toggleAccessoriesStopCallBack {
-    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
-        if ([accessory respondsToSelector:@selector(requestDidStop:)]) {
-            [accessory requestDidStop:self];
-        }
-    }
 }
 
 @end

@@ -40,4 +40,28 @@ FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
 @end
 
+@interface YTKBaseRequest (RequestAccessory)
+
+- (void)toggleAccessoriesWillStartCallBack;
+- (void)toggleAccessoriesWillStopCallBack;
+- (void)toggleAccessoriesDidStopCallBack;
+
+@end
+
+@interface YTKBatchRequest (RequestAccessory)
+
+- (void)toggleAccessoriesWillStartCallBack;
+- (void)toggleAccessoriesWillStopCallBack;
+- (void)toggleAccessoriesDidStopCallBack;
+
+@end
+
+@interface YTKChainRequest (RequestAccessory)
+
+- (void)toggleAccessoriesWillStartCallBack;
+- (void)toggleAccessoriesWillStopCallBack;
+- (void)toggleAccessoriesDidStopCallBack;
+
+@end
+
 

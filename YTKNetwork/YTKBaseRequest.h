@@ -58,6 +58,7 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 @optional
 
 - (void)requestWillStart:(id)request;
+- (void)requestWillStop:(id)request;
 - (void)requestDidStop:(id)request;
 
 @end

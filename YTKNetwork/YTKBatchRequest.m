@@ -48,7 +48,7 @@
 }
 
 - (void)start {
-    [self toggleAccessoriesStartCallBack];
+    [self toggleAccessoriesWillStartCallBack];
     for (YTKRequest * req in _requestArray) {
         req.delegate = self;
         [req start];
@@ -56,9 +56,10 @@
 }
 
 - (void)stop {
+    [self toggleAccessoriesWillStopCallBack];
     _delegate = nil;
     [self clearRequest];
-    [self toggleAccessoriesStopCallBack];
+    [self toggleAccessoriesDidStopCallBack];
 }
 
 - (void)startWithCompletionBlockWithSuccess:(void (^)(YTKBatchRequest *batchRequest))success
@@ -99,6 +100,7 @@
 - (void)requestFinished:(YTKRequest *)request {
     _finishedCount++;
     if (_finishedCount == _requestArray.count) {
+        [self toggleAccessoriesWillStopCallBack];
         if ([_delegate respondsToSelector:@selector(batchRequestFinished:)]) {
             [_delegate batchRequestFinished:self];
         }
@@ -106,11 +108,12 @@
             _successCompletionBlock(self);
         }
         [self clearCompletionBlock];
-        [self toggleAccessoriesStopCallBack];
+        [self toggleAccessoriesDidStopCallBack];
     }
 }
 
 - (void)requestFailed:(YTKRequest *)request {
+    [self toggleAccessoriesWillStopCallBack];
     [self clearRequest];
     if ([_delegate respondsToSelector:@selector(batchRequestFailed:)]) {
         [_delegate batchRequestFailed:self];
@@ -119,7 +122,7 @@
         _failureCompletionBlock(self);
     }
     [self clearCompletionBlock];
-    [self toggleAccessoriesStopCallBack];
+    [self toggleAccessoriesDidStopCallBack];
 }
 
 - (void)clearRequest {
@@ -136,22 +139,6 @@
         self.requestAccessories = [NSMutableArray array];
     }
     [self.requestAccessories addObject:accessory];
-}
-
-- (void)toggleAccessoriesStartCallBack {
-    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
-        if ([accessory respondsToSelector:@selector(requestWillStart:)]) {
-            [accessory requestWillStart:self];
-        }
-    }
-}
-
-- (void)toggleAccessoriesStopCallBack {
-    for (id<YTKRequestAccessory> accessory in self.requestAccessories) {
-        if ([accessory respondsToSelector:@selector(requestDidStop:)]) {
-            [accessory requestDidStop:self];
-        }
-    }
 }
 
 @end

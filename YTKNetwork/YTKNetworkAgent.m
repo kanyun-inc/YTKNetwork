@@ -211,6 +211,7 @@
     if (request) {
         BOOL succeed = [self checkResult:request];
         if (succeed) {
+            [request toggleAccessoriesWillStopCallBack];
             [request requestCompleteFilter];
             if (request.delegate != nil) {
                 [request.delegate requestFinished:request];
@@ -218,9 +219,11 @@
             if (request.successCompletionBlock) {
                 request.successCompletionBlock(request);
             }
+            [request toggleAccessoriesDidStopCallBack];
         } else {
             YTKLog(@"Request %@ failed, status code = %ld",
                      NSStringFromClass([request class]), (long)request.responseStatusCode);
+            [request toggleAccessoriesWillStopCallBack];
             [request requestFailedFilter];
             if (request.delegate != nil) {
                 [request.delegate requestFailed:request];
@@ -228,6 +231,7 @@
             if (request.failureCompletionBlock) {
                 request.failureCompletionBlock(request);
             }
+            [request toggleAccessoriesDidStopCallBack];
         }
     }
     [self removeOperation:operation];
