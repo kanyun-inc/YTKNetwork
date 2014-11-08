@@ -118,7 +118,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 ## 相关的使用教程和 Demo
 
-我们会尽快提供。
+ * [基础使用教程][BasicGuide-CN]
 
 ## 作者
 
@@ -135,6 +135,7 @@ YTKNetwork 被许可在 MIT 协议下使用。查阅 LICENSE 文件来获得更�
 
 <!-- external links -->
 
+[BasicGuide-CN]: BasicGuide.md
 [YuanTiKu]:http://www.yuantiku.com
 [YuanSoTi]:http://www.yuansouti.com/
 [FenBiZhiBoKe]:http://ke.fenbi.com/
