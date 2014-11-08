@@ -1,6 +1,8 @@
 YTKNetwork
 ==========
 
+[![Build Status](https://api.travis-ci.org/yuantiku/YTKNetwork.svg?branch=master)](https://api.travis-ci.org/yuantiku/YTKNetwork)
+
 ## What
 
 YTKNetwork is is a high level request util based on [AFNetworking][AFNetworking]. It's developed by the iOS Team of YuanTiKu. It provide High Level API for network request.
