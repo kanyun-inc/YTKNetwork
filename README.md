@@ -1,7 +1,7 @@
 YTKNetwork
 ==========
 
-[![Build Status](https://api.travis-ci.org/yuantiku/YTKNetwork.svg?branch=master)](https://api.travis-ci.org/yuantiku/YTKNetwork)
+[![Build Status](https://api.travis-ci.org/yuantiku/YTKNetwork.svg?branch=master)](https://travis-ci.org/yuantiku/YTKNetwork)
 
 ## What
 
