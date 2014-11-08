@@ -43,13 +43,13 @@ YTKNetworkConfig 类有两个作用：
 
 当我们需要切换服务器地址时，只需要修改 YTKNetworkConfig 中的 `baseUrl`和`cdnUrl`参数即可。
 
-## YTKRequest 类
+### YTKRequest 类
 
 YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以使用 YTKNetwork，你的每一种请求都需要继承 YTKRequest类，通过覆盖父类的一些方法来构造指定的网络请求。把每一个网络请求封装成对象其实是使用了设计模式中的 Command 模式。
 
 每一种网络请求继承 YTKRequest 类后，需要用方法覆盖（overwrite）的方式，来指定网络请求的具体信息。如下是一个示例：
 
-假如我们要向网址 http://www.yuantiku.com/iphone/register 发送一个POST请求，请求参数是 username 和 password。那么，这个类应该如下所示：
+假如我们要向网址 `http://www.yuantiku.com/iphone/register` 发送一个`POST`请求，请求参数是 username 和 password。那么，这个类应该如下所示：
 
 ```
 // RegisterApi.h
@@ -105,9 +105,9 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
  * 我们通过覆盖 YTKRequest 类的 `requestUrl`方法，实现了指定网址信息。并且我们只需要指定除去域名剩余的网址信息，因为域名信息在 YTKNetworkConfig 中已经设置过了。
  * 我们通过覆盖 YTKRequest 类的 `requestMethod`方法，实现了指定 POST 方法来传递参数。
- * 我们通过覆盖 YTKRequest 类的 `requestArgument`方法，提供了 POST 的信息。这里面的参数 username 和 password 如果有一些特殊字符（如中文或空格），也会被自动编码。
+ * 我们通过覆盖 YTKRequest 类的 `requestArgument`方法，提供了 POST 的信息。这里面的参数 `username` 和 `password` 如果有一些特殊字符（如中文或空格），也会被自动编码。
  
-### 调用 RegisterApi
+## 调用 RegisterApi
 
 在构造完成 RegisterApi 之后，具体如何使用呢？我们可以在登录的 ViewController中，调用 RegisterApi，并用block的方式来取得网络请求结果：
 
@@ -130,9 +130,9 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 ```
 
-注意：你可以直接在block回调中使用 self，不用担心循环引用。因为 YTKRequest 会在执行完 block 回调之后，将相应的 block 设置成 nil。从而打破循环引用。
+注意：你可以直接在block回调中使用 `self`，不用担心循环引用。因为 YTKRequest 会在执行完 block 回调之后，将相应的 block 设置成 nil。从而打破循环引用。
 
-除了block的回调方式外，YTKRequest也支持 delegate 方式的回调：
+除了block的回调方式外，YTKRequest 也支持 delegate 方式的回调：
 
 ```
 - (void)loginButtonPressed:(id)sender {
@@ -160,7 +160,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 使用 YTKRequest 的验证服务器返回值功能，可以很大程度上节省验证代码的编写时间。
 
-例如，我们要向网址 http://www.yuantiku.com/iphone/users 发送一个Get请求，请求参数是 userId 。我们想获得某一个用户的信息，包括他的昵称和等级，我们需要服务器必须返回昵称（字符串类型）和等级信息（数值类型），则可以覆盖`jsonValidator`方法，实现简单的验证。
+例如，我们要向网址 `http://www.yuantiku.com/iphone/users` 发送一个`GET`请求，请求参数是 `userId` 。我们想获得某一个用户的信息，包括他的昵称和等级，我们需要服务器必须返回昵称（字符串类型）和等级信息（数值类型），则可以覆盖`jsonValidator`方法，实现简单的验证。
 
 ```
 - (id)jsonValidator {
@@ -251,7 +251,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 如果要使用CDN地址，只需要覆盖 YTKRequest 类的 `- (BOOL)useCDN;`方法。
 
-例如我们有一个取图片的接口，地址是 http://fen.bi/image/imageId，则我们可以这么写代码:
+例如我们有一个取图片的接口，地址是 `http://fen.bi/image/imageId` ，则我们可以这么写代码:
 
 ```
 // GetImageApi.h
