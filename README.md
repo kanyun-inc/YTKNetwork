@@ -1,6 +1,9 @@
-YTKNetwork
+YTKNetwork 
 ==========
 
+![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
+![Pod version](http://img.shields.io/cocoapods/v/YTKNetwork.svg?style=flat)
+![Platform info](http://img.shields.io/cocoapods/p/YTKNetwork.svg?style=flat)
 [![Build Status](https://api.travis-ci.org/yuantiku/YTKNetwork.svg?branch=master)](https://travis-ci.org/yuantiku/YTKNetwork)
 
 ## What
