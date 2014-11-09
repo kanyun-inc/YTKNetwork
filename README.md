@@ -50,9 +50,9 @@ You use YTKNetwork by add the following to your Podfile
 
     pod 'YTKNetwork'
 
-## Demo
+## Guide & Demo
 
-coming soon
+ * [Basic Usage Guide][BasicGuide-CN]
 
 ## Contributors
 
@@ -143,6 +143,7 @@ YTKNetwork 被许可在 MIT 协议下使用。查阅 LICENSE 文件来获得更�
 
 [BasicGuide-CN]: BasicGuide.md
 [ProGuide-CN]: ProGuide.md
+[BasicGuide-EN]: BasicGuide_en.md
 [YuanTiKu]:http://www.yuantiku.com
 [YuanSoTi]:http://www.yuansouti.com/
 [FenBiZhiBoKe]:http://ke.fenbi.com/
