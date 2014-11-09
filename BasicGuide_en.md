@@ -97,13 +97,15 @@ For example, if we want to send a POST request to `http://www.yuantiku.com/iphon
 
 In above example:
 
- * 我们通过覆盖 YTKRequest 类的 `requestUrl`方法，实现了指定网址信息。并且我们只需要指定除去域名剩余的网址信息，因为域名信息在 YTKNetworkConfig 中已经设置过了。
- * 我们通过覆盖 YTKRequest 类的 `requestMethod`方法，实现了指定 POST 方法来传递参数。
- * 我们通过覆盖 YTKRequest 类的 `requestArgument`方法，提供了 POST 的信息。这里面的参数 `username` 和 `password` 如果有一些特殊字符（如中文或空格），也会被自动编码。
+ * Through overwriting `requestUrl` method, we've indicate the detailed url. Bacause host address is set in `YTKNetworkConfig`, we should not write the host address in `requestUrl` method.
+ * Through overwriting `requestMethod` method, we've indicate to use the `POST` method.
+ * Through overwriting `requestArgument` method, we've provided the `POST` data. If the argument  `username` and `password` contain any charaters which should be escaped, the library will do it automatically.
  
-## 调用 RegisterApi
+## Call RegisterApi
 
-在构造完成 RegisterApi 之后，具体如何使用呢？我们可以在登录的 ViewController中，调用 RegisterApi，并用block的方式来取得网络请求结果：
+OK, how can we use the `RegisterApi`? We can call it in the login view controller. After initialize the instance, we can all its `start` or `startWithCompletionBlockWithSuccess` method to send the request to the network request queue.
+
+Then we can get network response by `block` or `delegate` mechanism.
 
 ```
 - (void)loginButtonPressed:(id)sender {
@@ -112,11 +114,11 @@ In above example:
     if (username.length > 0 && password.length > 0) {
         RegisterApi *api = [[RegisterApi alloc] initWithUsername:username password:password];
         [api startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-            // 你可以直接在这里使用 self
+            // you can use self here, retain cycle won't happen
             NSLog(@"succeed");
             
         } failure:^(YTKBaseRequest *request) {
-            // 你可以直接在这里使用 self
+            // you can use self here, retain cycle won't happen
             NSLog(@"failed");
         }];
     }
@@ -124,9 +126,9 @@ In above example:
 
 ```
 
-注意：你可以直接在block回调中使用 `self`，不用担心循环引用。因为 YTKRequest 会在执行完 block 回调之后，将相应的 block 设置成 nil。从而打破循环引用。
+Please pay attention, you can use `self` directly in block, retain cycle won't happen. Because YTKRequest will set callback block to nil, so the block will be released right after the network request completed.
 
-除了block的回调方式外，YTKRequest 也支持 delegate 方式的回调：
+Beside the `block` callback, YTKRequest also support `delegate` callback method. The example is below:
 
 ```
 - (void)loginButtonPressed:(id)sender {
@@ -148,13 +150,13 @@ In above example:
 }
 ```
 
-## 验证服务器返回内容
+## Verify response JSON
 
-有些时候，由于服务器的Bug，会造成服务器返回一些不合法的数据，如果盲目地信任这些数据，可能会造成客户端Crash。如果加入大量的验证代码，又使得编程体力活增加，费时费力。
+Server's response JSON is not always trusted. Client may crash if some error data format is returned from server. 
 
-使用 YTKRequest 的验证服务器返回值功能，可以很大程度上节省验证代码的编写时间。
+YTKRequest provides a simple way to verity respose JSON.
 
-例如，我们要向网址 `http://www.yuantiku.com/iphone/users` 发送一个`GET`请求，请求参数是 `userId` 。我们想获得某一个用户的信息，包括他的昵称和等级，我们需要服务器必须返回昵称（字符串类型）和等级信息（数值类型），则可以覆盖`jsonValidator`方法，实现简单的验证。
+For example, we need to send a `GET` request to `http://www.yuantiku.com/iphone/users` address, with a argument named `userId`. Server will return the target user's information, including nickname and level. We want to guarantee the response type must be string type(nickname) and number type(level). We can overwrite the `jsonValidator` as the following:
 
 ```
 - (id)jsonValidator {
@@ -165,7 +167,7 @@ In above example:
 }
 ```
 
-完整的代码如下：
+The whole code sample is below:
 
 ```
 // GetUserInfoApi.h
@@ -212,9 +214,9 @@ In above example:
 
 ```
 
-以下是更多的jsonValidator的示例：
+Here is some other samples：
 
- * 要求返回String数组：
+ * Require return String array:
 
 ```
 - (id)jsonValidator {
@@ -222,7 +224,7 @@ In above example:
 }
 ```
 
- * 来自猿题库线上环境的一个复杂的例子：
+ * Here is one complex sample from our company:
  
 ```
 - (id)jsonValidator {
@@ -241,11 +243,11 @@ In above example:
 ```
 
 
-## 使用CDN地址
+## Use CDN address
 
-如果要使用CDN地址，只需要覆盖 YTKRequest 类的 `- (BOOL)useCDN;`方法。
+If you need to use CDN address in some of your request, just need to overwrite the `- (BOOL)useCDN;` method, and return `YES` in the method.
 
-例如我们有一个取图片的接口，地址是 `http://fen.bi/image/imageId` ，则我们可以这么写代码:
+For example, if we have a download image inteface, the address is  `http://fen.bi/image/imageId`, the host `http://fen.bi` is a CDN address. Then the code should be below:
 
 ```
 // GetImageApi.h
@@ -281,9 +283,11 @@ In above example:
 @end
 ```
 
-## 断点续传
+## Resumable Downloading
 
-要启动断点续传功能，只需要覆盖 `resumableDownloadPath`方法，指定断点续传时文件的暂存路径即可。如下代码将刚刚的取图片的接口改造成了支持断点续传：
+If you want to enable resumable downloading, you just need to overwrite the  `resumableDownloadPath` method and provide a temporary to save the downloading data.
+
+We can modify above example to support resumable downloading.
 
 ```
 @implementation GetImageApi {
@@ -316,13 +320,11 @@ In above example:
 @end
 ```
 
-## 按时间缓存内容
+## Cache response data
 
-刚刚我们写了一个 GetUserInfoApi ，这个网络请求是获得用户的一些资料。
+Just now we've implemented a `GetUserInfoApi`, which is used for get user information. 
 
-我们想像这样一个场景，假设你在完成一个类似微博的客户端，GetUserInfoApi 用于获得你的某一个好友的资料，因为好友并不会那么频繁地更改昵称，那么短时间内频繁地调用这个接口很可能每次都返回同样的内容，所以我们可以给这个接口加一个缓存。
-
-在如下示例中，我们通过覆盖 `cacheTimeInSeconds`方法，给 GetUserInfoApi 增加了一个3分钟的缓存，3分钟内调用调Api的start方法，实际上并不会发送真正的请求。
+We may want to cache the response, in the following example, we overwrite  `cacheTimeInSeconds` method, then our API will automatically cache data by time. If the time is not expired, the api's `start` and `startWithCompletionBlockWithSuccess` will return directly and return cached data as a result.
 
 ```
 @implementation GetUserInfoApi {
@@ -360,6 +362,6 @@ In above example:
 @end
 ```
 
-该缓存逻辑对上层是透明的，所以上层可以不用考虑缓存逻辑，每次调用 GetUserInfoApi 的start方法即可。GetUserInfoApi只有在缓存过期时，才会真正地发送网络请求。
+The cache logic is totally transparent for the controller, so the request caller can send request every time, request will not actually send if cache is not expired.
 
-以上几个示例代码在Demo工程中也可获得。
+The above code samples are available in the YTKNetworkDemo project.
