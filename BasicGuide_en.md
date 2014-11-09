@@ -8,7 +8,7 @@ In the article, we will introduce the basic usage of YTKNetwork.
 YTKNetwork mainly contains the following classes:
 
  * YTKNetworkConfig ：it's used for setting global network host address and CDN address.
- * YTKRequest 类：it's the parent of all the detailed network request class. All network request class should extend it. Every subclass of `YTKRequest` stands a specific network request.
+ * YTKRequest ：it's the parent of all the detailed network request class. All network request class should extend it. Every subclass of `YTKRequest` stands a specific network request.
 
 We will explain the ablow 2 classes' detail usage below.
 
@@ -355,7 +355,7 @@ We may want to cache the response, in the following example, we overwrite  `cach
 }
 
 - (NSInteger)cacheTimeInSeconds {
-    // 3分钟 = 180 秒
+    // cache 3 minutes, which is 60 * 3 = 180 seconds
     return 60 * 3;
 }
 
