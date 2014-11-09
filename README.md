@@ -52,7 +52,7 @@ You use YTKNetwork by add the following to your Podfile
 
 ## Guide & Demo
 
- * [Basic Usage Guide][BasicGuide-CN]
+ * [Basic Usage Guide][BasicGuide-EN]
 
 ## Contributors
 
