@@ -66,6 +66,10 @@
     return nil;
 }
 
+- (NSString *)requestAuthorizationTokenForHeaderField {
+    return nil;
+}
+
 - (NSURLRequest *)buildCustomUrlRequest {
     return nil;
 }
