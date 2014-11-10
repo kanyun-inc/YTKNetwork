@@ -59,6 +59,7 @@ You use YTKNetwork by add the following to your Podfile
  * [tangqiaoboy][tangqiaoboyGithub]
  * [lancy][lancyGithub]
  * [maojj][maojjGithub]
+ * [veecci][veecciGithub]
 
 ## Acknowledgements
 
@@ -128,7 +129,12 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 ## 作者
 
-YTKNetwork 的主要作者是：[tangqiaoboy][tangqiaoboyGithub]、[lancy][lancyGithub]、[maojj][maojjGithub]
+YTKNetwork 的主要作者是：
+
+* [tangqiaoboy][tangqiaoboyGithub]
+* [lancy][lancyGithub]
+* [maojj][maojjGithub]
+* [veecci][veecciGithub]
 
 ## 感谢
 
@@ -150,5 +156,6 @@ YTKNetwork 被许可在 MIT 协议下使用。查阅 LICENSE 文件来获得更�
 [tangqiaoboyGithub]:https://github.com/tangqiaoboy
 [lancyGithub]:https://github.com/lancy
 [maojjGithub]:https://github.com/maojj
+[veecciGithub]:https://github.com/veecci
 [AFNetworking]:https://github.com/AFNetworking/AFNetworking
 [AFDownloadRequestOperation]:https://github.com/steipete/AFDownloadRequestOperation
