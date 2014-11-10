@@ -144,6 +144,9 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 // 请求的Server用户名和密码
 - (NSArray *)requestAuthorizationHeaderFieldArray;
 
+// 请求的Server token
+- (NSString *)requestAuthorizationTokenForHeaderField;
+
 // 构建自定义的UrlRequest，
 // 若这个方法返回非nil对象，会忽略requestUrl, requestArgument, requestMethod, requestSerializerType
 - (NSURLRequest *)buildCustomUrlRequest;

@@ -98,6 +98,12 @@
         [_manager.requestSerializer setAuthorizationHeaderFieldWithUsername:(NSString *)authorizationHeaderFieldArray.firstObject
                                                                    password:(NSString *)authorizationHeaderFieldArray.lastObject];
     }
+    
+    NSString *token = [request requestAuthorizationTokenForHeaderField];
+    if (token) {
+//        [_manager.requestSerializer setAuthorizationHeaderFieldWithToken:token];
+        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", token] forHTTPHeaderField:@"Authorization"];
+    }
 
     // if api build custom url request
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];
