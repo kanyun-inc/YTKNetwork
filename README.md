@@ -8,9 +8,9 @@ YTKNetwork
 
 ## What
 
-YTKNetwork is is a high level request util based on [AFNetworking][AFNetworking]. It's developed by the iOS Team of YuanTiKu. It provide High Level API for network request.
+YTKNetwork is is a high level request util based on [AFNetworking][AFNetworking]. It's developed by the iOS Team of YuanTiKu. It provides a High Level API for network request.
 
-YTKNetwork is used in all products of YuanTiKu, include: [YuanTiKu][YuanTiKu], [YuanSoTi][YuanSoTi], [FenBiZhiBoKe][FenBiZhiBoKe].
+YTKNetwork is used in all products of YuanTiKu, including: [YuanTiKu][YuanTiKu], [YuanSoTi][YuanSoTi], [FenBiZhiBoKe][FenBiZhiBoKe].
 
 ## Features
 
@@ -27,26 +27,26 @@ YTKNetwork is used in all products of YuanTiKu, include: [YuanTiKu][YuanTiKu], [
 
 ## Who
 
-YTKNetowrk is suitable for a slightly more complex project, not for personal simple project.
+YTKNetowrk is suitable for a slightly more complex project, not for a simple personal project.
 
-If you want to cache request, manage the dependences of requests, validate the JSON response, YTKNetwork is helpful. If you want to cache request based on request version, use YTKNetwork, this is one of the greatest advantages of YTKNetwork.
+YTKNetwork is helpful if you want to cache requests, manage the dependences of requests, or validate the JSON response. And if you want to cache requests based on request version, this is one of the greatest advantages of YTKNetwork.
 
 iOS 6+ is required.
 
 ## Why 
 
-YTKNetwork provide YTKRequest to handle every network request, you should inherit it and override some methods to define custom request in your project.
+YTKNetwork provides YTKRequest to handle every network request. You should inherit it and override some methods to define custom requests in your project.
 
-The main idea is use the Command Patten. The benefits are:
+The main idea is use the Command Pattern. The benefits are:
 
- * Your code is decouple to detail network request frmawork, it's easy to replace it. Actually, YTKNetwork is originally based on ASIHttpRequest, We just spent two days to switch to AFNetworking.
+ * Your code is decoupled to detail network request framework, it's easy to replace it. Actually, YTKNetwork is originally based on ASIHttpRequest, we just spent two days to switch to AFNetworking.
  * Handle common logic in base class.
  * Easier Persistence
 
 But YTKNetwork is not suitable if your project is very simple. You can use AFNetworking directly in controller.
 
 ## CocoaPods
-You use YTKNetwork by add the following to your Podfile
+To use YTKNetwork add the following to your Podfile
 
     pod 'YTKNetwork'
 
