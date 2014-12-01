@@ -98,6 +98,19 @@
         [_manager.requestSerializer setAuthorizationHeaderFieldWithUsername:(NSString *)authorizationHeaderFieldArray.firstObject
                                                                    password:(NSString *)authorizationHeaderFieldArray.lastObject];
     }
+    
+    // if api need add custom value to HTTPHeaderField
+    NSDictionary *headerFieldValueDictionary = [request requestHeaderFieldValueDictionary];
+    if (headerFieldValueDictionary != nil) {
+        for (id httpHeaderField in headerFieldValueDictionary.allKeys) {
+            id value = headerFieldValueDictionary[httpHeaderField];
+            if ([httpHeaderField isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
+                [_manager.requestSerializer setValue:(NSString *)value forHTTPHeaderField:(NSString *)httpHeaderField];
+            } else {
+                YTKLog(@"Error, class of key/value in headerFieldValueDictionary should be NSString.");
+            }
+        }
+    }
 
     // if api build custom url request
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];

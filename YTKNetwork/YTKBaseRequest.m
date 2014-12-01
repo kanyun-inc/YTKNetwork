@@ -66,6 +66,10 @@
     return nil;
 }
 
+- (NSDictionary *)requestHeaderFieldValueDictionary {
+    return nil;
+}
+
 - (NSURLRequest *)buildCustomUrlRequest {
     return nil;
 }
