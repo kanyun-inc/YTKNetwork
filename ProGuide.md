@@ -224,7 +224,10 @@ YTKBatchRequest 类：用于方便地发送批量的网络请求，YTKBatchReque
 
 通过如上代码，我们创建了一个上传图片，然后获得服务器返回的 imageId 的网络请求Api。
 
-## 自定义发送内容
+## 定制 `buildCustomUrlRequest`
+
+TODO
+
 
 
 
