@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45AB19C11A4656A600680858 /* YTKUrlArgumentsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AB19C01A4656A600680858 /* YTKUrlArgumentsFilter.m */; };
 		45BF1D401A0DC0A100DDB7E0 /* RegisterApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D3F1A0DC0A100DDB7E0 /* RegisterApi.m */; };
 		45BF1D431A0DC40F00DDB7E0 /* GetUserInfoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D421A0DC40F00DDB7E0 /* GetUserInfoApi.m */; };
 		45BF1D461A0DC66E00DDB7E0 /* GetImageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D451A0DC66E00DDB7E0 /* GetImageApi.m */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45AB19BF1A4656A600680858 /* YTKUrlArgumentsFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKUrlArgumentsFilter.h; sourceTree = "<group>"; };
+		45AB19C01A4656A600680858 /* YTKUrlArgumentsFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKUrlArgumentsFilter.m; sourceTree = "<group>"; };
 		45BF1D3E1A0DC0A100DDB7E0 /* RegisterApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterApi.h; sourceTree = "<group>"; };
 		45BF1D3F1A0DC0A100DDB7E0 /* RegisterApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterApi.m; sourceTree = "<group>"; };
 		45BF1D411A0DC40F00DDB7E0 /* GetUserInfoApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetUserInfoApi.h; sourceTree = "<group>"; };
@@ -172,6 +175,8 @@
 		BF007FD519FF972C00816462 /* YTKNetworkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				45AB19BF1A4656A600680858 /* YTKUrlArgumentsFilter.h */,
+				45AB19C01A4656A600680858 /* YTKUrlArgumentsFilter.m */,
 				45BF1D3E1A0DC0A100DDB7E0 /* RegisterApi.h */,
 				45BF1D3F1A0DC0A100DDB7E0 /* RegisterApi.m */,
 				45BF1D411A0DC40F00DDB7E0 /* GetUserInfoApi.h */,
@@ -411,6 +416,7 @@
 				BF007FDF19FF972C00816462 /* ViewController.m in Sources */,
 				BF00804719FF98EE00816462 /* AFURLSessionManager.m in Sources */,
 				BF00804819FF98EE00816462 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				45AB19C11A4656A600680858 /* YTKUrlArgumentsFilter.m in Sources */,
 				BF00801419FF988A00816462 /* YTKRequest.m in Sources */,
 				BF00804419FF98EE00816462 /* AFURLConnectionOperation.m in Sources */,
 				BF00804019FF98EE00816462 /* AFHTTPRequestOperationManager.m in Sources */,

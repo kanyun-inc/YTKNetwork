@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "YTKNetworkConfig.h"
+#import "YTKUrlArgumentsFilter.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +16,15 @@
 
 @implementation AppDelegate
 
+- (void)setupRequestFilters {
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
+    YTKUrlArgumentsFilter *urlFilter = [YTKUrlArgumentsFilter filterWithArguments:@{@"version": appVersion}];
+    [config addUrlFilter:urlFilter];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self setupRequestFilters];
     return YES;
 }
 
