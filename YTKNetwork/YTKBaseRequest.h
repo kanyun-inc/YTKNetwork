@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger , YTKRequestMethod) {
     YTKRequestMethodHead,
     YTKRequestMethodPut,
     YTKRequestMethodDelete,
+    YTKRequestMethodPatch
 };
 
 typedef NS_ENUM(NSInteger , YTKRequestSerializerType) {

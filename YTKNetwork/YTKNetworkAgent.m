@@ -180,6 +180,12 @@
             }                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [self handleRequestResult:operation];
             }];
+        } else if (method == YTKRequestMethodPatch) {
+            request.requestOperation = [_manager PATCH:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [self handleRequestResult:operation];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self handleRequestResult:operation];
+            }];
         } else {
             YTKLog(@"Error, unsupport method type");
             return;
