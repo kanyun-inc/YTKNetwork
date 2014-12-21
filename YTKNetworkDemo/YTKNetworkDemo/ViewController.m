@@ -62,7 +62,20 @@
     // some one of request is failed
 }
 
-
+- (void)loadCacheData {
+    NSString *userId = @"1";
+    GetUserInfoApi *api = [[GetUserInfoApi alloc] initWithUserId:userId];
+    if ([api cacheJson]) {
+        NSDictionary *json = [api cacheJson];
+        NSLog(@"json = %@", json);
+        // show cached data
+    }
+    [api startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+        NSLog(@"update ui");
+    } failure:^(YTKBaseRequest *request) {
+        NSLog(@"failed");
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
