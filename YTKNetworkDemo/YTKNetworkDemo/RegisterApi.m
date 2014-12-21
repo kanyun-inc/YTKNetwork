@@ -39,9 +39,14 @@
 
 - (id)jsonValidator {
     return @{
+        @"userId": [NSNumber class],
         @"nick": [NSString class],
         @"level": [NSNumber class]
     };
+}
+
+- (NSNumber *)userId {
+    return [[[self responseJSONObject] objectForKey:@"userId"] stringValue];
 }
 
 @end
