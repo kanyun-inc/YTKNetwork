@@ -51,6 +51,8 @@
         
     }];
     chainReq.delegate = self;
+    // start to send request
+    [chainReq start];
 }
 
 - (void)chainRequestFinished:(YTKChainRequest *)chainRequest {

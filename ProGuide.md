@@ -123,11 +123,12 @@ YTKBatchRequest 类：用于方便地发送批量的网络请求，YTKBatchReque
         
     }];
     chainReq.delegate = self;
+    // start to send request
+    [chainReq start];
 }
 
 - (void)chainRequestFinished:(YTKChainRequest *)chainRequest {
     // all requests are done
-    
 }
 
 - (void)chainRequestFailed:(YTKChainRequest *)chainRequest failedBaseRequest:(YTKBaseRequest*)request {
