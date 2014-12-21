@@ -11,6 +11,7 @@
 		45BF1D401A0DC0A100DDB7E0 /* RegisterApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D3F1A0DC0A100DDB7E0 /* RegisterApi.m */; };
 		45BF1D431A0DC40F00DDB7E0 /* GetUserInfoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D421A0DC40F00DDB7E0 /* GetUserInfoApi.m */; };
 		45BF1D461A0DC66E00DDB7E0 /* GetImageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D451A0DC66E00DDB7E0 /* GetImageApi.m */; };
+		45F710841A466D01001957BA /* UploadImageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F710831A466D01001957BA /* UploadImageApi.m */; };
 		BF007FD919FF972C00816462 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF007FD819FF972C00816462 /* main.m */; };
 		BF007FDC19FF972C00816462 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF007FDB19FF972C00816462 /* AppDelegate.m */; };
 		BF007FDF19FF972C00816462 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF007FDE19FF972C00816462 /* ViewController.m */; };
@@ -65,6 +66,8 @@
 		45BF1D421A0DC40F00DDB7E0 /* GetUserInfoApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetUserInfoApi.m; sourceTree = "<group>"; };
 		45BF1D441A0DC66E00DDB7E0 /* GetImageApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetImageApi.h; sourceTree = "<group>"; };
 		45BF1D451A0DC66E00DDB7E0 /* GetImageApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetImageApi.m; sourceTree = "<group>"; };
+		45F710821A466D01001957BA /* UploadImageApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImageApi.h; sourceTree = "<group>"; };
+		45F710831A466D01001957BA /* UploadImageApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImageApi.m; sourceTree = "<group>"; };
 		BF007FD319FF972C00816462 /* YTKNetworkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTKNetworkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF007FD719FF972C00816462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF007FD819FF972C00816462 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 		BF007FD519FF972C00816462 /* YTKNetworkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				45F710821A466D01001957BA /* UploadImageApi.h */,
+				45F710831A466D01001957BA /* UploadImageApi.m */,
 				45AB19BF1A4656A600680858 /* YTKUrlArgumentsFilter.h */,
 				45AB19C01A4656A600680858 /* YTKUrlArgumentsFilter.m */,
 				45BF1D3E1A0DC0A100DDB7E0 /* RegisterApi.h */,
@@ -426,6 +431,7 @@
 				45BF1D431A0DC40F00DDB7E0 /* GetUserInfoApi.m in Sources */,
 				BF007FDC19FF972C00816462 /* AppDelegate.m in Sources */,
 				BF00804319FF98EE00816462 /* AFSecurityPolicy.m in Sources */,
+				45F710841A466D01001957BA /* UploadImageApi.m in Sources */,
 				BF007FD919FF972C00816462 /* main.m in Sources */,
 				BF0080541A00913200816462 /* YTKNetworkPrivate.m in Sources */,
 				BF00804519FF98EE00816462 /* AFURLRequestSerialization.m in Sources */,
