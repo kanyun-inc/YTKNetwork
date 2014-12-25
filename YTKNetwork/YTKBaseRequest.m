@@ -46,6 +46,10 @@
     return @"";
 }
 
+- (NSTimeInterval)requestTimeoutInterval {
+    return 60;
+}
+
 - (id)requestArgument {
     return nil;
 }

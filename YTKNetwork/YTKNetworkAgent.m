@@ -91,6 +91,8 @@
     } else if (request.requestSerializerType == YTKRequestSerializerTypeJSON) {
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
     }
+    
+    _manager.requestSerializer.timeoutInterval = [request requestTimeoutInterval];
 
     // if api need server username and password
     NSArray *authorizationHeaderFieldArray = [request requestAuthorizationHeaderFieldArray];
