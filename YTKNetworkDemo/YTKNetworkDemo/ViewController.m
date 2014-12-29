@@ -19,7 +19,7 @@
 
 @implementation ViewController
 
-// Send batch request
+/// Send batch request
 - (void)sendBatchRequest {
     GetImageApi *a = [[GetImageApi alloc] initWithImageId:@"1.jpg"];
     GetImageApi *b = [[GetImageApi alloc] initWithImageId:@"2.jpg"];

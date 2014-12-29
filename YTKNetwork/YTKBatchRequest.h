@@ -53,20 +53,20 @@
 
 - (void)stop;
 
-// block回调
+/// block回调
 - (void)startWithCompletionBlockWithSuccess:(void (^)(YTKBatchRequest *batchRequest))success
                                     failure:(void (^)(YTKBatchRequest *batchRequest))failure;
 
 - (void)setCompletionBlockWithSuccess:(void (^)(YTKBatchRequest *batchRequest))success
                               failure:(void (^)(YTKBatchRequest *batchRequest))failure;
 
-// 把block置nil来打破循环引用
+/// 把block置nil来打破循环引用
 - (void)clearCompletionBlock;
 
-// Request Accessory，可以hook Request的start和stop
+/// Request Accessory，可以hook Request的start和stop
 - (void)addAccessory:(id<YTKRequestAccessory>)accessory;
 
-// 是否当前的数据从缓存获得
+/// 是否当前的数据从缓存获得
 - (BOOL)isDataFromCache;
 
 @end

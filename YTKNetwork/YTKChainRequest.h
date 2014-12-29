@@ -41,17 +41,17 @@ typedef void (^ChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *bas
 
 @property (nonatomic, strong) NSMutableArray *requestAccessories;
 
-// start chain request
+/// start chain request
 - (void)start;
 
-// stop chain request
+/// stop chain request
 - (void)stop;
 
 - (void)addRequest:(YTKBaseRequest *)request callback:(ChainCallback)callback;
 
 - (NSArray *)requestArray;
 
-// Request Accessory，可以hook Request的start和stop
+/// Request Accessory，可以hook Request的start和stop
 - (void)addAccessory:(id<YTKRequestAccessory>)accessory;
 
 @end

@@ -24,7 +24,7 @@
 #import <Foundation/Foundation.h>
 #import "YTKChainRequest.h"
 
-// ChainRequestAgent is used for caching & keeping current request.
+/// ChainRequestAgent is used for caching & keeping current request.
 @interface YTKChainRequestAgent : NSObject
 
 + (YTKChainRequestAgent *)sharedInstance;
