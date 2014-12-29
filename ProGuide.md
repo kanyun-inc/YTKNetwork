@@ -225,10 +225,31 @@ YTKBatchRequest 类：用于方便地发送批量的网络请求，YTKBatchReque
 
 通过如上代码，我们创建了一个上传图片，然后获得服务器返回的 imageId 的网络请求Api。
 
+## 定制网络请求的HeaderField
+通过覆盖`requestHeaderFieldValueDictionary`方法返回一个dictionary对象来自定义请求的HeaderField，返回的dictionary，其key即为HeaderField的key，value为HeaderField的Value，需要注意的是key和value都必须为string对象。
+
 ## 定制 `buildCustomUrlRequest`
 
-TODO
+通过覆盖`buildCustomUrlRequest`方法，返回一个`NSUrlRequest`对象来达到完全自定义请求的需求。该方法定义在`YTKBaseRequest`类，如下：
+```
+// 构建自定义的UrlRequest，
+// 若这个方法返回非nil对象，会忽略requestUrl, requestArgument, requestMethod, requestSerializerType,requestHeaderFieldValueDictionary
+- (NSURLRequest *)buildCustomUrlRequest;
+```
+如注释所言，如果构建自定义的request，会忽略其他的一切自定义request的方法，例如`requestUrl`, `requestArgument`, `requestMethod`, `requestSerializerType`,`requestHeaderFieldValueDictionary`。一个上传gzippingData的示例如下：
+```
+- (NSURLRequest *)buildCustomUrlRequest {
+    NSData *rawData = [[_events jsonString] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *gzippingData = [NSData gtm_dataByGzippingData:rawData];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.requestUrl]];
+    [request setHTTPMethod:@"POST"];
+    [request addValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
+    [request setHTTPBody:gzippingData];
+    return request;
+}
 
+```
 
 
 
