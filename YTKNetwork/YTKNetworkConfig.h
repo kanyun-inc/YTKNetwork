@@ -28,6 +28,10 @@
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(YTKBaseRequest *)request;
 @end
 
+@protocol YTKParamsFilterProtocol <NSObject>
+- (id)filterParams:(id)originParams withRequest:(YTKBaseRequest *)request;
+@end
+
 @protocol YTKCacheDirPathFilterProtocol <NSObject>
 - (NSString *)filterCacheDirPath:(NSString *)originPath withRequest:(YTKBaseRequest *)request;
 @end

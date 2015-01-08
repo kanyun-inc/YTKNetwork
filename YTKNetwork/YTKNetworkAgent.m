@@ -80,10 +80,22 @@
     return [NSString stringWithFormat:@"%@%@", baseUrl, detailUrl];
 }
 
+- (id)buildRequestParams:(YTKBaseRequest *)request{
+    if (request.requestArgument == nil) {
+        return nil;
+    }
+    id params;
+    NSArray *filters = [_config urlFilters];
+    for (id<YTKParamsFilterProtocol> f in filters) {
+        params = [f filterParams:request.requestArgument withRequest:request];
+    }
+    return params;
+}
+
 - (void)addRequest:(YTKBaseRequest *)request {
     YTKRequestMethod method = [request requestMethod];
     NSString *url = [self buildRequestUrl:request];
-    id param = request.requestArgument;
+    id param = [self buildRequestParams:request];
     AFConstructingBlock constructingBlock = [request constructingBodyBlock];
 
     if (request.requestSerializerType == YTKRequestSerializerTypeHTTP) {
