@@ -164,6 +164,9 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 /// 用于检查Status Code是否正常的方法
 - (BOOL)statusCodeValidator;
 
+/// 用于检查Status Code为200时, 业务逻辑是否发生错误
+- (BOOL)returnCodeValidator;
+
 /// 当POST的内容带有文件等富文本时使用
 - (AFConstructingBlock)constructingBodyBlock;
 

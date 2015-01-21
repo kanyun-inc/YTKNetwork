@@ -95,6 +95,11 @@
     }
 }
 
+- (BOOL)returnCodeValidator
+{
+    return YES;
+}
+
 - (AFConstructingBlock)constructingBodyBlock {
     return nil;
 }
