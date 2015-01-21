@@ -217,6 +217,10 @@
     if (!result) {
         return result;
     }
+    result = [request returnCodeValidator];
+    if (!result) {
+        return result;
+    }
     id validator = [request jsonValidator];
     if (validator != nil) {
         id json = [request responseJSONObject];
