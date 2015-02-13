@@ -23,6 +23,7 @@
 
 #import "YTKBatchRequest.h"
 #import "YTKNetworkPrivate.h"
+#import "YTKBatchRequestAgent.h"
 
 @interface YTKBatchRequest() <YTKRequestDelegate>
 
@@ -48,6 +49,11 @@
 }
 
 - (void)start {
+    if (_finishedCount > 0) {
+        YTKLog(@"Error! Batch request has already started.");
+        return;
+    }
+    [[YTKBatchRequestAgent sharedInstance] addBatchRequest:self];
     [self toggleAccessoriesWillStartCallBack];
     for (YTKRequest * req in _requestArray) {
         req.delegate = self;
@@ -60,6 +66,7 @@
     _delegate = nil;
     [self clearRequest];
     [self toggleAccessoriesDidStopCallBack];
+    [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
 }
 
 - (void)startWithCompletionBlockWithSuccess:(void (^)(YTKBatchRequest *batchRequest))success
@@ -123,6 +130,7 @@
     }
     [self clearCompletionBlock];
     [self toggleAccessoriesDidStopCallBack];
+    [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
 }
 
 - (void)clearRequest {
