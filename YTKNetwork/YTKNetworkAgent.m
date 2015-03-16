@@ -142,7 +142,6 @@
                     [self handleRequestResult:operation];
                 }];
                 request.requestOperation = operation;
-                operation.responseSerializer = _manager.responseSerializer;
                 [_manager.operationQueue addOperation:operation];
             } else {
                 request.requestOperation = [_manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
