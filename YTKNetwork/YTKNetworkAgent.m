@@ -132,7 +132,7 @@
                 // add parameters to URL;
                 NSString *filteredUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:url appendParameters:param];
 
-                NSURLRequest *requestUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:filteredUrl]];
+                NSURLRequest *requestUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:filteredUrl] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:_manager.requestSerializer.timeoutInterval];
                 AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:requestUrl
                                                                                                  targetPath:request.resumableDownloadPath shouldResume:YES];
                 [operation setProgressiveDownloadProgressBlock:request.resumableDownloadProgressBlock];
