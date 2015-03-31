@@ -12,6 +12,8 @@
 	<dict>
 		<key>327B5DC53056E27E60349B39CBD2CB9AA4F5E614</key>
 		<string>github.com:yuantiku/YTKNetwork.git</string>
+		<key>D9DD2BF6FC21BA14439B5A4ABA1747823A2D9A09</key>
+		<string>github.com:steipete/AFDownloadRequestOperation.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>YTKNetworkDemo/YTKNetworkDemo.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>327B5DC53056E27E60349B39CBD2CB9AA4F5E614</key>
 		<string>../../..</string>
+		<key>D9DD2BF6FC21BA14439B5A4ABA1747823A2D9A09</key>
+		<string>../../../AFNetworking/AFDownloadRequestOperation/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:yuantiku/YTKNetwork.git</string>
@@ -28,6 +32,14 @@
 	<string>327B5DC53056E27E60349B39CBD2CB9AA4F5E614</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D9DD2BF6FC21BA14439B5A4ABA1747823A2D9A09</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AFDownloadRequestOperation</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
