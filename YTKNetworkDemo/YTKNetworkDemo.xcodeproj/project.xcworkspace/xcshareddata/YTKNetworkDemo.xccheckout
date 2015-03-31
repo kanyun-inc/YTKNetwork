@@ -22,7 +22,7 @@
 		<key>327B5DC53056E27E60349B39CBD2CB9AA4F5E614</key>
 		<string>../../..</string>
 		<key>D9DD2BF6FC21BA14439B5A4ABA1747823A2D9A09</key>
-		<string>../../../AFNetworking/AFDownloadRequestOperation/</string>
+		<string>../../../AFNetworking/AFDownloadRequestOperation</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:yuantiku/YTKNetwork.git</string>
