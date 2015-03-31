@@ -24,6 +24,9 @@
 
 #define kAFNetworkingIncompleteDownloadFolderName @"Incomplete"
 
+@class AFDownloadRequestOperation;
+typedef void (^AFURLConnectionProgressiveOperationProgressBlock)(AFDownloadRequestOperation *operation, NSInteger bytes, long long totalBytes, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile);
+
 /**
  `AFDownloadRequestOperation` is a subclass of `AFHTTPRequestOperation` for streamed file downloading. Supports Content-Range. (http://tools.ietf.org/html/rfc2616#section-14.16)
  */
@@ -75,6 +78,15 @@
  */
 @property (nonatomic, assign) dispatch_queue_t progressiveDownloadCallbackQueue;
 
+/**
+ Sets a callback to be called when an undetermined number of bytes have been downloaded from the server. This is a variant of setDownloadProgressBlock that adds support for progressive downloads and adds the
+ 
+ @param block A block object to be called when an undetermined number of bytes have been downloaded from the server. This block has no return value and takes five arguments: the number of bytes read since the last time the download progress block was called, the bytes expected to be read during the request, the bytes already read during this request, the total bytes read (including from previous partial downloads), and the total bytes expected to be read for the file. This block may be called multiple times.
+ 
+ @see setDownloadProgressBlock
+ */
+@property (nonatomic, copy) AFURLConnectionProgressiveOperationProgressBlock progressiveDownloadProgressBlock;
+
 ///----------------------------------
 /// @name Creating Request Operations
 ///----------------------------------
@@ -88,6 +100,17 @@
  */
 - (id)initWithRequest:(NSURLRequest *)urlRequest targetPath:(NSString *)targetPath shouldResume:(BOOL)shouldResume;
 
+/**
+ Creates and returns an `AFDownloadRequestOperation`
+ @param urlRequest The request object to be loaded asynchronously during execution of the operation
+ @param fileIdentifier An unique file identifier to be used for the temporary filename, instead of calculating
+ 	 	it using the targetPath. Which prevents problems of the iOS supplied random container paths.
+ @param targetPath The target path (with or without file name)
+ @param shouldResume If YES, tries to resume a partial download if found.
+ @return A new download request operation
+ */
+- (id)initWithRequest:(NSURLRequest *)urlRequest fileIdentifier:(NSString *)fileIdentifier targetPath:(NSString *)targetPath shouldResume:(BOOL)shouldResume;
+
 /** 
  Deletes the temporary file.
  
@@ -100,13 +123,5 @@
  */
 - (NSString *)tempPath;
 
-/**
- Sets a callback to be called when an undetermined number of bytes have been downloaded from the server. This is a variant of setDownloadProgressBlock that adds support for progressive downloads and adds the 
- 
- @param block A block object to be called when an undetermined number of bytes have been downloaded from the server. This block has no return value and takes five arguments: the number of bytes read since the last time the download progress block was called, the bytes expected to be read during the request, the bytes already read during this request, the total bytes read (including from previous partial downloads), and the total bytes expected to be read for the file. This block may be called multiple times.
- 
- @see setDownloadProgressBlock
- */
-- (void)setProgressiveDownloadProgressBlock:(void (^)(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile))block;
 
 @end

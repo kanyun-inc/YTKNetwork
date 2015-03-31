@@ -35,17 +35,16 @@
 @property (readonly, nonatomic, assign) long long totalBytesRead;
 @end
 
-typedef void (^AFURLConnectionProgressiveOperationProgressBlock)(AFDownloadRequestOperation *operation, NSInteger bytes, long long totalBytes, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile);
-
 @interface AFDownloadRequestOperation() {
     NSError *_fileError;
     id _responseObject;
 }
 @property (nonatomic, strong) NSString *tempPath;
+@property (nonatomic, strong) NSString *fileIdentifier;
 @property (assign) long long totalContentLength;
 @property (nonatomic, assign) long long totalBytesReadPerDownload;
 @property (assign) long long offsetContentLength;
-@property (nonatomic, copy) AFURLConnectionProgressiveOperationProgressBlock progressiveDownloadProgress;
+
 @end
 
 @implementation AFDownloadRequestOperation
@@ -62,9 +61,14 @@ typedef void (^AFURLConnectionProgressiveOperationProgressBlock)(AFDownloadReque
 }
 
 - (id)initWithRequest:(NSURLRequest *)urlRequest targetPath:(NSString *)targetPath shouldResume:(BOOL)shouldResume {
-    if ((self = [super initWithRequest:urlRequest])) {
+    return [self initWithRequest:urlRequest fileIdentifier:nil targetPath:targetPath shouldResume:shouldResume];
+}
+
+- (id)initWithRequest:(NSURLRequest *)urlRequest fileIdentifier:(NSString *)fileIdentifier targetPath:(NSString *)targetPath shouldResume:(BOOL)shouldResume {    if ((self = [super initWithRequest:urlRequest])) {
         NSParameterAssert(targetPath != nil && urlRequest != nil);
         _shouldResume = shouldResume;
+
+        self.fileIdentifier = fileIdentifier;
 
         // Ee assume that at least the directory has to exist on the targetPath
         BOOL isDirectory;
@@ -137,16 +141,14 @@ typedef void (^AFURLConnectionProgressiveOperationProgressBlock)(AFDownloadReque
 
 - (NSString *)tempPath {
     NSString *tempPath = nil;
-    if (self.targetPath) {
+    if (self.fileIdentifier) {
+        tempPath = [[[self class] cacheFolder] stringByAppendingPathComponent:self.fileIdentifier];
+    }
+    else if (self.targetPath) {
         NSString *md5URLString = [[self class] md5StringForString:self.targetPath];
         tempPath = [[[self class] cacheFolder] stringByAppendingPathComponent:md5URLString];
     }
     return tempPath;
-}
-
-
-- (void)setProgressiveDownloadProgressBlock:(void (^)(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile))block {
-    self.progressiveDownloadProgress = block;
 }
 
 - (void)setProgressiveDownloadCallbackQueue:(dispatch_queue_t)progressiveDownloadCallbackQueue {
@@ -282,7 +284,7 @@ typedef void (^AFURLConnectionProgressiveOperationProgressBlock)(AFDownloadReque
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data  {
-    if (![self.responseSerializer validateResponse:self.response data:nil error:NULL])
+    if (![self.responseSerializer validateResponse:self.response data:data ?: [NSData data] error:NULL])
         return; // don't write to output stream if any error occurs
 
     [super connection:connection didReceiveData:data];
@@ -290,9 +292,9 @@ typedef void (^AFURLConnectionProgressiveOperationProgressBlock)(AFDownloadReque
     // track custom bytes read because totalBytesRead persists between pause/resume.
     self.totalBytesReadPerDownload += [data length];
 
-    if (self.progressiveDownloadProgress) {
+    if (self.progressiveDownloadProgressBlock) {
         dispatch_async(self.progressiveDownloadCallbackQueue ?: dispatch_get_main_queue(), ^{
-            self.progressiveDownloadProgress(self,(NSInteger)[data length], self.totalBytesRead, self.response.expectedContentLength,self.totalBytesReadPerDownload + self.offsetContentLength, self.totalContentLength);
+            self.progressiveDownloadProgressBlock(self,(NSInteger)[data length], self.totalBytesRead, self.response.expectedContentLength,self.totalBytesReadPerDownload + self.offsetContentLength, self.totalContentLength);
         });
     }
 }
