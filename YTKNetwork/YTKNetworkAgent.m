@@ -131,10 +131,12 @@
             if (request.resumableDownloadPath) {
                 // add parameters to URL;
                 NSString *filteredUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:url appendParameters:param];
-
-                NSURLRequest *requestUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:filteredUrl]];
+                NSString *fileIdentifier = [YTKNetworkPrivate md5StringFromString:filteredUrl];
+                NSURLRequest *requestUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:filteredUrl] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:_manager.requestSerializer.timeoutInterval];
                 AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:requestUrl
-                                                                                                 targetPath:request.resumableDownloadPath shouldResume:YES];
+                                                                                             fileIdentifier:fileIdentifier
+                                                                                                 targetPath:request.resumableDownloadPath
+                                                                                               shouldResume:YES];
                 [operation setProgressiveDownloadProgressBlock:request.resumableDownloadProgressBlock];
                 [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                     [self handleRequestResult:operation];
