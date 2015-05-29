@@ -173,11 +173,23 @@
                 [self handleRequestResult:operation];
             }];
         } else if (method == YTKRequestMethodPut) {
-            request.requestOperation = [_manager PUT:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [self handleRequestResult:operation];
-            }                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [self handleRequestResult:operation];
-            }];
+            if (constructingBlock != nil) {
+                if ([_manager responseToSelector:@selector(PUT:parameters:constructingBodyWithBlock:success:failure:)]) {
+                    request.requestOperation = [_manager PUT:url parameters:param constructingBodyWithBlock:constructingBlock
+                                                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                         [self handleRequestResult:operation];
+                                                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                         [self handleRequestResult:operation];
+                                                     }];
+                }
+            }else{
+                request.requestOperation = [_manager PUT:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [self handleRequestResult:operation];
+                }                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [self handleRequestResult:operation];
+                }];
+            }
+            
         } else if (method == YTKRequestMethodDelete) {
             request.requestOperation = [_manager DELETE:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [self handleRequestResult:operation];
