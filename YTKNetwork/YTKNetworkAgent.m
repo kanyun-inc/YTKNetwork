@@ -162,7 +162,6 @@
                 request.requestOperation = [_manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     [self handleRequestResult:operation];
                 }                                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    YTKLog(@"Error:%@",error);
                     [self handleRequestResult:operation];
                 }];
             }
