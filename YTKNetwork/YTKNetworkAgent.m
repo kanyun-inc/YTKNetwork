@@ -25,6 +25,7 @@
 #import "YTKNetworkConfig.h"
 #import "YTKNetworkPrivate.h"
 #import "AFDownloadRequestOperation.h"
+#import "AFHTTPRequestOperationManager+additions.h"
 
 @implementation YTKNetworkAgent {
     AFHTTPRequestOperationManager *_manager;
@@ -172,11 +173,23 @@
                 [self handleRequestResult:operation];
             }];
         } else if (method == YTKRequestMethodPut) {
-            request.requestOperation = [_manager PUT:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [self handleRequestResult:operation];
-            }                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [self handleRequestResult:operation];
-            }];
+            if (constructingBlock != nil) {
+                if ([_manager respondsToSelector:@selector(PUT:parameters:constructingBodyWithBlock:success:failure:)]) {
+                    request.requestOperation = [_manager PUT:url parameters:param constructingBodyWithBlock:constructingBlock
+                                                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                         [self handleRequestResult:operation];
+                                                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                         [self handleRequestResult:operation];
+                                                     }];
+                }
+            }else{
+                request.requestOperation = [_manager PUT:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [self handleRequestResult:operation];
+                }                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [self handleRequestResult:operation];
+                }];
+            }
+            
         } else if (method == YTKRequestMethodDelete) {
             request.requestOperation = [_manager DELETE:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [self handleRequestResult:operation];
