@@ -173,7 +173,7 @@
             }];
         } else if (method == YTKRequestMethodPut) {
             if (constructingBlock != nil) {
-                if ([_manager responseToSelector:@selector(PUT:parameters:constructingBodyWithBlock:success:failure:)]) {
+                if ([_manager respondsToSelector:@selector(PUT:parameters:constructingBodyWithBlock:success:failure:)]) {
                     request.requestOperation = [_manager PUT:url parameters:param constructingBodyWithBlock:constructingBlock
                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                          [self handleRequestResult:operation];
