@@ -18,6 +18,8 @@
 
     NSError *serializationError = nil;
     NSMutableURLRequest *request = [self.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:URLString parameters:parameters constructingBodyWithBlock:block error:&serializationError];
+    [request setValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
+    //[request setValue:@"chunked" forHTTPHeaderField:@"Transfer-Encoding"];
     
     if (serializationError) {
         if (failure) {

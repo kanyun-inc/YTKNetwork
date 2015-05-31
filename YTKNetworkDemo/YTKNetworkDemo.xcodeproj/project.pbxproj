@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26AA53991B1B0C01002F5D37 /* AFHTTPRequestOperationManager+additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AA53981B1B0C01002F5D37 /* AFHTTPRequestOperationManager+additions.m */; };
 		457AD4041A8E45AB000E8B41 /* YTKBatchRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 457AD4031A8E45AB000E8B41 /* YTKBatchRequestAgent.m */; };
 		45AB19C11A4656A600680858 /* YTKUrlArgumentsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AB19C01A4656A600680858 /* YTKUrlArgumentsFilter.m */; };
 		45BF1D401A0DC0A100DDB7E0 /* RegisterApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D3F1A0DC0A100DDB7E0 /* RegisterApi.m */; };
@@ -59,6 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		26AA53971B1B0C01002F5D37 /* AFHTTPRequestOperationManager+additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+additions.h"; sourceTree = "<group>"; };
+		26AA53981B1B0C01002F5D37 /* AFHTTPRequestOperationManager+additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+additions.m"; sourceTree = "<group>"; };
 		457AD4021A8E45AB000E8B41 /* YTKBatchRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKBatchRequestAgent.h; sourceTree = "<group>"; };
 		457AD4031A8E45AB000E8B41 /* YTKBatchRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKBatchRequestAgent.m; sourceTree = "<group>"; };
 		45AB19BF1A4656A600680858 /* YTKUrlArgumentsFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKUrlArgumentsFilter.h; sourceTree = "<group>"; };
@@ -232,6 +235,8 @@
 		BF007FFC19FF988A00816462 /* YTKNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				26AA53971B1B0C01002F5D37 /* AFHTTPRequestOperationManager+additions.h */,
+				26AA53981B1B0C01002F5D37 /* AFHTTPRequestOperationManager+additions.m */,
 				BF0080521A00913200816462 /* YTKNetworkPrivate.h */,
 				BF0080531A00913200816462 /* YTKNetworkPrivate.m */,
 				BF007FFD19FF988A00816462 /* YTKBaseRequest.h */,
@@ -447,6 +452,7 @@
 				BF00801119FF988A00816462 /* YTKChainRequestAgent.m in Sources */,
 				BF00804919FF98EE00816462 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				BF00804E19FF98EE00816462 /* UIRefreshControl+AFNetworking.m in Sources */,
+				26AA53991B1B0C01002F5D37 /* AFHTTPRequestOperationManager+additions.m in Sources */,
 				BF00804D19FF98EE00816462 /* UIProgressView+AFNetworking.m in Sources */,
 				BF00800D19FF988A00816462 /* YTKBaseRequest.m in Sources */,
 				BF00804F19FF98EE00816462 /* UIWebView+AFNetworking.m in Sources */,
