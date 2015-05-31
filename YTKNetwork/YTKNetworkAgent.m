@@ -25,7 +25,7 @@
 #import "YTKNetworkConfig.h"
 #import "YTKNetworkPrivate.h"
 #import "AFDownloadRequestOperation.h"
-#import "AFHTTPRequestOperationManager+addtions.h"
+#import "AFHTTPRequestOperationManager+additions.h"
 
 @implementation YTKNetworkAgent {
     AFHTTPRequestOperationManager *_manager;
