@@ -10,7 +10,7 @@ YTKNetwork
 
 YTKNetwork is is a high level request util based on [AFNetworking][AFNetworking]. It's developed by the iOS Team of YuanTiKu. It provides a High Level API for network request.
 
-YTKNetwork is used in all products of YuanTiKu, including: [YuanTiKu][YuanTiKu], [YuanSoTi][YuanSoTi], [FenBiZhiBoKe][FenBiZhiBoKe].
+YTKNetwork is used in all products of YuanTiKu, including: [YuanTiKu][YuanTiKu], [YuanSoTi][YuanSoTi], [YuanFuDao][YuanFuDao], [FenBiZhiBoKe][FenBiZhiBoKe].
 
 ## Features
 
@@ -78,7 +78,7 @@ README(Chinese)
 
 ## YTKNetwork 是什么
 
-YTKNetwork 是猿题库 iOS 研发团队基于 [AFNetworking][AFNetworking] 封装的 iOS 网络库，其实现了一套 High Level 的 API，提供了更高层次的网络访问抽象。YTKNetwork 现在同时被使用在猿题库公司的所有产品的 iOS 端，包括：[猿题库][YuanTiKu]、[小猿搜题][YuanSoTi] 、[粉笔直播课][FenBiZhiBoKe] 。
+YTKNetwork 是猿题库 iOS 研发团队基于 [AFNetworking][AFNetworking] 封装的 iOS 网络库，其实现了一套 High Level 的 API，提供了更高层次的网络访问抽象。YTKNetwork 现在同时被使用在猿题库公司的所有产品的 iOS 端，包括：[猿题库][YuanTiKu]、 [小猿搜题][YuanSoTi]、 [猿辅导][YuanFuDao] 、 [粉笔直播课][FenBiZhiBoKe] 。
 
 ## YTKNetwork提供了哪些功能
 
@@ -152,6 +152,7 @@ YTKNetwork 被许可在 MIT 协议下使用。查阅 LICENSE 文件来获得更�
 [BasicGuide-EN]: BasicGuide_en.md
 [YuanTiKu]:http://www.yuantiku.com
 [YuanSoTi]:http://www.yuansouti.com/
+[YuanFuDao]:http://www.yuanfudao.com
 [FenBiZhiBoKe]:http://ke.fenbi.com/
 [tangqiaoboyGithub]:https://github.com/tangqiaoboy
 [lancyGithub]:https://github.com/lancy

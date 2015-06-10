@@ -121,14 +121,20 @@
 
 - (void)requestFailed:(YTKRequest *)request {
     [self toggleAccessoriesWillStopCallBack];
-    [self clearRequest];
+    // Stop
+    for (YTKRequest *req in _requestArray) {
+        [req stop];
+    }
+    // Callback
     if ([_delegate respondsToSelector:@selector(batchRequestFailed:)]) {
         [_delegate batchRequestFailed:self];
     }
     if (_failureCompletionBlock) {
         _failureCompletionBlock(self);
     }
+    // Clear
     [self clearCompletionBlock];
+    
     [self toggleAccessoriesDidStopCallBack];
     [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
 }
