@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0865AF45-7E8B-4595-BA7B-C7F15831DFB3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>YTKNetworkDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>327B5DC53056E27E60349B39CBD2CB9AA4F5E614</key>
+		<string>github.com:yuantiku/YTKNetwork.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>YTKNetworkDemo/YTKNetworkDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>327B5DC53056E27E60349B39CBD2CB9AA4F5E614</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:yuantiku/YTKNetwork.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>327B5DC53056E27E60349B39CBD2CB9AA4F5E614</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>327B5DC53056E27E60349B39CBD2CB9AA4F5E614</string>
+			<key>IDESourceControlWCCName</key>
+			<string>YTKNetwork</string>
+		</dict>
+	</array>
+</dict>
+</plist>
