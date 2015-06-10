@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451C59DA1B27F37C00AAC845 /* YTKJSONValidatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 451C59D91B27F37C00AAC845 /* YTKJSONValidatorTests.m */; };
 		457AD4041A8E45AB000E8B41 /* YTKBatchRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 457AD4031A8E45AB000E8B41 /* YTKBatchRequestAgent.m */; };
 		45AB19C11A4656A600680858 /* YTKUrlArgumentsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AB19C01A4656A600680858 /* YTKUrlArgumentsFilter.m */; };
 		45BF1D401A0DC0A100DDB7E0 /* RegisterApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D3F1A0DC0A100DDB7E0 /* RegisterApi.m */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		451C59D91B27F37C00AAC845 /* YTKJSONValidatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKJSONValidatorTests.m; sourceTree = "<group>"; };
 		457AD4021A8E45AB000E8B41 /* YTKBatchRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKBatchRequestAgent.h; sourceTree = "<group>"; };
 		457AD4031A8E45AB000E8B41 /* YTKBatchRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKBatchRequestAgent.m; sourceTree = "<group>"; };
 		45AB19BF1A4656A600680858 /* YTKUrlArgumentsFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKUrlArgumentsFilter.h; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 		BF007FEF19FF972C00816462 /* YTKNetworkDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				451C59D91B27F37C00AAC845 /* YTKJSONValidatorTests.m */,
 				BF007FF219FF972C00816462 /* YTKNetworkDemoTests.m */,
 				BF007FF019FF972C00816462 /* Supporting Files */,
 			);
@@ -460,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF007FF319FF972C00816462 /* YTKNetworkDemoTests.m in Sources */,
+				451C59DA1B27F37C00AAC845 /* YTKJSONValidatorTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
