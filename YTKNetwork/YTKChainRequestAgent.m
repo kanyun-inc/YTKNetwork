@@ -49,11 +49,15 @@
 }
 
 - (void)addChainRequest:(YTKChainRequest *)request {
-    [_requestArray addObject:request];
+    @synchronized(self) {
+        [_requestArray addObject:request];
+    }
 }
 
 - (void)removeChainRequest:(YTKChainRequest *)request {
-    [_requestArray removeObject:request];
+    @synchronized(self) {
+        [_requestArray removeObject:request];
+    }
 }
 
 @end
