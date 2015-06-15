@@ -50,11 +50,15 @@
 }
 
 - (void)addBatchRequest:(YTKBatchRequest *)request {
-    [_requestArray addObject:request];
+    @synchronized(self) {
+        [_requestArray addObject:request];
+    }
 }
 
 - (void)removeBatchRequest:(YTKBatchRequest *)request {
-    [_requestArray removeObject:request];
+    @synchronized(self) {
+        [_requestArray removeObject:request];
+    }
 }
 
 @end
