@@ -1,5 +1,5 @@
 //
-//  YTKChainRequestAgent.m
+//  YTKBatchRequestAgent.h
 //
 //  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
 //
@@ -19,45 +19,17 @@
 //  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
+//  THE SOFTWARE.//
 
-#import "YTKChainRequestAgent.h"
+#import <Foundation/Foundation.h>
+#import "YTKBatchRequest.h"
 
-@interface YTKChainRequestAgent()
+@interface YTKBatchRequestAgent : NSObject
 
-@property (strong, nonatomic) NSMutableArray *requestArray;
++ (YTKBatchRequestAgent *)sharedInstance;
 
-@end
+- (void)addBatchRequest:(YTKBatchRequest *)request;
 
-@implementation YTKChainRequestAgent
-
-+ (YTKChainRequestAgent *)sharedInstance {
-    static id sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
-}
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        _requestArray = [NSMutableArray array];
-    }
-    return self;
-}
-
-- (void)addChainRequest:(YTKChainRequest *)request {
-    @synchronized(self) {
-        [_requestArray addObject:request];
-    }
-}
-
-- (void)removeChainRequest:(YTKChainRequest *)request {
-    @synchronized(self) {
-        [_requestArray removeObject:request];
-    }
-}
+- (void)removeBatchRequest:(YTKBatchRequest *)request;
 
 @end

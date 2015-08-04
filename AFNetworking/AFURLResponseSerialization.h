@@ -1,6 +1,5 @@
-// AFSerialization.h
-//
-// Copyright (c) 2013-2014 AFNetworking (http://afnetworking.com)
+// AFURLResponseSerialization.h
+// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -8,10 +7,10 @@
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -54,8 +53,10 @@
  */
 @interface AFHTTPResponseSerializer : NSObject <AFURLResponseSerialization>
 
+- (instancetype) init;
+
 /**
- The string encoding used to serialize parameters.
+ The string encoding used to serialize data received from the server, when no string encoding is specified by the response. `NSUTF8StringEncoding` by default.
  */
 @property (nonatomic, assign) NSStringEncoding stringEncoding;
 
@@ -111,6 +112,8 @@
  */
 @interface AFJSONResponseSerializer : AFHTTPResponseSerializer
 
+- (instancetype) init;
+
 /**
  Options for reading the response JSON data and creating the Foundation objects. For possible values, see the `NSJSONSerialization` documentation section "NSJSONReadingOptions". `0` by default.
  */
@@ -133,9 +136,9 @@
 #pragma mark -
 
 /**
- `AFXMLParserSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLParser` objects.
+ `AFXMLParserResponseSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLParser` objects.
 
- By default, `AFXMLParserSerializer` accepts the following MIME types, which includes the official standard, `application/xml`, as well as other commonly-used types:
+ By default, `AFXMLParserResponseSerializer` accepts the following MIME types, which includes the official standard, `application/xml`, as well as other commonly-used types:
 
  - `application/xml`
  - `text/xml`
@@ -149,14 +152,16 @@
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
 /**
- `AFXMLDocumentSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLDocument` objects.
+ `AFXMLDocumentResponseSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLDocument` objects.
 
- By default, `AFXMLDocumentSerializer` accepts the following MIME types, which includes the official standard, `application/xml`, as well as other commonly-used types:
+ By default, `AFXMLDocumentResponseSerializer` accepts the following MIME types, which includes the official standard, `application/xml`, as well as other commonly-used types:
 
  - `application/xml`
  - `text/xml`
  */
 @interface AFXMLDocumentResponseSerializer : AFHTTPResponseSerializer
+
+- (instancetype) init;
 
 /**
  Input and output options specifically intended for `NSXMLDocument` objects. For possible values, see the `NSJSONSerialization` documentation section "NSJSONReadingOptions". `0` by default.
@@ -177,13 +182,15 @@
 #pragma mark -
 
 /**
- `AFPropertyListSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLDocument` objects.
+ `AFPropertyListResponseSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLDocument` objects.
 
- By default, `AFPropertyListSerializer` accepts the following MIME types:
+ By default, `AFPropertyListResponseSerializer` accepts the following MIME types:
 
  - `application/x-plist`
  */
 @interface AFPropertyListResponseSerializer : AFHTTPResponseSerializer
+
+- (instancetype) init;
 
 /**
  The property list format. Possible values are described in "NSPropertyListFormat".
@@ -209,9 +216,9 @@
 #pragma mark -
 
 /**
- `AFImageSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes image responses.
+ `AFImageResponseSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes image responses.
 
- By default, `AFImageSerializer` accepts the following MIME types, which correspond to the image formats supported by UIImage or NSImage:
+ By default, `AFImageResponseSerializer` accepts the following MIME types, which correspond to the image formats supported by UIImage or NSImage:
 
  - `image/tiff`
  - `image/jpeg`
@@ -285,10 +292,18 @@ extern NSString * const AFURLResponseSerializationErrorDomain;
  These keys may exist in the user info dictionary, in addition to those defined for NSError.
 
  - `NSString * const AFNetworkingOperationFailingURLResponseErrorKey`
+ - `NSString * const AFNetworkingOperationFailingURLResponseDataErrorKey`
 
  ### Constants
 
  `AFNetworkingOperationFailingURLResponseErrorKey`
  The corresponding value is an `NSURLResponse` containing the response of the operation associated with an error. This key is only present in the `AFURLResponseSerializationErrorDomain`.
+
+ `AFNetworkingOperationFailingURLResponseDataErrorKey`
+ The corresponding value is an `NSData` containing the original data of the operation associated with an error. This key is only present in the `AFURLResponseSerializationErrorDomain`.
  */
 extern NSString * const AFNetworkingOperationFailingURLResponseErrorKey;
+
+extern NSString * const AFNetworkingOperationFailingURLResponseDataErrorKey;
+
+

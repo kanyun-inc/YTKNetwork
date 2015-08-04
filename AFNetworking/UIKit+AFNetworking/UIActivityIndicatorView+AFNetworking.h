@@ -1,6 +1,5 @@
 // UIActivityIndicatorView+AFNetworking.h
-//
-// Copyright (c) 2013-2014 AFNetworking (http://afnetworking.com)
+// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +53,7 @@
 
 /**
  Binds the animating state to the execution state of the specified operation.
- 
+
  @param operation The operation. If `nil`, automatic updating from any previously specified operation will be disabled.
  */
 - (void)setAnimatingWithStateOfOperation:(AFURLConnectionOperation *)operation;

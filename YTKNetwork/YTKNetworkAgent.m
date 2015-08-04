@@ -137,6 +137,7 @@
             [self handleRequestResult:operation];
         }];
         request.requestOperation = operation;
+        operation.responseSerializer = _manager.responseSerializer;
         [_manager.operationQueue addOperation:operation];
     } else {
         if (method == YTKRequestMethodGet) {
@@ -280,13 +281,17 @@
 - (void)addOperation:(YTKBaseRequest *)request {
     if (request.requestOperation != nil) {
         NSString *key = [self requestHashKey:request.requestOperation];
-        _requestsRecord[key] = request;
+        @synchronized(self) {
+            _requestsRecord[key] = request;
+        }
     }
 }
 
 - (void)removeOperation:(AFHTTPRequestOperation *)operation {
     NSString *key = [self requestHashKey:operation];
-    [_requestsRecord removeObjectForKey:key];
+    @synchronized(self) {
+        [_requestsRecord removeObjectForKey:key];
+    }
     YTKLog(@"Request queue size = %lu", (unsigned long)[_requestsRecord count]);
 }
 
