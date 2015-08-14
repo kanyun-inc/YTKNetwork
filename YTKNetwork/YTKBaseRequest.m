@@ -24,6 +24,7 @@
 #import "YTKBaseRequest.h"
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkPrivate.h"
+#import <objc/runtime.h>
 
 @implementation YTKBaseRequest
 
@@ -51,7 +52,29 @@
 }
 
 - (id)requestArgument {
-    return nil;
+    unsigned int propCount;
+    objc_property_t* properties = class_copyPropertyList([self class], &propCount);
+    
+    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] initWithCapacity:propCount];
+    
+    for (int i=0; i<propCount; i++) {
+        
+        objc_property_t prop = properties[i];
+        const char *propName = property_getName(prop);
+        
+        if(propName) {
+            
+            NSString *key = [NSString stringWithCString:propName encoding:NSUTF8StringEncoding];
+            
+            id value = objc_msgSend(self, sel_registerName(propName));
+            
+            [parmas setObject:value forKey:key];
+            
+        }
+        
+    }
+    
+    return parmas;
 }
 
 - (id)cacheFileNameFilterForRequestArgument:(id)argument {
