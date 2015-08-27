@@ -55,26 +55,49 @@
     unsigned int propCount;
     objc_property_t* properties = class_copyPropertyList([self class], &propCount);
     
-    NSMutableDictionary *parmas = [[NSMutableDictionary alloc] initWithCapacity:propCount];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithCapacity:propCount];
+    
+    NSArray *ignoreParams = [self ignoreArgumentNames];
+    
+    NSDictionary *mappingPatamsDic = [self configArguments];
     
     for (int i=0; i<propCount; i++) {
         
         objc_property_t prop = properties[i];
         const char *propName = property_getName(prop);
         
+        NSString *originalKey = [NSString stringWithCString:propName encoding:NSUTF8StringEncoding];
+        
+        //忽略参数
+        if (ignoreParams) {
+            if ([ignoreParams containsObject:originalKey]) {
+                continue;
+            }
+        }
+        
+        // 填充请求字典
         if(propName) {
             
-            NSString *key = [NSString stringWithCString:propName encoding:NSUTF8StringEncoding];
+            NSString *changeKey;
+            
+            // 根据映射字典，修改请求参数名称
+            if (mappingPatamsDic) {
+                
+                changeKey = [mappingPatamsDic valueForKey:originalKey];
+                
+            }else{
+                changeKey = originalKey;
+            }
             
             id value = objc_msgSend(self, sel_registerName(propName));
             
-            [parmas setObject:value forKey:key];
+            [params setObject:value forKey:changeKey];
             
         }
         
     }
     
-    return parmas;
+    return params;
 }
 
 - (id)cacheFileNameFilterForRequestArgument:(id)argument {
@@ -189,6 +212,28 @@
         self.requestAccessories = [NSMutableArray array];
     }
     [self.requestAccessories addObject:accessory];
+}
+
+/**
+ *  忽略的参数列表
+ *
+ *  @return 忽略的参数列表
+ */
+- (NSArray *)ignoreArgumentNames;
+{
+    return nil;
+}
+
+/**
+ *  重新修改请求参数名称
+ * 
+ *  示例：{@“原来的参数名称”:@"服务器的请求参数名称"}
+ *
+ *  @return 参数名称映射字典
+ */
+- (NSDictionary *)configArguments
+{
+    return nil;
 }
 
 @end

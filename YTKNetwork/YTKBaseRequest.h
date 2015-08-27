@@ -173,4 +173,11 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 /// 当需要断点续传时，获得下载进度的回调
 - (AFDownloadProgressBlock)resumableDownloadProgressBlock;
 
+/// 忽略的参数列表
+- (NSArray *)ignoreArgumentNames;
+
+/// 重新修改请求参数名称
+- (NSDictionary *)configArguments;
+
+
 @end
