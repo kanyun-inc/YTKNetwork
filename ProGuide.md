@@ -68,7 +68,7 @@ YTKUrlFilterProtocol 接口用于实现对网络请求URL或参数的重写，�
 
 ## YTKBatchRequest 类
 
-YTKBatchRequest 类：用于方便地发送批量的网络请求，YTKBatchRequest是一个容器器，它可以放置多个 `YTKRequest` 子类，并统一处理这多个网络请求的成功和失败。
+YTKBatchRequest 类：用于方便地发送批量的网络请求，YTKBatchRequest是一个容器类，它可以放置多个 `YTKRequest` 子类，并统一处理这多个网络请求的成功和失败。
 
 在如下的示例中，我们发送了4个批量的请求，并统一处理这4个请求同时成功的回调。
 

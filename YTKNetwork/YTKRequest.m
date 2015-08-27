@@ -143,15 +143,16 @@
         [super start];
         return;
     }
-    // check cache version
-    long long cacheVersionFileContent = [self cacheVersionFileContent];
-    if (cacheVersionFileContent != [self cacheVersion]) {
+
+    // check cache time
+    if ([self cacheTimeInSeconds] < 0) {
         [super start];
         return;
     }
 
-    // check cache time
-    if ([self cacheTimeInSeconds] < 0) {
+    // check cache version
+    long long cacheVersionFileContent = [self cacheVersionFileContent];
+    if (cacheVersionFileContent != [self cacheVersion]) {
         [super start];
         return;
     }

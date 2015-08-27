@@ -48,7 +48,10 @@ void YTKLog(NSString *format, ...) {
             id format = validator[key];
             if ([value isKindOfClass:[NSDictionary class]]
                 || [value isKindOfClass:[NSArray class]]) {
-                return [self checkJson:value withValidator:format];
+                result = [self checkJson:value withValidator:format];
+                if (!result) {
+                    break;
+                }
             } else {
                 if ([value isKindOfClass:format] == NO &&
                     [value isKindOfClass:[NSNull class]] == NO) {
