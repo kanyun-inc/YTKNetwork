@@ -25,6 +25,7 @@
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkPrivate.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 
 @implementation YTKBaseRequest
 
