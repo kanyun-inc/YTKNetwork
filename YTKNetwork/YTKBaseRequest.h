@@ -46,10 +46,10 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 
 @protocol YTKRequestDelegate <NSObject>
 
+@optional
+
 - (void)requestFinished:(YTKBaseRequest *)request;
 - (void)requestFailed:(YTKBaseRequest *)request;
-
-@optional
 - (void)clearRequest;
 
 @end

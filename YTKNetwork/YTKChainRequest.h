@@ -27,6 +27,8 @@
 @class YTKChainRequest;
 @protocol YTKChainRequestDelegate <NSObject>
 
+@optional
+
 - (void)chainRequestFinished:(YTKChainRequest *)chainRequest;
 
 - (void)chainRequestFailed:(YTKChainRequest *)chainRequest failedBaseRequest:(YTKBaseRequest*)request;
