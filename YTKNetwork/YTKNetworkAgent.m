@@ -46,6 +46,7 @@
     if (self) {
         _config = [YTKNetworkConfig sharedInstance];
         _manager = [AFHTTPRequestOperationManager manager];
+        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/plain", @"text/javascript", @"text/json", @"text/html", nil];
         _requestsRecord = [NSMutableDictionary dictionary];
         _manager.operationQueue.maxConcurrentOperationCount = 4;
     }
