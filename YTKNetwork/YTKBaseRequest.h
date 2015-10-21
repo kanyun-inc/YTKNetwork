@@ -39,6 +39,7 @@ typedef NS_ENUM(NSInteger , YTKRequestSerializerType) {
     YTKRequestSerializerTypeJSON,
 };
 
+typedef void (^AFUploadProgressBlock)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite);
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile);
 

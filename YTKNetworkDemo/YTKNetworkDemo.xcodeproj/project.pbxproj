@@ -14,6 +14,7 @@
 		45BF1D431A0DC40F00DDB7E0 /* GetUserInfoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D421A0DC40F00DDB7E0 /* GetUserInfoApi.m */; };
 		45BF1D461A0DC66E00DDB7E0 /* GetImageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1D451A0DC66E00DDB7E0 /* GetImageApi.m */; };
 		45F710841A466D01001957BA /* UploadImageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F710831A466D01001957BA /* UploadImageApi.m */; };
+		A878B8AE1BD7BB3200C526C6 /* AFHTTPRequestOperationManager+Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = A878B8AD1BD7BB3200C526C6 /* AFHTTPRequestOperationManager+Progress.m */; settings = {ASSET_TAGS = (); }; };
 		BF007FD919FF972C00816462 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF007FD819FF972C00816462 /* main.m */; };
 		BF007FDC19FF972C00816462 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF007FDB19FF972C00816462 /* AppDelegate.m */; };
 		BF007FDF19FF972C00816462 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF007FDE19FF972C00816462 /* ViewController.m */; };
@@ -73,6 +74,8 @@
 		45BF1D451A0DC66E00DDB7E0 /* GetImageApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetImageApi.m; sourceTree = "<group>"; };
 		45F710821A466D01001957BA /* UploadImageApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImageApi.h; sourceTree = "<group>"; };
 		45F710831A466D01001957BA /* UploadImageApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImageApi.m; sourceTree = "<group>"; };
+		A878B8AC1BD7BB3200C526C6 /* AFHTTPRequestOperationManager+Progress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+Progress.h"; sourceTree = "<group>"; };
+		A878B8AD1BD7BB3200C526C6 /* AFHTTPRequestOperationManager+Progress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+Progress.m"; sourceTree = "<group>"; };
 		BF007FD319FF972C00816462 /* YTKNetworkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTKNetworkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF007FD719FF972C00816462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF007FD819FF972C00816462 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -235,6 +238,8 @@
 		BF007FFC19FF988A00816462 /* YTKNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				A878B8AC1BD7BB3200C526C6 /* AFHTTPRequestOperationManager+Progress.h */,
+				A878B8AD1BD7BB3200C526C6 /* AFHTTPRequestOperationManager+Progress.m */,
 				BF0080521A00913200816462 /* YTKNetworkPrivate.h */,
 				BF0080531A00913200816462 /* YTKNetworkPrivate.m */,
 				BF007FFD19FF988A00816462 /* YTKBaseRequest.h */,
@@ -423,6 +428,7 @@
 				BF00804A19FF98EE00816462 /* UIAlertView+AFNetworking.m in Sources */,
 				BF00804C19FF98EE00816462 /* UIImageView+AFNetworking.m in Sources */,
 				BF00804B19FF98EE00816462 /* UIButton+AFNetworking.m in Sources */,
+				A878B8AE1BD7BB3200C526C6 /* AFHTTPRequestOperationManager+Progress.m in Sources */,
 				BF00803F19FF98EE00816462 /* AFHTTPRequestOperation.m in Sources */,
 				BF00803E19FF98EE00816462 /* AFDownloadRequestOperation.m in Sources */,
 				45BF1D461A0DC66E00DDB7E0 /* GetImageApi.m in Sources */,

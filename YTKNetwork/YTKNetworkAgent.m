@@ -25,6 +25,7 @@
 #import "YTKNetworkConfig.h"
 #import "YTKNetworkPrivate.h"
 #import "AFDownloadRequestOperation.h"
+#import "AFHTTPRequestOperationManager+Progress.h"
 
 @implementation YTKNetworkAgent {
     AFHTTPRequestOperationManager *_manager;
@@ -171,6 +172,18 @@
                                                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                             [self handleRequestResult:operation];
                         }];
+                
+                request.requestOperation = [_manager POST:url parameters:param
+                                                 progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite){
+                                                     
+                                                 }
+                                constructingBodyWithBlock:constructingBlock
+                                                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                      [self handleRequestResult:operation];
+                                                  }
+                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                      [self handleRequestResult:operation];
+                                                  }];
             } else {
                 request.requestOperation = [_manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     [self handleRequestResult:operation];
