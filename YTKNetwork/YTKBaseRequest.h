@@ -145,6 +145,12 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 /// 请求的SerializerType
 - (YTKRequestSerializerType)requestSerializerType;
 
+/// 请求指定Serializer Class
+- (Class)requestSerializerClass;
+
+/// 返回指定Serializer Class
+- (Class)responseSerializerClass;
+
 /// 请求的Server用户名和密码
 - (NSArray *)requestAuthorizationHeaderFieldArray;
 
