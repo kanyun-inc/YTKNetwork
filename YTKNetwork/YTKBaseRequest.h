@@ -168,6 +168,9 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 /// 当POST的内容带有文件等富文本时使用
 - (AFConstructingBlock)constructingBodyBlock;
 
+/// 当使用POST上传文件时，获得上传进度的回调
+- (AFUploadProgressBlock)uploadProgressBlock;
+
 /// 当需要断点续传时，指定续传的地址
 - (NSString *)resumableDownloadPath;
 

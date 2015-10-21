@@ -166,17 +166,15 @@
             }
         } else if (method == YTKRequestMethodPost) {
             if (constructingBlock != nil) {
-                request.requestOperation = [_manager POST:url parameters:param constructingBodyWithBlock:constructingBlock
-                                                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                      [self handleRequestResult:operation];
-                                                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                            [self handleRequestResult:operation];
-                        }];
+//                request.requestOperation = [_manager POST:url parameters:param constructingBodyWithBlock:constructingBlock
+//                                                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                                                      [self handleRequestResult:operation];
+//                                                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                            [self handleRequestResult:operation];
+//                        }];
                 
                 request.requestOperation = [_manager POST:url parameters:param
-                                                 progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite){
-                                                     
-                                                 }
+                                                 progress:request.uploadProgressBlock
                                 constructingBodyWithBlock:constructingBlock
                                                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                       [self handleRequestResult:operation];
