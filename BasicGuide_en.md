@@ -24,7 +24,7 @@ We usage YTKNetworkConfig to set global network host address because:
  1. According the `Do Not Repeat Yourself` principle，we should write the host address only once.
  2. In practise, our tester need switch host address at runtime. YTKNetworkConfig can satisfy this requirement.
  
-We should set YTKNetworkConfig's property at the beggining of app launching, the sample is below:
+We should set YTKNetworkConfig's property at the beginning of app launching, the sample is below:
 
 ```
 - (BOOL)application:(UIApplication *)application 
