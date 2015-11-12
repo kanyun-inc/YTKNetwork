@@ -27,6 +27,8 @@
 
 @interface YTKNetworkAgent : NSObject
 
+@property (strong, nonatomic, readonly) AFHTTPRequestOperationManager *requestOperationManager;
+
 + (YTKNetworkAgent *)sharedInstance;
 
 - (void)addRequest:(YTKBaseRequest *)request;
