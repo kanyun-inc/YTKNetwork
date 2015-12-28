@@ -77,8 +77,9 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 /// request delegate object
 @property (nonatomic, weak) id<YTKRequestDelegate> delegate;
 
-
 @property (nonatomic, strong, readonly) NSDictionary *responseHeaders;
+
+@property (nonatomic, strong, readonly) NSData *responseData;
 
 @property (nonatomic, strong, readonly) NSString *responseString;
 

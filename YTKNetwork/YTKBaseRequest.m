@@ -147,6 +147,10 @@
     return self.requestOperation.responseObject;
 }
 
+- (NSData *)responseData {
+    return self.requestOperation.responseData;
+}
+
 - (NSString *)responseString {
     return self.requestOperation.responseString;
 }
