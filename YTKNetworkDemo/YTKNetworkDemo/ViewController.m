@@ -12,6 +12,7 @@
 #import "GetImageApi.h"
 #import "GetUserInfoApi.h"
 #import "RegisterApi.h"
+#import "UploadImageApi.h"
 
 @interface ViewController ()<YTKChainRequestDelegate>
 
@@ -86,6 +87,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)uploadImage:(id)sender{
+    UploadImageApi *api = [[UploadImageApi alloc] initWithImage:[UIImage imageNamed:@"bg"]];
+    
+    [api startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request){
+        NSLog(@"%@", request.responseString);
+    } failure:^(YTKBaseRequest *request){
+        NSLog(@"%@", request.responseString);
+    }];
 }
 
 @end

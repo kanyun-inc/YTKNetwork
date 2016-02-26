@@ -99,6 +99,10 @@
     return nil;
 }
 
+- (AFUploadProgressBlock)uploadProgressBlock{
+    return nil;
+}
+
 - (NSString *)resumableDownloadPath {
     return nil;
 }

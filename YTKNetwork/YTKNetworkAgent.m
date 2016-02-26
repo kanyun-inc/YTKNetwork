@@ -25,6 +25,7 @@
 #import "YTKNetworkConfig.h"
 #import "YTKNetworkPrivate.h"
 #import "AFDownloadRequestOperation.h"
+#import "AFHTTPRequestOperationManager+Progress.h"
 
 @implementation YTKNetworkAgent {
     AFHTTPRequestOperationManager *_manager;
@@ -46,6 +47,7 @@
     if (self) {
         _config = [YTKNetworkConfig sharedInstance];
         _manager = [AFHTTPRequestOperationManager manager];
+        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
         _requestsRecord = [NSMutableDictionary dictionary];
         _manager.operationQueue.maxConcurrentOperationCount = 4;
         _manager.securityPolicy = _config.securityPolicy;
@@ -81,10 +83,22 @@
     return [NSString stringWithFormat:@"%@%@", baseUrl, detailUrl];
 }
 
+- (id)buildRequestParams:(YTKBaseRequest *)request{
+    if (request.requestArgument == nil) {
+        return nil;
+    }
+    id params;
+    NSArray *filters = [_config urlFilters];
+    for (id<YTKParamsFilterProtocol> f in filters) {
+        params = [f filterParams:request.requestArgument withRequest:request];
+    }
+    return params;
+}
+
 - (void)addRequest:(YTKBaseRequest *)request {
     YTKRequestMethod method = [request requestMethod];
     NSString *url = [self buildRequestUrl:request];
-    id param = request.requestArgument;
+    id param = [self buildRequestParams:request];
     AFConstructingBlock constructingBlock = [request constructingBodyBlock];
 
     if (request.requestSerializerType == YTKRequestSerializerTypeHTTP) {
@@ -153,12 +167,22 @@
             }
         } else if (method == YTKRequestMethodPost) {
             if (constructingBlock != nil) {
-                request.requestOperation = [_manager POST:url parameters:param constructingBodyWithBlock:constructingBlock
+//                request.requestOperation = [_manager POST:url parameters:param constructingBodyWithBlock:constructingBlock
+//                                                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                                                      [self handleRequestResult:operation];
+//                                                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                            [self handleRequestResult:operation];
+//                        }];
+                
+                request.requestOperation = [_manager POST:url parameters:param
+                                                 progress:request.uploadProgressBlock
+                                constructingBodyWithBlock:constructingBlock
                                                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                       [self handleRequestResult:operation];
-                                                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                            [self handleRequestResult:operation];
-                        }];
+                                                  }
+                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                      [self handleRequestResult:operation];
+                                                  }];
             } else {
                 request.requestOperation = [_manager POST:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     [self handleRequestResult:operation];

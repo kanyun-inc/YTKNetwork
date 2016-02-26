@@ -39,6 +39,7 @@ typedef NS_ENUM(NSInteger , YTKRequestSerializerType) {
     YTKRequestSerializerTypeJSON,
 };
 
+typedef void (^AFUploadProgressBlock)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite);
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile);
 
@@ -169,6 +170,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 /// 当POST的内容带有文件等富文本时使用
 - (AFConstructingBlock)constructingBodyBlock;
+
+/// 当使用POST上传文件时，获得上传进度的回调
+- (AFUploadProgressBlock)uploadProgressBlock;
 
 /// 当需要断点续传时，指定续传的地址
 - (NSString *)resumableDownloadPath;
