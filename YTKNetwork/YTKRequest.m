@@ -200,7 +200,11 @@
         NSString *path = [self cacheFilePath];
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if ([fileManager fileExistsAtPath:path isDirectory:nil] == YES) {
-            _cacheJson = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+            @try {
+                _cacheJson = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+            } @catch (NSException* exception) {
+                YTKLog(@"Load cacheJson failed, exception = %@", exception.reason);
+            }
         }
         return _cacheJson;
     }
