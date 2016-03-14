@@ -48,6 +48,7 @@
         _manager = [AFHTTPRequestOperationManager manager];
         _requestsRecord = [NSMutableDictionary dictionary];
         _manager.operationQueue.maxConcurrentOperationCount = 4;
+        _manager.securityPolicy = _config.securityPolicy;
     }
     return self;
 }

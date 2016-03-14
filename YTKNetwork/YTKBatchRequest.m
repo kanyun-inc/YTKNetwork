@@ -116,6 +116,7 @@
         }
         [self clearCompletionBlock];
         [self toggleAccessoriesDidStopCallBack];
+        [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
     }
 }
 

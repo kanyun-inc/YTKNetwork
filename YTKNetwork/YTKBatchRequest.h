@@ -27,6 +27,8 @@
 @class YTKBatchRequest;
 @protocol YTKBatchRequestDelegate <NSObject>
 
+@optional
+
 - (void)batchRequestFinished:(YTKBatchRequest *)batchRequest;
 
 - (void)batchRequestFailed:(YTKBatchRequest *)batchRequest;
