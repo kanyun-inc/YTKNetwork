@@ -31,12 +31,18 @@ typedef NS_ENUM(NSInteger , YTKRequestMethod) {
     YTKRequestMethodHead,
     YTKRequestMethodPut,
     YTKRequestMethodDelete,
-    YTKRequestMethodPatch
+    YTKRequestMethodPatch,
 };
 
 typedef NS_ENUM(NSInteger , YTKRequestSerializerType) {
     YTKRequestSerializerTypeHTTP = 0,
     YTKRequestSerializerTypeJSON,
+};
+
+typedef NS_ENUM(NSInteger , YTKRequestPriority) {
+    YTKRequestPriorityDefault = 0,
+    YTKRequestPriorityLow,
+    YTKRequestPriorityHigh,
 };
 
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
@@ -94,6 +100,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 @property (nonatomic, copy) YTKRequestCompletionBlock failureCompletionBlock;
 
 @property (nonatomic, strong) NSMutableArray *requestAccessories;
+
+/// 请求的优先级, 优先级高的请求会从请求队列中优先出列
+@property (nonatomic) YTKRequestPriority requestPriority;
 
 /// append self to request queue
 - (void)start;
