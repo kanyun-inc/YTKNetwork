@@ -40,9 +40,9 @@ typedef NS_ENUM(NSInteger , YTKRequestSerializerType) {
 };
 
 typedef NS_ENUM(NSInteger , YTKRequestPriority) {
+    YTKRequestPriorityLow = -4L,
     YTKRequestPriorityDefault = 0,
-    YTKRequestPriorityLow,
-    YTKRequestPriorityHigh,
+    YTKRequestPriorityHigh = 4,
 };
 
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
