@@ -56,10 +56,10 @@ To use YTKNetwork add the following to your Podfile
 
 ## Contributors
 
- * [tangqiaoboy][tangqiaoboyGithub]
  * [lancy][lancyGithub]
  * [maojj][maojjGithub]
  * [veecci][veecciGithub]
+ * [tangqiaoboy][tangqiaoboyGithub]
 
 ## Acknowledgements
 
@@ -131,10 +131,10 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 YTKNetwork 的主要作者是：
 
-* [tangqiaoboy][tangqiaoboyGithub]
 * [lancy][lancyGithub]
 * [maojj][maojjGithub]
 * [veecci][veecciGithub]
+* [tangqiaoboy][tangqiaoboyGithub]
 
 ## 感谢
 
