@@ -163,6 +163,10 @@
     return self.requestOperation.response.allHeaderFields;
 }
 
+- (NSError *)requestOperationError {
+    return self.requestOperation.error;
+}
+
 #pragma mark - Request Accessoies
 
 - (void)addAccessory:(id<YTKRequestAccessory>)accessory {

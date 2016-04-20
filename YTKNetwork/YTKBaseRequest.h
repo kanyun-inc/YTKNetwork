@@ -95,6 +95,8 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 @property (nonatomic, readonly) NSInteger responseStatusCode;
 
+@property (nonatomic, strong, readonly) NSError *requestOperationError;
+
 @property (nonatomic, copy) YTKRequestCompletionBlock successCompletionBlock;
 
 @property (nonatomic, copy) YTKRequestCompletionBlock failureCompletionBlock;
