@@ -121,6 +121,10 @@
     [self toggleAccessoriesDidStopCallBack];
 }
 
+- (BOOL)isCancelled {
+    return self.requestOperation.isCancelled;
+}
+
 - (BOOL)isExecuting {
     return self.requestOperation.isExecuting;
 }
@@ -167,7 +171,7 @@
     return self.requestOperation.error;
 }
 
-#pragma mark - Request Accessoies
+#pragma mark - Request Accessories
 
 - (void)addAccessory:(id<YTKRequestAccessory>)accessory {
     if (!self.requestAccessories) {

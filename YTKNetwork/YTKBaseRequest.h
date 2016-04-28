@@ -106,6 +106,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 /// 请求的优先级, 优先级高的请求会从请求队列中优先出列
 @property (nonatomic) YTKRequestPriority requestPriority;
 
+/// Return cancelled state of request operation
+@property (nonatomic, readonly, getter=isCancelled) BOOL cancelled;
+
 /// append self to request queue
 - (void)start;
 
