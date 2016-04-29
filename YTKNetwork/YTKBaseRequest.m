@@ -117,8 +117,9 @@
 - (void)stop {
     [self toggleAccessoriesWillStopCallBack];
     self.delegate = nil;
-    [[YTKNetworkAgent sharedInstance] cancelRequest:self];
-    [self toggleAccessoriesDidStopCallBack];
+    [[YTKNetworkAgent sharedInstance] cancelRequest:self completion:^{
+        [self toggleAccessoriesDidStopCallBack];
+    }];
 }
 
 - (BOOL)isCancelled {

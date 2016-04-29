@@ -25,13 +25,15 @@
 #import "YTKBaseRequest.h"
 #import "AFNetworking.h"
 
+typedef void (^YTKNetworkAgentCompletionBlock)(void);
+
 @interface YTKNetworkAgent : NSObject
 
 + (YTKNetworkAgent *)sharedInstance;
 
 - (void)addRequest:(YTKBaseRequest *)request;
 
-- (void)cancelRequest:(YTKBaseRequest *)request;
+- (void)cancelRequest:(YTKBaseRequest *)request completion:(YTKNetworkAgentCompletionBlock)completion;
 
 - (void)cancelAllRequests;
 
