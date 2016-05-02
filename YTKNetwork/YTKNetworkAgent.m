@@ -93,6 +93,14 @@
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
     }
     
+    if (request.requestSerializerClass && [request.requestSerializerClass isSubclassOfClass:[AFHTTPRequestSerializer class]]) {
+        _manager.requestSerializer = [request.requestSerializerClass serializer];
+    }
+    
+    if (request.responseSerializerClass && [request.responseSerializerClass isSubclassOfClass:[AFHTTPResponseSerializer class]]) {
+        _manager.responseSerializer = [request.responseSerializerClass serializer];
+    }
+    
     _manager.requestSerializer.timeoutInterval = [request requestTimeoutInterval];
 
     // if api need server username and password
