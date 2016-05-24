@@ -33,7 +33,10 @@ typedef NS_ENUM(NSUInteger, AFSSLPinningMode) {
 
  Adding pinned SSL certificates to your app helps prevent man-in-the-middle attacks and other vulnerabilities. Applications dealing with sensitive customer data or financial information are strongly encouraged to route all communication over an HTTPS connection with SSL pinning configured and enabled.
  */
-@interface AFSecurityPolicy : NSObject
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface AFSecurityPolicy : NSObject <NSSecureCoding, NSCopying>
 
 /**
  The criteria by which server trust should be evaluated against the pinned SSL certificates. Defaults to `AFSSLPinningModeNone`.
@@ -41,14 +44,9 @@ typedef NS_ENUM(NSUInteger, AFSSLPinningMode) {
 @property (readonly, nonatomic, assign) AFSSLPinningMode SSLPinningMode;
 
 /**
- Whether to evaluate an entire SSL certificate chain, or just the leaf certificate. Defaults to `YES`.
+ The certificates used to evaluate server trust according to the SSL pinning mode. By default, this property is set to any (`.cer`) certificates included in the app bundle. Note that if you create an array with duplicate certificates, the duplicate certificates will be removed. Note that if pinning is enabled, `evaluateServerTrust:forDomain:` will return true if any pinned certificate matches.
  */
-@property (nonatomic, assign) BOOL validatesCertificateChain;
-
-/**
- The certificates used to evaluate server trust according to the SSL pinning mode. By default, this property is set to any (`.cer`) certificates included in the app bundle.
- */
-@property (nonatomic, strong) NSArray *pinnedCertificates;
+@property (nonatomic, strong, nullable) NSArray *pinnedCertificates;
 
 /**
  Whether or not to trust servers with an invalid or expired SSL certificates. Defaults to `NO`.
@@ -112,9 +110,11 @@ typedef NS_ENUM(NSUInteger, AFSSLPinningMode) {
  @return Whether or not to trust the server.
  */
 - (BOOL)evaluateServerTrust:(SecTrustRef)serverTrust
-                  forDomain:(NSString *)domain;
+                  forDomain:(nullable NSString *)domain;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 ///----------------
 /// @name Constants

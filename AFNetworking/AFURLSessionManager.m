@@ -154,10 +154,18 @@ didCompleteWithError:(NSError *)error
     __block NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     userInfo[AFNetworkingTaskDidCompleteResponseSerializerKey] = manager.responseSerializer;
 
+    //Performance Improvement from #2672
+    NSData *data = nil;
+    if (self.mutableData) {
+        data = [self.mutableData copy];
+        //We no longer need the reference, so nil it out to gain back some memory.
+        self.mutableData = nil;
+    }
+
     if (self.downloadFileURL) {
         userInfo[AFNetworkingTaskDidCompleteAssetPathKey] = self.downloadFileURL;
-    } else if (self.mutableData) {
-        userInfo[AFNetworkingTaskDidCompleteResponseDataKey] = [NSData dataWithData:self.mutableData];
+    } else if (data) {
+        userInfo[AFNetworkingTaskDidCompleteResponseDataKey] = data;
     }
 
     if (error) {
@@ -175,7 +183,7 @@ didCompleteWithError:(NSError *)error
     } else {
         dispatch_async(url_session_manager_processing_queue(), ^{
             NSError *serializationError = nil;
-            responseObject = [manager.responseSerializer responseObjectForResponse:task.response data:[NSData dataWithData:self.mutableData] error:&serializationError];
+            responseObject = [manager.responseSerializer responseObjectForResponse:task.response data:data error:&serializationError];
 
             if (self.downloadFileURL) {
                 responseObject = self.downloadFileURL;
@@ -264,14 +272,14 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
  *  - https://github.com/AFNetworking/AFNetworking/pull/2702
  */
 
-static inline void af_swizzleSelector(Class class, SEL originalSelector, SEL swizzledSelector) {
-    Method originalMethod = class_getInstanceMethod(class, originalSelector);
-    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+static inline void af_swizzleSelector(Class theClass, SEL originalSelector, SEL swizzledSelector) {
+    Method originalMethod = class_getInstanceMethod(theClass, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(theClass, swizzledSelector);
     method_exchangeImplementations(originalMethod, swizzledMethod);
 }
 
-static inline BOOL af_addMethod(Class class, SEL selector, Method method) {
-    return class_addMethod(class, selector,  method_getImplementation(method),  method_getTypeEncoding(method));
+static inline BOOL af_addMethod(Class theClass, SEL selector, Method method) {
+    return class_addMethod(theClass, selector,  method_getImplementation(method),  method_getTypeEncoding(method));
 }
 
 static NSString * const AFNSURLSessionTaskDidResumeNotification  = @"com.alamofire.networking.nsurlsessiontask.resume";
@@ -301,11 +309,11 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
             - On iOS 7, `__NSCFLocalSessionTask` and `__NSCFURLSessionTask` are the only two classes that have their own implementations of `resume` and `suspend`, and `__NSCFLocalSessionTask` DOES NOT CALL SUPER. This means both classes need to be swizzled.
             - On iOS 8, `NSURLSessionTask` is the only class that implements `resume` and `suspend`. This means this is the only class that needs to be swizzled.
             - Because `NSURLSessionTask` is not involved in the class hierarchy for every version of iOS, its easier to add the swizzled methods to a dummy class and manage them there.
-
+        
          Some Assumptions:
             - No implementations of `resume` or `suspend` call super. If this were to change in a future version of iOS, we'd need to handle it.
             - No background task classes override `resume` or `suspend`
-
+         
          The current solution:
             1) Grab an instance of `__NSCFLocalDataTask` by asking an instance of `NSURLSession` for a data task.
             2) Grab a pointer to the original implementation of `af_resume`
@@ -316,10 +324,15 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
             7) If the current class implementation of `resume` is not equal to the super class implementation of `resume` AND the current implementation of `resume` is not equal to the original implementation of `af_resume`, THEN swizzle the methods
             8) Set the current class to the super class, and repeat steps 3-8
          */
-        NSURLSessionDataTask *localDataTask = [[NSURLSession sessionWithConfiguration:nil] dataTaskWithURL:nil];
-        IMP originalAFResumeIMP = method_getImplementation(class_getInstanceMethod([_AFURLSessionTaskSwizzling class], @selector(af_resume)));
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        NSURLSession * session = [NSURLSession sessionWithConfiguration:configuration];
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnonnull"
+        NSURLSessionDataTask *localDataTask = [session dataTaskWithURL:nil];
+#pragma clang diagnostic pop
+        IMP originalAFResumeIMP = method_getImplementation(class_getInstanceMethod([self class], @selector(af_resume)));
         Class currentClass = [localDataTask class];
-
+        
         while (class_getInstanceMethod(currentClass, @selector(resume))) {
             Class superClass = [currentClass superclass];
             IMP classResumeIMP = method_getImplementation(class_getInstanceMethod(currentClass, @selector(resume)));
@@ -330,20 +343,23 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
             }
             currentClass = [currentClass superclass];
         }
-
+        
         [localDataTask cancel];
+        [session finishTasksAndInvalidate];
     }
 }
 
-+ (void)swizzleResumeAndSuspendMethodForClass:(Class)class {
++ (void)swizzleResumeAndSuspendMethodForClass:(Class)theClass {
     Method afResumeMethod = class_getInstanceMethod(self, @selector(af_resume));
     Method afSuspendMethod = class_getInstanceMethod(self, @selector(af_suspend));
 
-    af_addMethod(class, @selector(af_resume), afResumeMethod);
-    af_addMethod(class, @selector(af_suspend), afSuspendMethod);
+    if (af_addMethod(theClass, @selector(af_resume), afResumeMethod)) {
+        af_swizzleSelector(theClass, @selector(resume), @selector(af_resume));
+    }
 
-    af_swizzleSelector(class, @selector(resume), @selector(af_resume));
-    af_swizzleSelector(class, @selector(suspend), @selector(af_suspend));
+    if (af_addMethod(theClass, @selector(af_suspend), afSuspendMethod)) {
+        af_swizzleSelector(theClass, @selector(suspend), @selector(af_suspend));
+    }
 }
 
 - (NSURLSessionTaskState)state {
@@ -355,7 +371,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
     NSAssert([self respondsToSelector:@selector(state)], @"Does not respond to state");
     NSURLSessionTaskState state = [self state];
     [self af_resume];
-
+    
     if (state != NSURLSessionTaskStateRunning) {
         [[NSNotificationCenter defaultCenter] postNotificationName:AFNSURLSessionTaskDidResumeNotification object:self];
     }
@@ -365,7 +381,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
     NSAssert([self respondsToSelector:@selector(state)], @"Does not respond to state");
     NSURLSessionTaskState state = [self state];
     [self af_suspend];
-
+    
     if (state != NSURLSessionTaskStateSuspended) {
         [[NSNotificationCenter defaultCenter] postNotificationName:AFNSURLSessionTaskDidSuspendNotification object:self];
     }
@@ -425,7 +441,9 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
 
     self.securityPolicy = [AFSecurityPolicy defaultPolicy];
 
+#if !TARGET_OS_WATCH
     self.reachabilityManager = [AFNetworkReachabilityManager sharedManager];
+#endif
 
     self.mutableTaskDelegatesKeyedByTaskIdentifier = [[NSMutableDictionary alloc] init];
 

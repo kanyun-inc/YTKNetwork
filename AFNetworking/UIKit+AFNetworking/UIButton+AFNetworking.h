@@ -27,6 +27,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol AFURLResponseSerialization, AFImageCache;
 
 /**
@@ -41,7 +43,7 @@
 ///----------------------------
 
 /**
- The image cache used to improve image loadiing performance on scroll views. By default, `UIButton` will use the `sharedImageCache` of `UIImageView`.
+ The image cache used to improve image loading performance on scroll views. By default, `UIButton` will use the `sharedImageCache` of `UIImageView`.
  */
 + (id <AFImageCache>)sharedImageCache;
 
@@ -50,7 +52,7 @@
 
  @param imageCache The image cache.
  */
-+ (void)setSharedImageCache:(id <AFImageCache>)imageCache;
++ (void)setSharedImageCache:(__nullable id <AFImageCache>)imageCache;
 
 ///------------------------------------
 /// @name Accessing Response Serializer
@@ -89,7 +91,7 @@
  */
 - (void)setImageForState:(UIControlState)state
                  withURL:(NSURL *)url
-        placeholderImage:(UIImage *)placeholderImage;
+        placeholderImage:(nullable UIImage *)placeholderImage;
 
 /**
  Asynchronously downloads an image from the specified URL request, and sets it as the image for the specified state once the request is finished. Any previous image request for the receiver will be cancelled.
@@ -101,14 +103,14 @@
  @param state The control state.
  @param urlRequest The URL request used for the image request.
  @param placeholderImage The image to be set initially, until the image request finishes. If `nil`, the button will not change its image until the image request finishes.
- @param success A block to be executed when the image request operation finishes successfully. This block has no return value and takes two arguments: the server response and the image. If the image was returned from cache, the request and response parameters will be `nil`.
+ @param success A block to be executed when the image request operation finishes successfully. This block has no return value and takes two arguments: the server response and the image. If the image was returned from cache, the response parameter will be `nil`.
  @param failure A block object to be executed when the image request operation finishes unsuccessfully, or that finishes successfully. This block has no return value and takes a single argument: the error that occurred.
  */
 - (void)setImageForState:(UIControlState)state
           withURLRequest:(NSURLRequest *)urlRequest
-        placeholderImage:(UIImage *)placeholderImage
-                 success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
-                 failure:(void (^)(NSError *error))failure;
+        placeholderImage:(nullable UIImage *)placeholderImage
+                 success:(nullable void (^)(NSURLRequest *request, NSHTTPURLResponse * __nullable response, UIImage *image))success
+                 failure:(nullable void (^)(NSError *error))failure;
 
 
 ///-------------------------------
@@ -137,7 +139,7 @@
  */
 - (void)setBackgroundImageForState:(UIControlState)state
                            withURL:(NSURL *)url
-                  placeholderImage:(UIImage *)placeholderImage;
+                  placeholderImage:(nullable UIImage *)placeholderImage;
 
 /**
  Asynchronously downloads an image from the specified URL request, and sets it as the image for the specified state once the request is finished. Any previous image request for the receiver will be cancelled.
@@ -149,12 +151,14 @@
  @param state The control state.
  @param urlRequest The URL request used for the image request.
  @param placeholderImage The background image to be set initially, until the background image request finishes. If `nil`, the button will not change its background image until the background image request finishes.
+ @param success A block to be executed when the image request operation finishes successfully. This block has no return value and takes two arguments: the server response and the image. If the image was returned from cache, the response parameter will be `nil`.
+ @param failure A block object to be executed when the image request operation finishes unsuccessfully, or that finishes successfully. This block has no return value and takes a single argument: the error that occurred.
  */
 - (void)setBackgroundImageForState:(UIControlState)state
                     withURLRequest:(NSURLRequest *)urlRequest
-                  placeholderImage:(UIImage *)placeholderImage
-                           success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
-                           failure:(void (^)(NSError *error))failure;
+                  placeholderImage:(nullable UIImage *)placeholderImage
+                           success:(nullable void (^)(NSURLRequest *request, NSHTTPURLResponse * __nullable response, UIImage *image))success
+                           failure:(nullable void (^)(NSError *error))failure;
 
 
 ///------------------------------
@@ -176,5 +180,7 @@
 - (void)cancelBackgroundImageRequestOperationForState:(UIControlState)state;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif

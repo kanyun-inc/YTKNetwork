@@ -20,6 +20,8 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+
+#if !TARGET_OS_WATCH
 #import <SystemConfiguration/SystemConfiguration.h>
 
 #ifndef NS_DESIGNATED_INITIALIZER
@@ -36,6 +38,8 @@ typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
     AFNetworkReachabilityStatusReachableViaWWAN = 1,
     AFNetworkReachabilityStatusReachableViaWiFi = 2,
 };
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  `AFNetworkReachabilityManager` monitors the reachability of domains, and addresses for both WWAN and WiFi network interfaces.
@@ -136,7 +140,7 @@ typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
 
  @param block A block object to be executed when the network availability of the `baseURL` host changes.. This block has no return value and takes a single argument which represents the various reachability states from the device to the `baseURL`.
  */
-- (void)setReachabilityStatusChangeBlock:(void (^)(AFNetworkReachabilityStatus status))block;
+- (void)setReachabilityStatusChangeBlock:(nullable void (^)(AFNetworkReachabilityStatus status))block;
 
 @end
 
@@ -187,8 +191,8 @@ typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
 
  @warning In order for network reachability to be monitored, include the `SystemConfiguration` framework in the active target's "Link Binary With Library" build phase, and add `#import <SystemConfiguration/SystemConfiguration.h>` to the header prefix of the project (`Prefix.pch`).
  */
-extern NSString * const AFNetworkingReachabilityDidChangeNotification;
-extern NSString * const AFNetworkingReachabilityNotificationStatusItem;
+FOUNDATION_EXPORT NSString * const AFNetworkingReachabilityDidChangeNotification;
+FOUNDATION_EXPORT NSString * const AFNetworkingReachabilityNotificationStatusItem;
 
 ///--------------------
 /// @name Functions
@@ -197,4 +201,7 @@ extern NSString * const AFNetworkingReachabilityNotificationStatusItem;
 /**
  Returns a localized string representation of an `AFNetworkReachabilityStatus` value.
  */
-extern NSString * AFStringFromNetworkReachabilityStatus(AFNetworkReachabilityStatus status);
+FOUNDATION_EXPORT NSString * AFStringFromNetworkReachabilityStatus(AFNetworkReachabilityStatus status);
+
+NS_ASSUME_NONNULL_END
+#endif
