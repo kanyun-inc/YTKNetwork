@@ -32,7 +32,6 @@
 		BF00803F19FF98EE00816462 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00801A19FF98EE00816462 /* AFHTTPRequestOperation.m */; };
 		BF00804019FF98EE00816462 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00801C19FF98EE00816462 /* AFHTTPRequestOperationManager.m */; };
 		BF00804119FF98EE00816462 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00801E19FF98EE00816462 /* AFHTTPSessionManager.m */; };
-		BF00804219FF98EE00816462 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00802119FF98EE00816462 /* AFNetworkReachabilityManager.m */; };
 		BF00804319FF98EE00816462 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00802319FF98EE00816462 /* AFSecurityPolicy.m */; };
 		BF00804419FF98EE00816462 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00802519FF98EE00816462 /* AFURLConnectionOperation.m */; };
 		BF00804519FF98EE00816462 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00802719FF98EE00816462 /* AFURLRequestSerialization.m */; };
@@ -47,6 +46,7 @@
 		BF00804E19FF98EE00816462 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00803B19FF98EE00816462 /* UIRefreshControl+AFNetworking.m */; };
 		BF00804F19FF98EE00816462 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BF00803D19FF98EE00816462 /* UIWebView+AFNetworking.m */; };
 		BF0080541A00913200816462 /* YTKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0080531A00913200816462 /* YTKNetworkPrivate.m */; };
+		E26E8CA01CFEF17A004EF0F3 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E26E8C9F1CFEF17A004EF0F3 /* AFNetworkReachabilityManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +109,6 @@
 		BF00801D19FF98EE00816462 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		BF00801E19FF98EE00816462 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		BF00801F19FF98EE00816462 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
-		BF00802019FF98EE00816462 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
-		BF00802119FF98EE00816462 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		BF00802219FF98EE00816462 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		BF00802319FF98EE00816462 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		BF00802419FF98EE00816462 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
@@ -140,6 +138,8 @@
 		BF00803D19FF98EE00816462 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		BF0080521A00913200816462 /* YTKNetworkPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKNetworkPrivate.h; sourceTree = "<group>"; };
 		BF0080531A00913200816462 /* YTKNetworkPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKNetworkPrivate.m; sourceTree = "<group>"; };
+		E26E8C9E1CFEF17A004EF0F3 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		E26E8C9F1CFEF17A004EF0F3 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,9 +268,9 @@
 				BF00801C19FF98EE00816462 /* AFHTTPRequestOperationManager.m */,
 				BF00801D19FF98EE00816462 /* AFHTTPSessionManager.h */,
 				BF00801E19FF98EE00816462 /* AFHTTPSessionManager.m */,
+				E26E8C9E1CFEF17A004EF0F3 /* AFNetworkReachabilityManager.h */,
+				E26E8C9F1CFEF17A004EF0F3 /* AFNetworkReachabilityManager.m */,
 				BF00801F19FF98EE00816462 /* AFNetworking.h */,
-				BF00802019FF98EE00816462 /* AFNetworkReachabilityManager.h */,
-				BF00802119FF98EE00816462 /* AFNetworkReachabilityManager.m */,
 				BF00802219FF98EE00816462 /* AFSecurityPolicy.h */,
 				BF00802319FF98EE00816462 /* AFSecurityPolicy.m */,
 				BF00802419FF98EE00816462 /* AFURLConnectionOperation.h */,
@@ -434,10 +434,10 @@
 				BF00804419FF98EE00816462 /* AFURLConnectionOperation.m in Sources */,
 				BF00804019FF98EE00816462 /* AFHTTPRequestOperationManager.m in Sources */,
 				BF00801219FF988A00816462 /* YTKNetworkAgent.m in Sources */,
-				BF00804219FF98EE00816462 /* AFNetworkReachabilityManager.m in Sources */,
 				BF00800F19FF988A00816462 /* YTKBatchRequest.m in Sources */,
 				45BF1D431A0DC40F00DDB7E0 /* GetUserInfoApi.m in Sources */,
 				BF007FDC19FF972C00816462 /* AppDelegate.m in Sources */,
+				E26E8CA01CFEF17A004EF0F3 /* AFNetworkReachabilityManager.m in Sources */,
 				BF00804319FF98EE00816462 /* AFSecurityPolicy.m in Sources */,
 				457AD4041A8E45AB000E8B41 /* YTKBatchRequestAgent.m in Sources */,
 				45F710841A466D01001957BA /* UploadImageApi.m in Sources */,
