@@ -53,6 +53,7 @@
         YTKLog(@"Error! Batch request has already started.");
         return;
     }
+    _failedRequest = nil;
     [[YTKBatchRequestAgent sharedInstance] addBatchRequest:self];
     [self toggleAccessoriesWillStartCallBack];
     for (YTKRequest * req in _requestArray) {
@@ -121,6 +122,7 @@
 }
 
 - (void)requestFailed:(YTKRequest *)request {
+    _failedRequest = request;
     [self toggleAccessoriesWillStopCallBack];
     // Stop
     for (YTKRequest *req in _requestArray) {

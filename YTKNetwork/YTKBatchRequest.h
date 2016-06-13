@@ -49,6 +49,8 @@
 
 @property (nonatomic, strong) NSMutableArray *requestAccessories;
 
+@property (nonatomic, strong, readonly) YTKRequest *failedRequest;
+
 - (id)initWithRequestArray:(NSArray *)requestArray;
 
 - (void)start;
