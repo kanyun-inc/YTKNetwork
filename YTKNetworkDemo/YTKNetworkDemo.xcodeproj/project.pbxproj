@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20D2D9721D268808009E13A2 /* YTKAnimatingRequestAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D2D96B1D268808009E13A2 /* YTKAnimatingRequestAccessory.m */; };
+		20D2D9731D268808009E13A2 /* YTKBaseRequest+AnimatingAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D2D96D1D268808009E13A2 /* YTKBaseRequest+AnimatingAccessory.m */; };
+		20D2D9741D268808009E13A2 /* YTKBatchRequest+AnimatingAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D2D96F1D268808009E13A2 /* YTKBatchRequest+AnimatingAccessory.m */; };
+		20D2D9751D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D2D9711D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.m */; };
 		451C59DA1B27F37C00AAC845 /* YTKJSONValidatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 451C59D91B27F37C00AAC845 /* YTKJSONValidatorTests.m */; };
 		457AD4041A8E45AB000E8B41 /* YTKBatchRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 457AD4031A8E45AB000E8B41 /* YTKBatchRequestAgent.m */; };
 		45AB19C11A4656A600680858 /* YTKUrlArgumentsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AB19C01A4656A600680858 /* YTKUrlArgumentsFilter.m */; };
@@ -60,6 +64,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20D2D96A1D268808009E13A2 /* YTKAnimatingRequestAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKAnimatingRequestAccessory.h; sourceTree = "<group>"; };
+		20D2D96B1D268808009E13A2 /* YTKAnimatingRequestAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKAnimatingRequestAccessory.m; sourceTree = "<group>"; };
+		20D2D96C1D268808009E13A2 /* YTKBaseRequest+AnimatingAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YTKBaseRequest+AnimatingAccessory.h"; sourceTree = "<group>"; };
+		20D2D96D1D268808009E13A2 /* YTKBaseRequest+AnimatingAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YTKBaseRequest+AnimatingAccessory.m"; sourceTree = "<group>"; };
+		20D2D96E1D268808009E13A2 /* YTKBatchRequest+AnimatingAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YTKBatchRequest+AnimatingAccessory.h"; sourceTree = "<group>"; };
+		20D2D96F1D268808009E13A2 /* YTKBatchRequest+AnimatingAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YTKBatchRequest+AnimatingAccessory.m"; sourceTree = "<group>"; };
+		20D2D9701D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YTKChainRequest+AnimatingAccessory.h"; sourceTree = "<group>"; };
+		20D2D9711D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YTKChainRequest+AnimatingAccessory.m"; sourceTree = "<group>"; };
 		451C59D91B27F37C00AAC845 /* YTKJSONValidatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKJSONValidatorTests.m; sourceTree = "<group>"; };
 		457AD4021A8E45AB000E8B41 /* YTKBatchRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKBatchRequestAgent.h; sourceTree = "<group>"; };
 		457AD4031A8E45AB000E8B41 /* YTKBatchRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKBatchRequestAgent.m; sourceTree = "<group>"; };
@@ -160,9 +172,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20D2D9691D2687FA009E13A2 /* Accessory */ = {
+			isa = PBXGroup;
+			children = (
+				20D2D96A1D268808009E13A2 /* YTKAnimatingRequestAccessory.h */,
+				20D2D96B1D268808009E13A2 /* YTKAnimatingRequestAccessory.m */,
+				20D2D96C1D268808009E13A2 /* YTKBaseRequest+AnimatingAccessory.h */,
+				20D2D96D1D268808009E13A2 /* YTKBaseRequest+AnimatingAccessory.m */,
+				20D2D96E1D268808009E13A2 /* YTKBatchRequest+AnimatingAccessory.h */,
+				20D2D96F1D268808009E13A2 /* YTKBatchRequest+AnimatingAccessory.m */,
+				20D2D9701D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.h */,
+				20D2D9711D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.m */,
+			);
+			path = Accessory;
+			sourceTree = "<group>";
+		};
 		BF007FCA19FF972C00816462 = {
 			isa = PBXGroup;
 			children = (
+				20D2D9691D2687FA009E13A2 /* Accessory */,
 				BF00801519FF98EE00816462 /* AFNetworking */,
 				BF007FFC19FF988A00816462 /* YTKNetwork */,
 				BF007FD519FF972C00816462 /* YTKNetworkDemo */,
@@ -428,6 +456,7 @@
 				45BF1D461A0DC66E00DDB7E0 /* GetImageApi.m in Sources */,
 				BF007FDF19FF972C00816462 /* ViewController.m in Sources */,
 				BF00804719FF98EE00816462 /* AFURLSessionManager.m in Sources */,
+				20D2D9721D268808009E13A2 /* YTKAnimatingRequestAccessory.m in Sources */,
 				BF00804819FF98EE00816462 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				45AB19C11A4656A600680858 /* YTKUrlArgumentsFilter.m in Sources */,
 				BF00801419FF988A00816462 /* YTKRequest.m in Sources */,
@@ -444,11 +473,14 @@
 				BF007FD919FF972C00816462 /* main.m in Sources */,
 				BF0080541A00913200816462 /* YTKNetworkPrivate.m in Sources */,
 				BF00804519FF98EE00816462 /* AFURLRequestSerialization.m in Sources */,
+				20D2D9751D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.m in Sources */,
 				BF00801319FF988A00816462 /* YTKNetworkConfig.m in Sources */,
+				20D2D9731D268808009E13A2 /* YTKBaseRequest+AnimatingAccessory.m in Sources */,
 				BF00804619FF98EE00816462 /* AFURLResponseSerialization.m in Sources */,
 				45BF1D401A0DC0A100DDB7E0 /* RegisterApi.m in Sources */,
 				BF00801119FF988A00816462 /* YTKChainRequestAgent.m in Sources */,
 				BF00804919FF98EE00816462 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				20D2D9741D268808009E13A2 /* YTKBatchRequest+AnimatingAccessory.m in Sources */,
 				BF00804E19FF98EE00816462 /* UIRefreshControl+AFNetworking.m in Sources */,
 				BF00804D19FF98EE00816462 /* UIProgressView+AFNetworking.m in Sources */,
 				BF00800D19FF988A00816462 /* YTKBaseRequest.m in Sources */,

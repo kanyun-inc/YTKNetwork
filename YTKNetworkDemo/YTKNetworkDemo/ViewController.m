@@ -12,6 +12,7 @@
 #import "GetImageApi.h"
 #import "GetUserInfoApi.h"
 #import "RegisterApi.h"
+#import "YTKBaseRequest+AnimatingAccessory.h"
 
 @interface ViewController ()<YTKChainRequestDelegate>
 
@@ -72,6 +73,10 @@
         NSLog(@"json = %@", json);
         // show cached data
     }
+
+    api.animatingText = @"正在加载";
+    api.animatingView = self.view;
+
     [api startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
         NSLog(@"update ui");
     } failure:^(YTKBaseRequest *request) {
