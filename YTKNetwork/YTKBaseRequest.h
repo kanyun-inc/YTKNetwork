@@ -22,8 +22,10 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "AFNetworking.h"
-#import "AFDownloadRequestOperation.h"
+#import <AFNetworking/AFURLRequestSerialization.h>
+
+@class AFHTTPRequestOperation;
+@class AFDownloadRequestOperation;
 
 typedef NS_ENUM(NSInteger , YTKRequestMethod) {
     YTKRequestMethodGet = 0,

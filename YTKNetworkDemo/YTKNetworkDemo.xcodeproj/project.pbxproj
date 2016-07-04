@@ -72,6 +72,7 @@
 		20D2D96F1D268808009E13A2 /* YTKBatchRequest+AnimatingAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YTKBatchRequest+AnimatingAccessory.m"; sourceTree = "<group>"; };
 		20D2D9701D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YTKChainRequest+AnimatingAccessory.h"; sourceTree = "<group>"; };
 		20D2D9711D268808009E13A2 /* YTKChainRequest+AnimatingAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YTKChainRequest+AnimatingAccessory.m"; sourceTree = "<group>"; };
+		20D2D9761D2A0727009E13A2 /* YTKNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YTKNetwork.h; sourceTree = "<group>"; };
 		451C59D91B27F37C00AAC845 /* YTKJSONValidatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKJSONValidatorTests.m; sourceTree = "<group>"; };
 		457AD4021A8E45AB000E8B41 /* YTKBatchRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKBatchRequestAgent.h; sourceTree = "<group>"; };
 		457AD4031A8E45AB000E8B41 /* YTKBatchRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKBatchRequestAgent.m; sourceTree = "<group>"; };
@@ -281,6 +282,7 @@
 				BF00800A19FF988A00816462 /* YTKNetworkConfig.m */,
 				BF00800B19FF988A00816462 /* YTKRequest.h */,
 				BF00800C19FF988A00816462 /* YTKRequest.m */,
+				20D2D9761D2A0727009E13A2 /* YTKNetwork.h */,
 			);
 			name = YTKNetwork;
 			path = ../YTKNetwork;
@@ -611,6 +613,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/..";
 				INFOPLIST_FILE = YTKNetworkDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -622,6 +625,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/..";
 				INFOPLIST_FILE = YTKNetworkDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

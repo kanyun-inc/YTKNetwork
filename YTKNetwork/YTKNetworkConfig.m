@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 #import "YTKNetworkConfig.h"
+#import "AFNetworking.h"
 
 @implementation YTKNetworkConfig {
     NSMutableArray *_urlFilters;

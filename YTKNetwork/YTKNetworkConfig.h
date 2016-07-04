@@ -24,6 +24,8 @@
 #import <Foundation/Foundation.h>
 #import "YTKBaseRequest.h"
 
+@class AFSecurityPolicy;
+
 @protocol YTKUrlFilterProtocol <NSObject>
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(YTKBaseRequest *)request;
 @end

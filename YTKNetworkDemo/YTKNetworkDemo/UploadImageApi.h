@@ -7,6 +7,7 @@
 //
 
 #import "YTKRequest.h"
+#import <UIKit/UIKit.h>
 
 @interface UploadImageApi : YTKRequest
 

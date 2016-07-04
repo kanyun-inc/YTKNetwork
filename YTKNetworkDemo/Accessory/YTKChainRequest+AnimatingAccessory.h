@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "YTKChainRequest.h"
 
 @interface YTKChainRequest (AnimatingAccessory)

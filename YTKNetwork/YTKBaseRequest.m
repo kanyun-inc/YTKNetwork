@@ -24,6 +24,9 @@
 #import "YTKBaseRequest.h"
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkPrivate.h"
+#import "AFDownloadRequestOperation.h"
+#import "AFNetworking.h"
+
 
 @implementation YTKBaseRequest
 
