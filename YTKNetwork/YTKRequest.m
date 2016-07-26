@@ -77,7 +77,7 @@
     NSString *path = [pathOfLibrary stringByAppendingPathComponent:@"LazyRequestCache"];
 
     // filter cache base path
-    NSArray *filters = [[YTKNetworkConfig sharedInstance] cacheDirPathFilters];
+    NSArray<id<YTKCacheDirPathFilterProtocol>> *filters = [[YTKNetworkConfig sharedInstance] cacheDirPathFilters];
     if (filters.count > 0) {
         for (id<YTKCacheDirPathFilterProtocol> f in filters) {
             path = [f filterCacheDirPath:path withRequest:self];

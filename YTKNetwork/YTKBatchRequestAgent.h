@@ -24,6 +24,8 @@
 #import <Foundation/Foundation.h>
 #import "YTKBatchRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface YTKBatchRequestAgent : NSObject
 
 + (YTKBatchRequestAgent *)sharedInstance;
@@ -33,3 +35,5 @@
 - (void)removeBatchRequest:(YTKBatchRequest *)request;
 
 @end
+
+NS_ASSUME_NONNULL_END

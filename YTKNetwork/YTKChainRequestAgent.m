@@ -25,7 +25,7 @@
 
 @interface YTKChainRequestAgent()
 
-@property (strong, nonatomic) NSMutableArray *requestArray;
+@property (strong, nonatomic) NSMutableArray<YTKChainRequest *> *requestArray;
 
 @end
 
@@ -40,7 +40,7 @@
     return sharedInstance;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _requestArray = [NSMutableArray array];

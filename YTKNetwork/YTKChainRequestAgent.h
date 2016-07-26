@@ -24,6 +24,8 @@
 #import <Foundation/Foundation.h>
 #import "YTKChainRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// ChainRequestAgent is used for caching & keeping current request.
 @interface YTKChainRequestAgent : NSObject
 
@@ -34,3 +36,5 @@
 - (void)removeChainRequest:(YTKChainRequest *)request;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -27,8 +27,8 @@
 
 @interface YTKChainRequest()<YTKRequestDelegate>
 
-@property (strong, nonatomic) NSMutableArray *requestArray;
-@property (strong, nonatomic) NSMutableArray *requestCallbackArray;
+@property (strong, nonatomic) NSMutableArray<YTKBaseRequest *> *requestArray;
+@property (strong, nonatomic) NSMutableArray<ChainCallback> *requestCallbackArray;
 @property (assign, nonatomic) NSUInteger nextRequestIndex;
 @property (strong, nonatomic) ChainCallback emptyCallback;
 
@@ -36,7 +36,7 @@
 
 @implementation YTKChainRequest
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _nextRequestIndex = 0;
@@ -80,7 +80,7 @@
     }
 }
 
-- (NSArray *)requestArray {
+- (NSArray<YTKBaseRequest *> *)requestArray {
     return _requestArray;
 }
 

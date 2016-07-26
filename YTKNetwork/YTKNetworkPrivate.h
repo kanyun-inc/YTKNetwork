@@ -26,6 +26,8 @@
 #import "YTKBatchRequest.h"
 #import "YTKChainRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
 @interface YTKNetworkPrivate : NSObject
@@ -67,4 +69,5 @@ FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
 @end
 
+NS_ASSUME_NONNULL_END
 

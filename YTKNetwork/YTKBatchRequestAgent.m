@@ -25,7 +25,7 @@
 
 @interface YTKBatchRequestAgent()
 
-@property (strong, nonatomic) NSMutableArray *requestArray;
+@property (strong, nonatomic) NSMutableArray<YTKBatchRequest *> *requestArray;
 
 @end
 
@@ -41,7 +41,7 @@
 }
 
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _requestArray = [NSMutableArray array];

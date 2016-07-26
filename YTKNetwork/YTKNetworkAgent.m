@@ -30,7 +30,7 @@
 @implementation YTKNetworkAgent {
     AFHTTPRequestOperationManager *_manager;
     YTKNetworkConfig *_config;
-    NSMutableDictionary *_requestsRecord;
+    NSMutableDictionary<NSString *, YTKBaseRequest *> *_requestsRecord;
     dispatch_queue_t _requestProcessingQueue;
 }
 
@@ -43,7 +43,7 @@
     return sharedInstance;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _config = [YTKNetworkConfig sharedInstance];

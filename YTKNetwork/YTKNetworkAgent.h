@@ -24,6 +24,8 @@
 #import <Foundation/Foundation.h>
 #import "YTKBaseRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface YTKNetworkAgent : NSObject
 
 + (YTKNetworkAgent *)sharedInstance;
@@ -38,3 +40,5 @@
 - (NSString *)buildRequestUrl:(YTKBaseRequest *)request;
 
 @end
+
+NS_ASSUME_NONNULL_END

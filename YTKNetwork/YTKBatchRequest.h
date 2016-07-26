@@ -24,6 +24,8 @@
 #import <Foundation/Foundation.h>
 #import "YTKRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class YTKBatchRequest;
 @protocol YTKBatchRequestDelegate <NSObject>
 
@@ -37,32 +39,32 @@
 
 @interface YTKBatchRequest : NSObject
 
-@property (strong, nonatomic, readonly) NSArray *requestArray;
+@property (strong, nonatomic, readonly) NSArray<YTKRequest *> *requestArray;
 
-@property (weak, nonatomic) id<YTKBatchRequestDelegate> delegate;
+@property (weak, nonatomic, nullable) id<YTKBatchRequestDelegate> delegate;
 
-@property (nonatomic, copy) void (^successCompletionBlock)(YTKBatchRequest *);
+@property (nonatomic, copy, nullable) void (^successCompletionBlock)(YTKBatchRequest *);
 
-@property (nonatomic, copy) void (^failureCompletionBlock)(YTKBatchRequest *);
+@property (nonatomic, copy, nullable) void (^failureCompletionBlock)(YTKBatchRequest *);
 
 @property (nonatomic) NSInteger tag;
 
-@property (nonatomic, strong) NSMutableArray *requestAccessories;
+@property (nonatomic, strong, nullable) NSMutableArray<id<YTKRequestAccessory>> *requestAccessories;
 
-@property (nonatomic, strong, readonly) YTKRequest *failedRequest;
+@property (nonatomic, strong, readonly, nullable) YTKRequest *failedRequest;
 
-- (id)initWithRequestArray:(NSArray *)requestArray;
+- (instancetype)initWithRequestArray:(NSArray<YTKRequest *> *)requestArray;
 
 - (void)start;
 
 - (void)stop;
 
 /// block回调
-- (void)startWithCompletionBlockWithSuccess:(void (^)(YTKBatchRequest *batchRequest))success
-                                    failure:(void (^)(YTKBatchRequest *batchRequest))failure;
+- (void)startWithCompletionBlockWithSuccess:(nullable void (^)(YTKBatchRequest *batchRequest))success
+                                    failure:(nullable void (^)(YTKBatchRequest *batchRequest))failure;
 
-- (void)setCompletionBlockWithSuccess:(void (^)(YTKBatchRequest *batchRequest))success
-                              failure:(void (^)(YTKBatchRequest *batchRequest))failure;
+- (void)setCompletionBlockWithSuccess:(nullable void (^)(YTKBatchRequest *batchRequest))success
+                              failure:(nullable void (^)(YTKBatchRequest *batchRequest))failure;
 
 /// 把block置nil来打破循环引用
 - (void)clearCompletionBlock;
@@ -74,3 +76,5 @@
 - (BOOL)isDataFromCache;
 
 @end
+
+NS_ASSUME_NONNULL_END

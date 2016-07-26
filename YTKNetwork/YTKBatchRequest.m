@@ -33,7 +33,7 @@
 
 @implementation YTKBatchRequest
 
-- (id)initWithRequestArray:(NSArray *)requestArray {
+- (instancetype)initWithRequestArray:(NSArray<YTKRequest *> *)requestArray {
     self = [super init];
     if (self) {
         _requestArray = [requestArray copy];

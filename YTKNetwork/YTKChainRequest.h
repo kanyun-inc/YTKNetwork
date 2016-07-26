@@ -24,7 +24,11 @@
 #import <Foundation/Foundation.h>
 #import "YTKBaseRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class YTKChainRequest;
+@protocol YTKRequestAccessory;
+
 @protocol YTKChainRequestDelegate <NSObject>
 
 @optional
@@ -39,9 +43,9 @@ typedef void (^ChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *bas
 
 @interface YTKChainRequest : NSObject
 
-@property (weak, nonatomic) id<YTKChainRequestDelegate> delegate;
+@property (weak, nonatomic, nullable) id<YTKChainRequestDelegate> delegate;
 
-@property (nonatomic, strong) NSMutableArray *requestAccessories;
+@property (nonatomic, strong, nullable) NSMutableArray<id<YTKRequestAccessory>> *requestAccessories;
 
 /// start chain request
 - (void)start;
@@ -49,11 +53,13 @@ typedef void (^ChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *bas
 /// stop chain request
 - (void)stop;
 
-- (void)addRequest:(YTKBaseRequest *)request callback:(ChainCallback)callback;
+- (void)addRequest:(YTKBaseRequest *)request callback:(nullable ChainCallback)callback;
 
-- (NSArray *)requestArray;
+- (NSArray<YTKBaseRequest *> *)requestArray;
 
 /// Request Accessory，可以hook Request的start和stop
 - (void)addAccessory:(id<YTKRequestAccessory>)accessory;
 
 @end
+
+NS_ASSUME_NONNULL_END

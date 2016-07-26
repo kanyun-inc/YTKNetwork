@@ -23,12 +23,14 @@
 
 #import "YTKBaseRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface YTKRequest : YTKBaseRequest
 
 @property (nonatomic) BOOL ignoreCache;
 
 /// 返回当前缓存的对象
-- (id)cacheJson;
+- (nullable id)cacheJson;
 
 /// 是否当前的数据从缓存获得
 - (BOOL)isDataFromCache;
@@ -45,6 +47,8 @@
 /// For subclass to overwrite
 - (NSInteger)cacheTimeInSeconds;
 - (long long)cacheVersion;
-- (id)cacheSensitiveData;
+- (nullable id)cacheSensitiveData;
 
 @end
+
+NS_ASSUME_NONNULL_END
