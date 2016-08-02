@@ -1,7 +1,7 @@
 //
 //  YTKBatchRequest.h
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,13 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "YTKRequest.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class YTKRequest;
 @class YTKBatchRequest;
+@protocol YTKRequestAccessory;
+
 @protocol YTKBatchRequestDelegate <NSObject>
 
 @optional
@@ -39,9 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YTKBatchRequest : NSObject
 
-@property (strong, nonatomic, readonly) NSArray<YTKRequest *> *requestArray;
+@property (nonatomic, strong, readonly) NSArray<YTKRequest *> *requestArray;
 
-@property (weak, nonatomic, nullable) id<YTKBatchRequestDelegate> delegate;
+@property (nonatomic, weak, nullable) id<YTKBatchRequestDelegate> delegate;
 
 @property (nonatomic, copy, nullable) void (^successCompletionBlock)(YTKBatchRequest *);
 

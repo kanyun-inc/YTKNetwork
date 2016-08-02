@@ -1,7 +1,7 @@
 //
 //  YTKNetworkAgent.h
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,10 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "YTKBaseRequest.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class YTKBaseRequest;
 
 @interface YTKNetworkAgent : NSObject
 

@@ -1,7 +1,7 @@
 //
 //  YTKNetworkPrivate.m
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@
 
 #import <CommonCrypto/CommonDigest.h>
 #import "YTKNetworkPrivate.h"
+#import "AFURLRequestSerialization.h"
 
 void YTKLog(NSString *format, ...) {
 #ifdef DEBUG
@@ -112,11 +113,7 @@ void YTKLog(NSString *format, ...) {
 
 
 + (NSString*)urlEncode:(NSString*)str {
-    //different library use slightly different escaped and unescaped set.
-    //below is copied from AFNetworking but still escaped [] as AF leave them for Rails array parameter which we don't use.
-    //https://github.com/AFNetworking/AFNetworking/pull/555
-    NSString *result = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)str, CFSTR("."), CFSTR(":/?#[]@!$&'()*+,;="), kCFStringEncodingUTF8);
-    return result;
+    return AFPercentEscapedStringFromString(str);
 }
 
 + (void)addDoNotBackupAttribute:(NSString *)path {
@@ -147,6 +144,18 @@ void YTKLog(NSString *format, ...) {
 
 + (NSString *)appVersionString {
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
+
++ (NSStringEncoding)stringEncodingWithRequest:(YTKBaseRequest *)request {
+    // From AFNetworking 2.6.3
+    NSStringEncoding stringEncoding = NSUTF8StringEncoding;
+    if (request.response.textEncodingName) {
+        CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)request.response.textEncodingName);
+        if (encoding != kCFStringEncodingInvalidId) {
+            stringEncoding = CFStringConvertEncodingToNSStringEncoding(encoding);
+        }
+    }
+    return stringEncoding;
 }
 
 @end

@@ -1,7 +1,7 @@
 //
 //  YTKBaseRequest.m
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,11 +24,28 @@
 #import "YTKBaseRequest.h"
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkPrivate.h"
-#import "AFDownloadRequestOperation.h"
 #import "AFNetworking.h"
 
+@interface YTKBaseRequest ()
+
+@property (nonatomic, strong, readwrite) NSURLSessionTask *requestTask;
+@property (nonatomic, strong, readwrite, nullable) NSData *responseData;
+@property (nonatomic, strong, readwrite, nullable) id responseJSONObject;
+@property (nonatomic, strong, readwrite, nullable) id responseObject;
+@property (nonatomic, strong, readwrite, nullable) NSString *responseString;
+@property (nonatomic, strong, readwrite, nullable) NSError *error;
+
+@end
 
 @implementation YTKBaseRequest
+
+- (NSURLRequest *)currentRequest {
+    return self.requestTask.currentRequest;
+}
+
+- (NSURLRequest *)originalRequest {
+    return self.requestTask.originalRequest;
+}
 
 /// for subclasses to overwrite
 - (void)requestCompleteFilter {
@@ -98,18 +115,6 @@
     }
 }
 
-- (AFConstructingBlock)constructingBodyBlock {
-    return nil;
-}
-
-- (NSString *)resumableDownloadPath {
-    return nil;
-}
-
-- (AFDownloadProgressBlock)resumableDownloadProgressBlock {
-    return nil;
-}
-
 /// append self to request queue
 - (void)start {
     [self toggleAccessoriesWillStartCallBack];
@@ -125,11 +130,17 @@
 }
 
 - (BOOL)isCancelled {
-    return self.requestOperation.isCancelled;
+    if (!self.requestTask) {
+        return NO;
+    }
+    return self.requestTask.state == NSURLSessionTaskStateCanceling;
 }
 
 - (BOOL)isExecuting {
-    return self.requestOperation.isExecuting;
+    if (!self.requestTask) {
+        return NO;
+    }
+    return self.requestTask.state == NSURLSessionTaskStateRunning;
 }
 
 - (void)startWithCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success
@@ -150,28 +161,16 @@
     self.failureCompletionBlock = nil;
 }
 
-- (id)responseJSONObject {
-    return self.requestOperation.responseObject;
-}
-
-- (NSData *)responseData {
-    return self.requestOperation.responseData;
-}
-
-- (NSString *)responseString {
-    return self.requestOperation.responseString;
+- (NSHTTPURLResponse *)response {
+    return (NSHTTPURLResponse *)self.requestTask.response;
 }
 
 - (NSInteger)responseStatusCode {
-    return self.requestOperation.response.statusCode;
+    return self.response.statusCode;
 }
 
 - (NSDictionary *)responseHeaders {
-    return self.requestOperation.response.allHeaderFields;
-}
-
-- (NSError *)requestOperationError {
-    return self.requestOperation.error;
+    return self.response.allHeaderFields;
 }
 
 #pragma mark - Request Accessories

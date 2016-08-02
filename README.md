@@ -50,6 +50,10 @@ To use YTKNetwork add the following to your Podfile
 
     pod 'YTKNetwork'
 
+Or add this in your Cartfile:
+
+    github "yuantiku/YTKNetwork" ~> 2.0
+
 ## Guide & Demo
 
  * [Basic Usage Guide][BasicGuide-EN]
@@ -121,6 +125,12 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 你可以在 Podfile 中加入下面一行代码来使用YTKNetwork
 
     pod 'YTKNetwork'
+
+## Carthage 支持
+
+在 Cartfile 中加入下面的代码以使用 YTKNetwork
+
+    github "yuantiku/YTKNetwork" ~> 2.0
 
 ## 相关的使用教程和 Demo
 

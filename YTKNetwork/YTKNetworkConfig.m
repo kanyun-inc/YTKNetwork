@@ -1,7 +1,7 @@
 //
 //  YTKNetworkConfig.m
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 #import "YTKNetworkConfig.h"
+#import "YTKBaseRequest.h"
 #import "AFNetworking.h"
 
 @implementation YTKNetworkConfig {
@@ -54,8 +55,16 @@
     [_urlFilters addObject:filter];
 }
 
+- (void)clearUrlFilter {
+    [_urlFilters removeAllObjects];
+}
+
 - (void)addCacheDirPathFilter:(id<YTKCacheDirPathFilterProtocol>)filter {
     [_cacheDirPathFilters addObject:filter];
+}
+
+- (void)clearCacheDirPathFilter {
+    [_cacheDirPathFilters removeAllObjects];
 }
 
 - (NSArray<id<YTKUrlFilterProtocol>> *)urlFilters {

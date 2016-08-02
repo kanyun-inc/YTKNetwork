@@ -1,7 +1,7 @@
 //
 //  YTKRequest.m
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -199,7 +199,7 @@
     } else {
         NSString *path = [self cacheFilePath];
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:path isDirectory:nil] == YES) {
+        if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
             _cacheJson = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         }
         return _cacheJson;
@@ -241,8 +241,12 @@
     if ([self cacheTimeInSeconds] > 0 && ![self isDataFromCache]) {
         NSDictionary *json = jsonResponse;
         if (json != nil) {
-            [NSKeyedArchiver archiveRootObject:json toFile:[self cacheFilePath]];
-            [NSKeyedArchiver archiveRootObject:@([self cacheVersion]) toFile:[self cacheVersionFilePath]];
+            @try {
+                [NSKeyedArchiver archiveRootObject:json toFile:[self cacheFilePath]];
+                [NSKeyedArchiver archiveRootObject:@([self cacheVersion]) toFile:[self cacheVersionFilePath]];
+            } @catch (NSException *exception) {
+                YTKLog(@"Save cache failed, reason = %@", exception.reason);
+            }
         }
     }
 }

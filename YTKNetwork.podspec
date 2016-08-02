@@ -12,9 +12,8 @@ Pod::Spec.new do |s|
  }
   s.source        = { :git => "https://github.com/yuantiku/YTKNetwork.git", :tag => s.version.to_s }
   s.source_files  = "YTKNetwork/*.{h,m}"
-  s.platform      = :ios, '6.0'
+  s.private_header_files = "YTKNetwork/YTKNetworkPrivate.h"
+  s.platform      = :ios, '7.0'
   s.requires_arc  = true
-  s.dependency "AFNetworking", "~> 2.0"
-  s.dependency "AFDownloadRequestOperation", "~> 2.0"
-
+  s.dependency "AFNetworking", "~> 3.0"
 end

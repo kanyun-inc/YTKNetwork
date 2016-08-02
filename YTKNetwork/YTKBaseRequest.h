@@ -1,7 +1,7 @@
 //
 //  YTKBaseRequest.h
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,12 +22,8 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFURLRequestSerialization.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class AFHTTPRequestOperation;
-@class AFDownloadRequestOperation;
 
 typedef NS_ENUM(NSInteger , YTKRequestMethod) {
     YTKRequestMethodGet = 0,
@@ -49,8 +45,10 @@ typedef NS_ENUM(NSInteger , YTKRequestPriority) {
     YTKRequestPriorityHigh = 4,
 };
 
+@protocol AFMultipartFormData;
+
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
-typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile);
+typedef void (^AFURLSessionTaskProgressBlock)(NSProgress *);
 
 @class YTKBaseRequest;
 
@@ -84,10 +82,18 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 /// User info
 @property (nonatomic, strong, nullable) NSDictionary *userInfo;
 
-@property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
+@property (nonatomic, strong, readonly) NSURLSessionTask *requestTask;
+
+@property (nonatomic, strong, readonly) NSURLRequest *currentRequest;
+
+@property (nonatomic, strong, readonly) NSURLRequest *originalRequest;
 
 /// request delegate object
 @property (nonatomic, weak, nullable) id<YTKRequestDelegate> delegate;
+
+@property (nonatomic, strong, readonly) NSHTTPURLResponse *response;
+
+@property (nonatomic, readonly) NSInteger responseStatusCode;
 
 @property (nonatomic, strong, readonly, nullable) NSDictionary *responseHeaders;
 
@@ -95,17 +101,28 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 @property (nonatomic, strong, readonly, nullable) NSString *responseString;
 
+@property (nonatomic, strong, readonly, nullable) id responseObject;
+
 @property (nonatomic, strong, readonly, nullable) id responseJSONObject;
 
-@property (nonatomic, readonly) NSInteger responseStatusCode;
-
-@property (nonatomic, strong, readonly, nullable) NSError *requestOperationError;
+@property (nonatomic, strong, readonly, nullable) NSError *error;
 
 @property (nonatomic, copy, nullable) YTKRequestCompletionBlock successCompletionBlock;
 
 @property (nonatomic, copy, nullable) YTKRequestCompletionBlock failureCompletionBlock;
 
 @property (nonatomic, strong, nullable) NSMutableArray<id<YTKRequestAccessory>> *requestAccessories;
+
+/// 当POST的内容带有文件等富文本时使用
+@property (nonatomic, copy, nullable) AFConstructingBlock constructingBodyBlock;
+
+/// 当需要断点续传时，指定续传的地址
+///
+/// @discussion 若设置这个属性为非 nil 路径，会使用 NSURLSessionDownloadTask 进行下载，下载完成后文件将被保存到此路径
+@property (nonatomic, strong, nullable) NSString *resumableDownloadPath;
+
+/// 当需要断点续传时，获得下载进度的回调
+@property (nonatomic, copy, nullable) AFURLSessionTaskProgressBlock resumableDownloadProgressBlock;
 
 /// 请求的优先级, 优先级高的请求会从请求队列中优先出列
 @property (nonatomic) YTKRequestPriority requestPriority;
@@ -167,10 +184,10 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 - (YTKRequestSerializerType)requestSerializerType;
 
 /// 请求的Server用户名和密码
-- (nullable NSArray *)requestAuthorizationHeaderFieldArray;
+- (nullable NSArray<NSString *> *)requestAuthorizationHeaderFieldArray;
 
 /// 在HTTP报头添加的自定义参数
-- (nullable NSDictionary *)requestHeaderFieldValueDictionary;
+- (nullable NSDictionary<NSString *, NSString *> *)requestHeaderFieldValueDictionary;
 
 /// 构建自定义的UrlRequest，
 /// 若这个方法返回非nil对象，会忽略requestUrl, requestArgument, requestMethod, requestSerializerType
@@ -184,15 +201,6 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 /// 用于检查Status Code是否正常的方法
 - (BOOL)statusCodeValidator;
-
-/// 当POST的内容带有文件等富文本时使用
-- (nullable AFConstructingBlock)constructingBodyBlock;
-
-/// 当需要断点续传时，指定续传的地址
-- (nullable NSString *)resumableDownloadPath;
-
-/// 当需要断点续传时，获得下载进度的回调
-- (nullable AFDownloadProgressBlock)resumableDownloadProgressBlock;
 
 @end
 

@@ -1,7 +1,7 @@
 //
 //  YTKNetworkPrivate.h
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -35,13 +35,26 @@ FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 + (BOOL)checkJson:(id)json withValidator:(id)validatorJson;
 
 + (NSString *)urlStringWithOriginUrlString:(NSString *)originUrlString
-                          appendParameters:(NSDictionary *)parameters;
+                          appendParameters:(NSDictionary<NSString *, NSString *> *)parameters;
 
 + (void)addDoNotBackupAttribute:(NSString *)path;
 
 + (NSString *)md5StringFromString:(NSString *)string;
 
 + (NSString *)appVersionString;
+
++ (NSStringEncoding)stringEncodingWithRequest:(YTKBaseRequest *)request;
+
+@end
+
+@interface YTKBaseRequest (Setter)
+
+@property (nonatomic, strong, readwrite) NSURLSessionTask *requestTask;
+@property (nonatomic, strong, readwrite, nullable) NSData *responseData;
+@property (nonatomic, strong, readwrite, nullable) id responseJSONObject;
+@property (nonatomic, strong, readwrite, nullable) id responseObject;
+@property (nonatomic, strong, readwrite, nullable) NSString *responseString;
+@property (nonatomic, strong, readwrite, nullable) NSError *error;
 
 @end
 
