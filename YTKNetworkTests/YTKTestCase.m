@@ -8,6 +8,7 @@
 
 #import "YTKTestCase.h"
 #import "YTKNetworkConfig.h"
+#import "YTKNetworkAgent.h"
 #import "YTKRequest.h"
 
 NSString * const YTKNetworkingTestsBaseURLString = @"https://httpbin.org/";
@@ -17,12 +18,12 @@ NSString * const YTKNetworkingTestsBaseURLString = @"https://httpbin.org/";
 - (void)setUp {
     [super setUp];
     self.networkTimeout = 20.0;
-
     [YTKNetworkConfig sharedInstance].baseUrl = YTKNetworkingTestsBaseURLString;
 }
 
 - (void)tearDown {
     [super tearDown];
+    [[YTKNetworkAgent sharedInstance] cancelAllRequests];
     [YTKNetworkConfig sharedInstance].baseUrl = @"";
     [YTKNetworkConfig sharedInstance].cdnUrl = @"";
     [[YTKNetworkConfig sharedInstance] clearUrlFilter];
