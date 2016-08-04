@@ -24,7 +24,7 @@
 #import "YTKBaseRequest.h"
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkPrivate.h"
-#import "AFDownloadRequestOperation.h"
+//#import "AFDownloadRequestOperation.h"
 #import "AFNetworking.h"
 
 
@@ -125,11 +125,13 @@
 }
 
 - (BOOL)isCancelled {
-    return self.requestOperation.isCancelled;
+//    return self.requestOperation.isCancelled;
+    return self.requestTask.state == NSURLSessionTaskStateCanceling;
 }
 
 - (BOOL)isExecuting {
-    return self.requestOperation.isExecuting;
+//    return self.requestOperation.isExecuting;
+    return self.requestTask.state == NSURLSessionTaskStateRunning;
 }
 
 - (void)startWithCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success
@@ -150,29 +152,51 @@
     self.failureCompletionBlock = nil;
 }
 
-- (id)responseJSONObject {
-    return self.requestOperation.responseObject;
-}
-
-- (NSData *)responseData {
-    return self.requestOperation.responseData;
-}
-
+//- (id)responseJSONObject {
+//    if(!_responseJSONObject)
+//    {
+//        if (self.responseData)
+//        {
+//            _responseJSONObject = self;
+//        }
+//        else if (self.responseString)
+//        {
+//            _responseJSONObject=self.responseString;
+//        }
+//    }
+//    return _responseJSONObject;
+//}
+//
+//- (NSData *)responseData {
+//    return self.requestOperation.responseData;
+//}
+//
 - (NSString *)responseString {
-    return self.requestOperation.responseString;
+    if(!_responseString)
+    {
+        if (self.responseData)
+        {
+            _responseString = [[NSString alloc]initWithData:self.responseData encoding:NSUTF8StringEncoding];
+        }
+    }
+    return _responseString;
 }
 
 - (NSInteger)responseStatusCode {
-    return self.requestOperation.response.statusCode;
+//    return self.requestOperation.response.statusCode;
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)self.requestTask.response;
+    return httpResponse.statusCode;
 }
 
 - (NSDictionary *)responseHeaders {
-    return self.requestOperation.response.allHeaderFields;
+//    return self.requestOperation.response.allHeaderFields;
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)self.requestTask.response;
+    return httpResponse.allHeaderFields;
 }
 
-- (NSError *)requestOperationError {
-    return self.requestOperation.error;
-}
+//- (NSError *)requestOperationError {
+//    return self.requestOperation.error;
+//}
 
 #pragma mark - Request Accessories
 

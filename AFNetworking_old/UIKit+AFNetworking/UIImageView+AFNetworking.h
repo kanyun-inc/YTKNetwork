@@ -1,5 +1,5 @@
 // UIImageView+AFNetworking.h
-// Copyright (c) 2011–2016 Alamofire Software Foundation ( http://alamofire.org/ )
+// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,36 +21,47 @@
 
 #import <Foundation/Foundation.h>
 
-#import <TargetConditionals.h>
+#import <Availability.h>
 
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class AFImageDownloader;
+@protocol AFURLResponseSerialization, AFImageCache;
 
 /**
  This category adds methods to the UIKit framework's `UIImageView` class. The methods in this category provide support for loading remote images asynchronously from a URL.
  */
 @interface UIImageView (AFNetworking)
 
+///----------------------------
+/// @name Accessing Image Cache
+///----------------------------
+
+/**
+ The image cache used to improve image loading performance on scroll views. By default, this is an `NSCache` subclass conforming to the `AFImageCache` protocol, which listens for notification warnings and evicts objects accordingly.
+*/
++ (id <AFImageCache>)sharedImageCache;
+
+/**
+ Set the cache used for image loading.
+
+ @param imageCache The image cache.
+ */
++ (void)setSharedImageCache:(__nullable id <AFImageCache>)imageCache;
+
 ///------------------------------------
-/// @name Accessing the Image Downloader
+/// @name Accessing Response Serializer
 ///------------------------------------
 
 /**
- Set the shared image downloader used to download images.
+ The response serializer used to create an image representation from the server response and response data. By default, this is an instance of `AFImageResponseSerializer`.
 
- @param imageDownloader The shared image downloader used to download images.
+ @discussion Subclasses of `AFImageResponseSerializer` could be used to perform post-processing, such as color correction, face detection, or other effects. See https://github.com/AFNetworking/AFCoreImageSerializer
  */
-+ (void)setSharedImageDownloader:(AFImageDownloader *)imageDownloader;
-
-/**
- The shared image downloader used to download images.
- */
-+ (AFImageDownloader *)sharedImageDownloader;
+@property (nonatomic, strong) id <AFURLResponseSerialization> imageResponseSerializer;
 
 ///--------------------
 /// @name Setting Image
@@ -89,19 +100,45 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param urlRequest The URL request used for the image request.
  @param placeholderImage The image to be set initially, until the image request finishes. If `nil`, the image view will not change its image until the image request finishes.
- @param success A block to be executed when the image data task finishes successfully. This block has no return value and takes three arguments: the request sent from the client, the response received from the server, and the image created from the response data of request. If the image was returned from cache, the response parameter will be `nil`.
- @param failure A block object to be executed when the image data task finishes unsuccessfully, or that finishes successfully. This block has no return value and takes three arguments: the request sent from the client, the response received from the server, and the error object describing the network or parsing error that occurred.
+ @param success A block to be executed when the image request operation finishes successfully. This block has no return value and takes three arguments: the request sent from the client, the response received from the server, and the image created from the response data of request. If the image was returned from cache, the response parameter will be `nil`.
+ @param failure A block object to be executed when the image request operation finishes unsuccessfully, or that finishes successfully. This block has no return value and takes three arguments: the request sent from the client, the response received from the server, and the error object describing the network or parsing error that occurred.
  */
 - (void)setImageWithURLRequest:(NSURLRequest *)urlRequest
               placeholderImage:(nullable UIImage *)placeholderImage
-                       success:(nullable void (^)(NSURLRequest *request, NSHTTPURLResponse * _Nullable response, UIImage *image))success
-                       failure:(nullable void (^)(NSURLRequest *request, NSHTTPURLResponse * _Nullable response, NSError *error))failure;
+                       success:(nullable void (^)(NSURLRequest *request, NSHTTPURLResponse * __nullable response, UIImage *image))success
+                       failure:(nullable void (^)(NSURLRequest *request, NSHTTPURLResponse * __nullable response, NSError *error))failure;
 
 /**
  Cancels any executing image operation for the receiver, if one exists.
  */
-- (void)cancelImageDownloadTask;
+- (void)cancelImageRequestOperation;
 
+@end
+
+#pragma mark -
+
+/**
+ The `AFImageCache` protocol is adopted by an object used to cache images loaded by the AFNetworking category on `UIImageView`.
+ */
+@protocol AFImageCache <NSObject>
+
+/**
+ Returns a cached image for the specified request, if available.
+
+ @param request The image request.
+
+ @return The cached image.
+ */
+- (nullable UIImage *)cachedImageForRequest:(NSURLRequest *)request;
+
+/**
+ Caches a particular image for the specified request.
+
+ @param image The image to cache.
+ @param request The request to be used as a cache key.
+ */
+- (void)cacheImage:(UIImage *)image
+        forRequest:(NSURLRequest *)request;
 @end
 
 NS_ASSUME_NONNULL_END

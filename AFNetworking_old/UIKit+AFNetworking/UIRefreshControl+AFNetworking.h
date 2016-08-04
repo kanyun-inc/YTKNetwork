@@ -1,6 +1,6 @@
 // UIRefreshControl+AFNetworking.m
 //
-// Copyright (c) 2011–2016 Alamofire Software Foundation ( http://alamofire.org/ )
+// Copyright (c) 2014 AFNetworking (http://afnetworking.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,16 +22,18 @@
 
 #import <Foundation/Foundation.h>
 
-#import <TargetConditionals.h>
+#import <Availability.h>
 
-#if TARGET_OS_IOS
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class AFURLConnectionOperation;
+
 /**
- This category adds methods to the UIKit framework's `UIRefreshControl` class. The methods in this category provide support for automatically beginning and ending refreshing depending on the loading state of a session task.
+ This category adds methods to the UIKit framework's `UIRefreshControl` class. The methods in this category provide support for automatically beginning and ending refreshing depending on the loading state of a request operation or session task.
  */
 @interface UIRefreshControl (AFNetworking)
 
@@ -44,7 +46,20 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param task The task. If `nil`, automatic updating from any previously specified operation will be disabled.
  */
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 - (void)setRefreshingWithStateOfTask:(NSURLSessionTask *)task;
+#endif
+
+///----------------------------------------
+/// @name Refreshing for Request Operations
+///----------------------------------------
+
+/**
+ Binds the refreshing state to the execution state of the specified operation.
+
+ @param operation The operation. If `nil`, automatic updating from any previously specified operation will be disabled.
+ */
+- (void)setRefreshingWithStateOfOperation:(AFURLConnectionOperation *)operation;
 
 @end
 
