@@ -1,3 +1,5 @@
+update AFNetworking to 3.x
+==========================
 YTKNetwork 
 ==========
 
