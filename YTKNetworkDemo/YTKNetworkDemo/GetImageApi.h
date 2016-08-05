@@ -9,7 +9,7 @@
 #import "YTKRequest.h"
 
 @interface GetImageApi : YTKRequest
-
+@property (nonatomic, strong) NSString *imageId;
 - (id)initWithImageId:(NSString *)imageId;
 
 @end

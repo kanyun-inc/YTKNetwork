@@ -22,7 +22,8 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFURLRequestSerialization.h>
+//#import <AFNetworking/AFURLRequestSerialization.h>
+#import "AFNetworking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,6 +44,12 @@ typedef NS_ENUM(NSInteger , YTKRequestSerializerType) {
     YTKRequestSerializerTypeJSON,
 };
 
+typedef NS_ENUM(NSInteger , YTKResponseSerializerType) {
+    YTKResponseSerializerTypeHTTP = 0,
+    YTKResponseSerializerTypeJSON,
+    YTKResponseSerializerTypeXML,
+};
+
 typedef NS_ENUM(NSInteger , YTKRequestPriority) {
     YTKRequestPriorityLow = -4L,
     YTKRequestPriorityDefault = 0,
@@ -50,7 +57,7 @@ typedef NS_ENUM(NSInteger , YTKRequestPriority) {
 };
 
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
-typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile);
+typedef void (^AFDownloadProgressBlock)(NSProgress *downloadProgress);
 
 @class YTKBaseRequest;
 
@@ -84,22 +91,23 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 /// User info
 @property (nonatomic, strong, nullable) NSDictionary *userInfo;
 
-@property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
+//@property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
 
+@property (nonatomic, strong) NSURLSessionTask * requestTask;
 /// request delegate object
 @property (nonatomic, weak, nullable) id<YTKRequestDelegate> delegate;
 
 @property (nonatomic, strong, readonly, nullable) NSDictionary *responseHeaders;
 
-@property (nonatomic, strong, readonly, nullable) NSData *responseData;
+@property (nonatomic, strong, nullable) NSData *responseData;
 
-@property (nonatomic, strong, readonly, nullable) NSString *responseString;
+@property (nonatomic, strong, nullable) NSString *responseString;
 
-@property (nonatomic, strong, readonly, nullable) id responseJSONObject;
+@property (nonatomic, strong, nullable) id responseJSONObject;
 
 @property (nonatomic, readonly) NSInteger responseStatusCode;
 
-@property (nonatomic, strong, readonly, nullable) NSError *requestOperationError;
+@property (nonatomic, strong, nullable) NSError *requestError;
 
 @property (nonatomic, copy, nullable) YTKRequestCompletionBlock successCompletionBlock;
 
@@ -165,6 +173,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 /// 请求的SerializerType
 - (YTKRequestSerializerType)requestSerializerType;
+
+/// 返回的SerializerType
+- (YTKResponseSerializerType)responseSerializerType;
 
 /// 请求的Server用户名和密码
 - (nullable NSArray *)requestAuthorizationHeaderFieldArray;

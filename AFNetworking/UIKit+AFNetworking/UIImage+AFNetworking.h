@@ -1,17 +1,19 @@
-// AFNetworking.h
 //
-// Copyright (c) 2013 AFNetworking (http://afnetworking.com/)
-// 
+//  UIImage+AFNetworking.h
+//  
+//
+//  Created by Paulo Ferreira on 08/07/15.
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,27 +22,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <Availability.h>
+#if TARGET_OS_IOS || TARGET_OS_TV
 
-#ifndef _AFNETWORKING_
-    #define _AFNETWORKING_
+#import <UIKit/UIKit.h>
 
-    #import "AFURLRequestSerialization.h"
-    #import "AFURLResponseSerialization.h"
-    #import "AFSecurityPolicy.h"
-#if !TARGET_OS_WATCH
-    #import "AFNetworkReachabilityManager.h"
-    #import "AFURLConnectionOperation.h"
-    #import "AFHTTPRequestOperation.h"
-    #import "AFHTTPRequestOperationManager.h"
+@interface UIImage (AFNetworking)
+
++ (UIImage*) safeImageWithData:(NSData*)data;
+
+@end
+
 #endif
-
-#if ( ( defined(__MAC_OS_X_VERSION_MAX_ALLOWED) && __MAC_OS_X_VERSION_MAX_ALLOWED >= 1090) || \
-      ( defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000 ) || \
-       TARGET_OS_WATCH )
-    #import "AFURLSessionManager.h"
-    #import "AFHTTPSessionManager.h"
-#endif
-
-#endif /* _AFNETWORKING_ */
