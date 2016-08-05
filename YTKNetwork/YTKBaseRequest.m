@@ -69,6 +69,10 @@
     return YTKRequestSerializerTypeHTTP;
 }
 
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeHTTP;
+}
+
 - (NSArray *)requestAuthorizationHeaderFieldArray {
     return nil;
 }

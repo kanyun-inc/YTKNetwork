@@ -91,19 +91,18 @@
     id param = request.requestArgument;
     AFConstructingBlock constructingBlock = [request constructingBodyBlock];
 
-    AFHTTPRequestSerializer *requestSerializer = nil;
     if (request.requestSerializerType == YTKRequestSerializerTypeHTTP) {
-        requestSerializer = [AFHTTPRequestSerializer serializer];
+        _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     } else if (request.requestSerializerType == YTKRequestSerializerTypeJSON) {
-        requestSerializer = [AFJSONRequestSerializer serializer];
+        _manager.requestSerializer = [AFJSONRequestSerializer serializer];
     }
 
-    requestSerializer.timeoutInterval = [request requestTimeoutInterval];
+    _manager.requestSerializer.timeoutInterval = [request requestTimeoutInterval];
 
     // if api need server username and password
     NSArray *authorizationHeaderFieldArray = [request requestAuthorizationHeaderFieldArray];
     if (authorizationHeaderFieldArray != nil) {
-        [requestSerializer setAuthorizationHeaderFieldWithUsername:(NSString *)authorizationHeaderFieldArray.firstObject
+        [_manager.requestSerializer setAuthorizationHeaderFieldWithUsername:(NSString *)authorizationHeaderFieldArray.firstObject
                                                           password:(NSString *)authorizationHeaderFieldArray.lastObject];
     }
 
@@ -113,26 +112,24 @@
         for (id httpHeaderField in headerFieldValueDictionary.allKeys) {
             id value = headerFieldValueDictionary[httpHeaderField];
             if ([httpHeaderField isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
-                [requestSerializer setValue:(NSString *)value forHTTPHeaderField:(NSString *)httpHeaderField];
+                [_manager.requestSerializer setValue:(NSString *)value forHTTPHeaderField:(NSString *)httpHeaderField];
             } else {
                 YTKLog(@"Error, class of key/value in headerFieldValueDictionary should be NSString.");
             }
         }
     }
+    
+    if (request.responseSerializerType == YTKResponseSerializerTypeHTTP) {
+        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    } else if (request.responseSerializerType == YTKResponseSerializerTypeJSON) {
+        _manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    } else if (request.responseSerializerType == YTKResponseSerializerTypeXML) {
+        _manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    }
 
     // if api build custom url request
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];
     if (customUrlRequest) {
-//        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:customUrlRequest];
-//        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            [self handleRequestResult:operation];
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            [self handleRequestResult:operation];
-//        }];
-//        request.requestOperation = operation;
-//        operation.responseSerializer = _manager.responseSerializer;
-//        [_manager.operationQueue addOperation:operation];
-        
         NSURLSessionDataTask *dataTask = [_manager dataTaskWithRequest:customUrlRequest
                                                         uploadProgress:nil
                                                       downloadProgress:request.resumableDownloadProgressBlock

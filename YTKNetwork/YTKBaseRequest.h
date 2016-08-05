@@ -44,6 +44,12 @@ typedef NS_ENUM(NSInteger , YTKRequestSerializerType) {
     YTKRequestSerializerTypeJSON,
 };
 
+typedef NS_ENUM(NSInteger , YTKResponseSerializerType) {
+    YTKResponseSerializerTypeHTTP = 0,
+    YTKResponseSerializerTypeJSON,
+    YTKResponseSerializerTypeXML,
+};
+
 typedef NS_ENUM(NSInteger , YTKRequestPriority) {
     YTKRequestPriorityLow = -4L,
     YTKRequestPriorityDefault = 0,
@@ -167,6 +173,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 /// 请求的SerializerType
 - (YTKRequestSerializerType)requestSerializerType;
+
+/// 返回的SerializerType
+- (YTKResponseSerializerType)responseSerializerType;
 
 /// 请求的Server用户名和密码
 - (nullable NSArray *)requestAuthorizationHeaderFieldArray;
