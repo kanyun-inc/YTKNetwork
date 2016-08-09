@@ -39,10 +39,102 @@
 		2D244E631D4EDC7E0031202D /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D244E621D4EDC7E0031202D /* AFNetworking.framework */; };
 		2D244E641D4EDCCA0031202D /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D244E621D4EDC7E0031202D /* AFNetworking.framework */; };
 		2D513AAB1D5080F400E475EA /* YTKRequestFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D513AAA1D5080F400E475EA /* YTKRequestFilterTests.m */; };
+		2D58ADB71D59910500FA6347 /* YTKBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E251D4ED7910031202D /* YTKBaseRequest.m */; };
+		2D58ADB81D59910500FA6347 /* YTKBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E271D4ED7910031202D /* YTKBatchRequest.m */; };
+		2D58ADB91D59910500FA6347 /* YTKBatchRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E291D4ED7910031202D /* YTKBatchRequestAgent.m */; };
+		2D58ADBA1D59910500FA6347 /* YTKChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2B1D4ED7910031202D /* YTKChainRequest.m */; };
+		2D58ADBB1D59910500FA6347 /* YTKChainRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2D1D4ED7910031202D /* YTKChainRequestAgent.m */; };
+		2D58ADBC1D59910500FA6347 /* YTKNetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2F1D4ED7910031202D /* YTKNetworkAgent.m */; };
+		2D58ADBD1D59910500FA6347 /* YTKNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E311D4ED7910031202D /* YTKNetworkConfig.m */; };
+		2D58ADBE1D59910500FA6347 /* YTKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E331D4ED7910031202D /* YTKNetworkPrivate.m */; };
+		2D58ADBF1D59910500FA6347 /* YTKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E351D4ED7910031202D /* YTKRequest.m */; };
+		2D58ADC01D59912700FA6347 /* YTKBaseRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E241D4ED7910031202D /* YTKBaseRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADC11D59912700FA6347 /* YTKBatchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E261D4ED7910031202D /* YTKBatchRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADC21D59912700FA6347 /* YTKBatchRequestAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E281D4ED7910031202D /* YTKBatchRequestAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D58ADC31D59912700FA6347 /* YTKChainRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2A1D4ED7910031202D /* YTKChainRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADC41D59912700FA6347 /* YTKChainRequestAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2C1D4ED7910031202D /* YTKChainRequestAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D58ADC51D59912700FA6347 /* YTKNetworkAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2E1D4ED7910031202D /* YTKNetworkAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D58ADC61D59912700FA6347 /* YTKNetworkConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E301D4ED7910031202D /* YTKNetworkConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADC71D59912700FA6347 /* YTKNetworkPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E321D4ED7910031202D /* YTKNetworkPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D58ADC81D59912700FA6347 /* YTKRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E341D4ED7910031202D /* YTKRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADC91D59912700FA6347 /* YTKNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E0C1D4ED6470031202D /* YTKNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADCC1D59967D00FA6347 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D58ADCA1D5993FB00FA6347 /* AFNetworking.framework */; };
+		2D58ADDC1D59973D00FA6347 /* YTKNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D58ADD21D59973D00FA6347 /* YTKNetwork.framework */; };
+		2D58ADE91D5997D300FA6347 /* YTKBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E251D4ED7910031202D /* YTKBaseRequest.m */; };
+		2D58ADEA1D5997D300FA6347 /* YTKBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E271D4ED7910031202D /* YTKBatchRequest.m */; };
+		2D58ADEB1D5997D300FA6347 /* YTKBatchRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E291D4ED7910031202D /* YTKBatchRequestAgent.m */; };
+		2D58ADEC1D5997D300FA6347 /* YTKChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2B1D4ED7910031202D /* YTKChainRequest.m */; };
+		2D58ADED1D5997D300FA6347 /* YTKChainRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2D1D4ED7910031202D /* YTKChainRequestAgent.m */; };
+		2D58ADEE1D5997D300FA6347 /* YTKNetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2F1D4ED7910031202D /* YTKNetworkAgent.m */; };
+		2D58ADEF1D5997D300FA6347 /* YTKNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E311D4ED7910031202D /* YTKNetworkConfig.m */; };
+		2D58ADF01D5997D300FA6347 /* YTKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E331D4ED7910031202D /* YTKNetworkPrivate.m */; };
+		2D58ADF11D5997D300FA6347 /* YTKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E351D4ED7910031202D /* YTKRequest.m */; };
+		2D58ADF41D59980C00FA6347 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D58ADF21D5997F600FA6347 /* AFNetworking.framework */; };
+		2D58ADF51D59986500FA6347 /* YTKBaseRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E241D4ED7910031202D /* YTKBaseRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADF61D59986500FA6347 /* YTKBatchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E261D4ED7910031202D /* YTKBatchRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADF71D59986500FA6347 /* YTKChainRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2A1D4ED7910031202D /* YTKChainRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADF81D59986500FA6347 /* YTKNetworkConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E301D4ED7910031202D /* YTKNetworkConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADF91D59986500FA6347 /* YTKRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E341D4ED7910031202D /* YTKRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADFA1D59986500FA6347 /* YTKNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E0C1D4ED6470031202D /* YTKNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D58ADFB1D59987400FA6347 /* YTKBatchRequestAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E281D4ED7910031202D /* YTKBatchRequestAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D58ADFC1D59987400FA6347 /* YTKChainRequestAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2C1D4ED7910031202D /* YTKChainRequestAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D58ADFD1D59987400FA6347 /* YTKNetworkAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2E1D4ED7910031202D /* YTKNetworkAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D58ADFE1D59987400FA6347 /* YTKNetworkPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E321D4ED7910031202D /* YTKNetworkPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2D58ADFF1D59994D00FA6347 /* YTKRequestFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D513AAA1D5080F400E475EA /* YTKRequestFilterTests.m */; };
+		2D58AE001D59994D00FA6347 /* YTKJSONValidatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E521D4ED7CB0031202D /* YTKJSONValidatorTests.m */; };
+		2D58AE011D59994D00FA6347 /* YTKNetworkRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E531D4ED7CB0031202D /* YTKNetworkRequestTests.m */; };
+		2D58AE021D59994D00FA6347 /* YTKConcurrencyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9714A51D51DA55001EE8CD /* YTKConcurrencyTests.m */; };
+		2D58AE031D59994D00FA6347 /* YTKPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB52D681D520856006B779C /* YTKPerformanceTests.m */; };
+		2D58AE051D59994D00FA6347 /* YTKTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9B00B1D5082C200D4A1EC /* YTKTestCase.m */; };
+		2D58AE061D59994D00FA6347 /* YTKBasicUrlFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E4D1D4ED7CB0031202D /* YTKBasicUrlFilter.m */; };
+		2D58AE071D59994D00FA6347 /* YTKBasicAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E491D4ED7CB0031202D /* YTKBasicAuthRequest.m */; };
+		2D58AE081D59994D00FA6347 /* YTKBasicHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E4B1D4ED7CB0031202D /* YTKBasicHTTPRequest.m */; };
+		2D58AE091D59994D00FA6347 /* YTKCustomHeaderFieldRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E4F1D4ED7CB0031202D /* YTKCustomHeaderFieldRequest.m */; };
+		2D58AE0A1D59994D00FA6347 /* YTKJSONValidatorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E511D4ED7CB0031202D /* YTKJSONValidatorRequest.m */; };
+		2D58AE0B1D59994D00FA6347 /* YTKStatusCodeValidatorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E551D4ED7CB0031202D /* YTKStatusCodeValidatorRequest.m */; };
+		2D58AE0C1D59994D00FA6347 /* YTKTimeoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E571D4ED7CB0031202D /* YTKTimeoutRequest.m */; };
+		2D58AE0D1D5999CE00FA6347 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D58ADF21D5997F600FA6347 /* AFNetworking.framework */; };
+		2D58AE0F1D5999F700FA6347 /* AFNetworking.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 2D58ADF21D5997F600FA6347 /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D6B77451D599C6F000C3BF2 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC79A851D599B9600197527 /* AFNetworking.framework */; };
+		2D6B77471D599C83000C3BF2 /* AFNetworking.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 2DC79A851D599B9600197527 /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D6B77481D599CAC000C3BF2 /* YTKRequestFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D513AAA1D5080F400E475EA /* YTKRequestFilterTests.m */; };
+		2D6B77491D599CAC000C3BF2 /* YTKJSONValidatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E521D4ED7CB0031202D /* YTKJSONValidatorTests.m */; };
+		2D6B774A1D599CAC000C3BF2 /* YTKNetworkRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E531D4ED7CB0031202D /* YTKNetworkRequestTests.m */; };
+		2D6B774B1D599CAC000C3BF2 /* YTKConcurrencyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9714A51D51DA55001EE8CD /* YTKConcurrencyTests.m */; };
+		2D6B774C1D599CAC000C3BF2 /* YTKPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB52D681D520856006B779C /* YTKPerformanceTests.m */; };
+		2D6B774D1D599CAC000C3BF2 /* YTKTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9B00B1D5082C200D4A1EC /* YTKTestCase.m */; };
+		2D6B774E1D599CAC000C3BF2 /* YTKBasicUrlFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E4D1D4ED7CB0031202D /* YTKBasicUrlFilter.m */; };
+		2D6B774F1D599CAC000C3BF2 /* YTKBasicAuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E491D4ED7CB0031202D /* YTKBasicAuthRequest.m */; };
+		2D6B77501D599CAC000C3BF2 /* YTKBasicHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E4B1D4ED7CB0031202D /* YTKBasicHTTPRequest.m */; };
+		2D6B77511D599CAC000C3BF2 /* YTKCustomHeaderFieldRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E4F1D4ED7CB0031202D /* YTKCustomHeaderFieldRequest.m */; };
+		2D6B77521D599CAC000C3BF2 /* YTKJSONValidatorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E511D4ED7CB0031202D /* YTKJSONValidatorRequest.m */; };
+		2D6B77531D599CAC000C3BF2 /* YTKStatusCodeValidatorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E551D4ED7CB0031202D /* YTKStatusCodeValidatorRequest.m */; };
+		2D6B77541D599CAC000C3BF2 /* YTKTimeoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E571D4ED7CB0031202D /* YTKTimeoutRequest.m */; };
 		2D9714A61D51DA55001EE8CD /* YTKConcurrencyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9714A51D51DA55001EE8CD /* YTKConcurrencyTests.m */; };
 		2DA9B00C1D5082C200D4A1EC /* YTKTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9B00B1D5082C200D4A1EC /* YTKTestCase.m */; };
 		2DB52D691D520856006B779C /* YTKPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB52D681D520856006B779C /* YTKPerformanceTests.m */; };
-		2DCFCBF71D4EE10D002CAC24 /* AFNetworking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2D244E621D4EDC7E0031202D /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2DC79A6E1D599B0F00197527 /* YTKNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC79A651D599B0F00197527 /* YTKNetwork.framework */; };
+		2DC79A7C1D599B6B00197527 /* YTKBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E251D4ED7910031202D /* YTKBaseRequest.m */; };
+		2DC79A7D1D599B6B00197527 /* YTKBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E271D4ED7910031202D /* YTKBatchRequest.m */; };
+		2DC79A7E1D599B6B00197527 /* YTKBatchRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E291D4ED7910031202D /* YTKBatchRequestAgent.m */; };
+		2DC79A7F1D599B6B00197527 /* YTKChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2B1D4ED7910031202D /* YTKChainRequest.m */; };
+		2DC79A801D599B6B00197527 /* YTKChainRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2D1D4ED7910031202D /* YTKChainRequestAgent.m */; };
+		2DC79A811D599B6B00197527 /* YTKNetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E2F1D4ED7910031202D /* YTKNetworkAgent.m */; };
+		2DC79A821D599B6B00197527 /* YTKNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E311D4ED7910031202D /* YTKNetworkConfig.m */; };
+		2DC79A831D599B6B00197527 /* YTKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E331D4ED7910031202D /* YTKNetworkPrivate.m */; };
+		2DC79A841D599B6B00197527 /* YTKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D244E351D4ED7910031202D /* YTKRequest.m */; };
+		2DC79A871D599BAB00197527 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC79A851D599B9600197527 /* AFNetworking.framework */; };
+		2DC79A881D599C1C00197527 /* YTKBaseRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E241D4ED7910031202D /* YTKBaseRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC79A891D599C1C00197527 /* YTKBatchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E261D4ED7910031202D /* YTKBatchRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC79A8A1D599C1C00197527 /* YTKBatchRequestAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E281D4ED7910031202D /* YTKBatchRequestAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2DC79A8B1D599C1C00197527 /* YTKChainRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2A1D4ED7910031202D /* YTKChainRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC79A8C1D599C1C00197527 /* YTKChainRequestAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2C1D4ED7910031202D /* YTKChainRequestAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2DC79A8D1D599C1C00197527 /* YTKNetworkAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E2E1D4ED7910031202D /* YTKNetworkAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2DC79A8E1D599C1C00197527 /* YTKNetworkConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E301D4ED7910031202D /* YTKNetworkConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC79A8F1D599C1C00197527 /* YTKNetworkPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E321D4ED7910031202D /* YTKNetworkPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2DC79A901D599C1C00197527 /* YTKRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E341D4ED7910031202D /* YTKRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC79A911D599C1C00197527 /* YTKNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D244E0C1D4ED6470031202D /* YTKNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DCFCBF71D4EE10D002CAC24 /* AFNetworking.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 2D244E621D4EDC7E0031202D /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,17 +145,54 @@
 			remoteGlobalIDString = 2D244E081D4ED6470031202D;
 			remoteInfo = YTKNetwork;
 		};
+		2D58ADDD1D59973D00FA6347 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D244E001D4ED6460031202D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2D58ADD11D59973D00FA6347;
+			remoteInfo = "YTKNetwork tvOS";
+		};
+		2DC79A6F1D599B0F00197527 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D244E001D4ED6460031202D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2DC79A641D599B0F00197527;
+			remoteInfo = "YTKNetwork macOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2DCFCBF61D4EE101002CAC24 /* CopyFiles */ = {
+		2D58AE0E1D5999E700FA6347 /* Copy Framework */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2DCFCBF71D4EE10D002CAC24 /* AFNetworking.framework in CopyFiles */,
+				2D58AE0F1D5999F700FA6347 /* AFNetworking.framework in Copy Framework */,
 			);
+			name = "Copy Framework";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D6B77461D599C74000C3BF2 /* Copy Framework */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2D6B77471D599C83000C3BF2 /* AFNetworking.framework in Copy Framework */,
+			);
+			name = "Copy Framework";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DCFCBF61D4EE101002CAC24 /* Copy Framework */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2DCFCBF71D4EE10D002CAC24 /* AFNetworking.framework in Copy Framework */,
+			);
+			name = "Copy Framework";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -72,7 +201,7 @@
 		2D244E091D4ED6470031202D /* YTKNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YTKNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D244E0C1D4ED6470031202D /* YTKNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YTKNetwork.h; sourceTree = "<group>"; };
 		2D244E0E1D4ED6470031202D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Framework/Info.plist; sourceTree = "<group>"; };
-		2D244E131D4ED6470031202D /* YTKNetworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YTKNetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D244E131D4ED6470031202D /* YTKNetwork iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "YTKNetwork iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D244E1A1D4ED6470031202D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D244E241D4ED7910031202D /* YTKBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTKBaseRequest.h; path = YTKNetwork/YTKBaseRequest.h; sourceTree = "<group>"; };
 		2D244E251D4ED7910031202D /* YTKBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTKBaseRequest.m; path = YTKNetwork/YTKBaseRequest.m; sourceTree = "<group>"; };
@@ -110,10 +239,18 @@
 		2D244E571D4ED7CB0031202D /* YTKTimeoutRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKTimeoutRequest.m; sourceTree = "<group>"; };
 		2D244E621D4EDC7E0031202D /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
 		2D513AAA1D5080F400E475EA /* YTKRequestFilterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKRequestFilterTests.m; sourceTree = "<group>"; };
+		2D58ADAF1D598FE700FA6347 /* YTKNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YTKNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D58ADCA1D5993FB00FA6347 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/watchOS/AFNetworking.framework; sourceTree = "<group>"; };
+		2D58ADD21D59973D00FA6347 /* YTKNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YTKNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D58ADDB1D59973D00FA6347 /* YTKNetwork tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "YTKNetwork tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D58ADF21D5997F600FA6347 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/tvOS/AFNetworking.framework; sourceTree = "<group>"; };
 		2D9714A51D51DA55001EE8CD /* YTKConcurrencyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKConcurrencyTests.m; sourceTree = "<group>"; };
 		2DA9B00A1D5082C200D4A1EC /* YTKTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKTestCase.h; sourceTree = "<group>"; };
 		2DA9B00B1D5082C200D4A1EC /* YTKTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKTestCase.m; sourceTree = "<group>"; };
 		2DB52D681D520856006B779C /* YTKPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKPerformanceTests.m; sourceTree = "<group>"; };
+		2DC79A651D599B0F00197527 /* YTKNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YTKNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DC79A6D1D599B0F00197527 /* YTKNetwork macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "YTKNetwork macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DC79A851D599B9600197527 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/Mac/AFNetworking.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +268,48 @@
 			files = (
 				2D244E141D4ED6470031202D /* YTKNetwork.framework in Frameworks */,
 				2D244E631D4EDC7E0031202D /* AFNetworking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADAB1D598FE700FA6347 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D58ADCC1D59967D00FA6347 /* AFNetworking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADCE1D59973D00FA6347 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D58ADF41D59980C00FA6347 /* AFNetworking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADD81D59973D00FA6347 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D58ADDC1D59973D00FA6347 /* YTKNetwork.framework in Frameworks */,
+				2D58AE0D1D5999CE00FA6347 /* AFNetworking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DC79A611D599B0F00197527 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DC79A871D599BAB00197527 /* AFNetworking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DC79A6A1D599B0F00197527 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DC79A6E1D599B0F00197527 /* YTKNetwork.framework in Frameworks */,
+				2D6B77451D599C6F000C3BF2 /* AFNetworking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,7 +331,12 @@
 			isa = PBXGroup;
 			children = (
 				2D244E091D4ED6470031202D /* YTKNetwork.framework */,
-				2D244E131D4ED6470031202D /* YTKNetworkTests.xctest */,
+				2D244E131D4ED6470031202D /* YTKNetwork iOSTests.xctest */,
+				2D58ADAF1D598FE700FA6347 /* YTKNetwork.framework */,
+				2D58ADD21D59973D00FA6347 /* YTKNetwork.framework */,
+				2D58ADDB1D59973D00FA6347 /* YTKNetwork tvOSTests.xctest */,
+				2DC79A651D599B0F00197527 /* YTKNetwork.framework */,
+				2DC79A6D1D599B0F00197527 /* YTKNetwork macOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -206,6 +390,9 @@
 		2D244E611D4EDC590031202D /* Dependency */ = {
 			isa = PBXGroup;
 			children = (
+				2DC79A851D599B9600197527 /* AFNetworking.framework */,
+				2D58ADF21D5997F600FA6347 /* AFNetworking.framework */,
+				2D58ADCA1D5993FB00FA6347 /* AFNetworking.framework */,
 				2D244E621D4EDC7E0031202D /* AFNetworking.framework */,
 			);
 			name = Dependency;
@@ -273,12 +460,63 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2D58ADAC1D598FE700FA6347 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D58ADC01D59912700FA6347 /* YTKBaseRequest.h in Headers */,
+				2D58ADC11D59912700FA6347 /* YTKBatchRequest.h in Headers */,
+				2D58ADC31D59912700FA6347 /* YTKChainRequest.h in Headers */,
+				2D58ADC61D59912700FA6347 /* YTKNetworkConfig.h in Headers */,
+				2D58ADC81D59912700FA6347 /* YTKRequest.h in Headers */,
+				2D58ADC91D59912700FA6347 /* YTKNetwork.h in Headers */,
+				2D58ADC21D59912700FA6347 /* YTKBatchRequestAgent.h in Headers */,
+				2D58ADC41D59912700FA6347 /* YTKChainRequestAgent.h in Headers */,
+				2D58ADC51D59912700FA6347 /* YTKNetworkAgent.h in Headers */,
+				2D58ADC71D59912700FA6347 /* YTKNetworkPrivate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADCF1D59973D00FA6347 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D58ADF51D59986500FA6347 /* YTKBaseRequest.h in Headers */,
+				2D58ADF61D59986500FA6347 /* YTKBatchRequest.h in Headers */,
+				2D58ADF71D59986500FA6347 /* YTKChainRequest.h in Headers */,
+				2D58ADF81D59986500FA6347 /* YTKNetworkConfig.h in Headers */,
+				2D58ADF91D59986500FA6347 /* YTKRequest.h in Headers */,
+				2D58ADFA1D59986500FA6347 /* YTKNetwork.h in Headers */,
+				2D58ADFB1D59987400FA6347 /* YTKBatchRequestAgent.h in Headers */,
+				2D58ADFC1D59987400FA6347 /* YTKChainRequestAgent.h in Headers */,
+				2D58ADFD1D59987400FA6347 /* YTKNetworkAgent.h in Headers */,
+				2D58ADFE1D59987400FA6347 /* YTKNetworkPrivate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DC79A621D599B0F00197527 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DC79A881D599C1C00197527 /* YTKBaseRequest.h in Headers */,
+				2DC79A891D599C1C00197527 /* YTKBatchRequest.h in Headers */,
+				2DC79A8B1D599C1C00197527 /* YTKChainRequest.h in Headers */,
+				2DC79A8E1D599C1C00197527 /* YTKNetworkConfig.h in Headers */,
+				2DC79A901D599C1C00197527 /* YTKRequest.h in Headers */,
+				2DC79A911D599C1C00197527 /* YTKNetwork.h in Headers */,
+				2DC79A8A1D599C1C00197527 /* YTKBatchRequestAgent.h in Headers */,
+				2DC79A8C1D599C1C00197527 /* YTKChainRequestAgent.h in Headers */,
+				2DC79A8D1D599C1C00197527 /* YTKNetworkAgent.h in Headers */,
+				2DC79A8F1D599C1C00197527 /* YTKNetworkPrivate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2D244E081D4ED6470031202D /* YTKNetwork */ = {
+		2D244E081D4ED6470031202D /* YTKNetwork iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D244E1D1D4ED6470031202D /* Build configuration list for PBXNativeTarget "YTKNetwork" */;
+			buildConfigurationList = 2D244E1D1D4ED6470031202D /* Build configuration list for PBXNativeTarget "YTKNetwork iOS" */;
 			buildPhases = (
 				2D244E041D4ED6470031202D /* Sources */,
 				2D244E051D4ED6470031202D /* Frameworks */,
@@ -289,28 +527,120 @@
 			);
 			dependencies = (
 			);
-			name = YTKNetwork;
+			name = "YTKNetwork iOS";
 			productName = YTKNetwork;
 			productReference = 2D244E091D4ED6470031202D /* YTKNetwork.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		2D244E121D4ED6470031202D /* YTKNetworkTests */ = {
+		2D244E121D4ED6470031202D /* YTKNetwork iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D244E201D4ED6470031202D /* Build configuration list for PBXNativeTarget "YTKNetworkTests" */;
+			buildConfigurationList = 2D244E201D4ED6470031202D /* Build configuration list for PBXNativeTarget "YTKNetwork iOSTests" */;
 			buildPhases = (
 				2D244E0F1D4ED6470031202D /* Sources */,
 				2D244E101D4ED6470031202D /* Frameworks */,
 				2D244E111D4ED6470031202D /* Resources */,
-				2DCFCBF61D4EE101002CAC24 /* CopyFiles */,
+				2DCFCBF61D4EE101002CAC24 /* Copy Framework */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				2D244E161D4ED6470031202D /* PBXTargetDependency */,
 			);
-			name = YTKNetworkTests;
+			name = "YTKNetwork iOSTests";
 			productName = YTKNetworkTests;
-			productReference = 2D244E131D4ED6470031202D /* YTKNetworkTests.xctest */;
+			productReference = 2D244E131D4ED6470031202D /* YTKNetwork iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2D58ADAE1D598FE700FA6347 /* YTKNetwork watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D58ADB61D598FE700FA6347 /* Build configuration list for PBXNativeTarget "YTKNetwork watchOS" */;
+			buildPhases = (
+				2D58ADAA1D598FE700FA6347 /* Sources */,
+				2D58ADAB1D598FE700FA6347 /* Frameworks */,
+				2D58ADAC1D598FE700FA6347 /* Headers */,
+				2D58ADAD1D598FE700FA6347 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "YTKNetwork watchOS";
+			productName = "YTKNetwork watchOS";
+			productReference = 2D58ADAF1D598FE700FA6347 /* YTKNetwork.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2D58ADD11D59973D00FA6347 /* YTKNetwork tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D58ADE31D59973D00FA6347 /* Build configuration list for PBXNativeTarget "YTKNetwork tvOS" */;
+			buildPhases = (
+				2D58ADCD1D59973D00FA6347 /* Sources */,
+				2D58ADCE1D59973D00FA6347 /* Frameworks */,
+				2D58ADCF1D59973D00FA6347 /* Headers */,
+				2D58ADD01D59973D00FA6347 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "YTKNetwork tvOS";
+			productName = "YTKNetwork tvOS";
+			productReference = 2D58ADD21D59973D00FA6347 /* YTKNetwork.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2D58ADDA1D59973D00FA6347 /* YTKNetwork tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D58ADE61D59973D00FA6347 /* Build configuration list for PBXNativeTarget "YTKNetwork tvOSTests" */;
+			buildPhases = (
+				2D58ADD71D59973D00FA6347 /* Sources */,
+				2D58ADD81D59973D00FA6347 /* Frameworks */,
+				2D58ADD91D59973D00FA6347 /* Resources */,
+				2D58AE0E1D5999E700FA6347 /* Copy Framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2D58ADDE1D59973D00FA6347 /* PBXTargetDependency */,
+			);
+			name = "YTKNetwork tvOSTests";
+			productName = "YTKNetwork tvOSTests";
+			productReference = 2D58ADDB1D59973D00FA6347 /* YTKNetwork tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2DC79A641D599B0F00197527 /* YTKNetwork macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DC79A7A1D599B0F00197527 /* Build configuration list for PBXNativeTarget "YTKNetwork macOS" */;
+			buildPhases = (
+				2DC79A601D599B0F00197527 /* Sources */,
+				2DC79A611D599B0F00197527 /* Frameworks */,
+				2DC79A621D599B0F00197527 /* Headers */,
+				2DC79A631D599B0F00197527 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "YTKNetwork macOS";
+			productName = "YTKNetwork macOS";
+			productReference = 2DC79A651D599B0F00197527 /* YTKNetwork.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2DC79A6C1D599B0F00197527 /* YTKNetwork macOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DC79A7B1D599B0F00197527 /* Build configuration list for PBXNativeTarget "YTKNetwork macOSTests" */;
+			buildPhases = (
+				2DC79A691D599B0F00197527 /* Sources */,
+				2DC79A6A1D599B0F00197527 /* Frameworks */,
+				2DC79A6B1D599B0F00197527 /* Resources */,
+				2D6B77461D599C74000C3BF2 /* Copy Framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2DC79A701D599B0F00197527 /* PBXTargetDependency */,
+			);
+			name = "YTKNetwork macOSTests";
+			productName = "YTKNetwork macOSTests";
+			productReference = 2DC79A6D1D599B0F00197527 /* YTKNetwork macOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -328,6 +658,27 @@
 					2D244E121D4ED6470031202D = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
+					2D58ADAE1D598FE700FA6347 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					2D58ADD11D59973D00FA6347 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					2D58ADDA1D59973D00FA6347 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					2DC79A641D599B0F00197527 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = W865B39M7D;
+						DevelopmentTeamName = "Chester Liu (Personal Team)";
+						ProvisioningStyle = Automatic;
+					};
+					2DC79A6C1D599B0F00197527 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = W865B39M7D;
+						DevelopmentTeamName = "Chester Liu (Personal Team)";
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 2D244E031D4ED6460031202D /* Build configuration list for PBXProject "YTKNetwork" */;
@@ -342,8 +693,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2D244E081D4ED6470031202D /* YTKNetwork */,
-				2D244E121D4ED6470031202D /* YTKNetworkTests */,
+				2D244E081D4ED6470031202D /* YTKNetwork iOS */,
+				2D58ADAE1D598FE700FA6347 /* YTKNetwork watchOS */,
+				2DC79A641D599B0F00197527 /* YTKNetwork macOS */,
+				2D58ADD11D59973D00FA6347 /* YTKNetwork tvOS */,
+				2D244E121D4ED6470031202D /* YTKNetwork iOSTests */,
+				2DC79A6C1D599B0F00197527 /* YTKNetwork macOSTests */,
+				2D58ADDA1D59973D00FA6347 /* YTKNetwork tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -357,6 +713,41 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2D244E111D4ED6470031202D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADAD1D598FE700FA6347 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADD01D59973D00FA6347 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADD91D59973D00FA6347 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DC79A631D599B0F00197527 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DC79A6B1D599B0F00197527 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -402,13 +793,111 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2D58ADAA1D598FE700FA6347 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D58ADB71D59910500FA6347 /* YTKBaseRequest.m in Sources */,
+				2D58ADB81D59910500FA6347 /* YTKBatchRequest.m in Sources */,
+				2D58ADB91D59910500FA6347 /* YTKBatchRequestAgent.m in Sources */,
+				2D58ADBA1D59910500FA6347 /* YTKChainRequest.m in Sources */,
+				2D58ADBB1D59910500FA6347 /* YTKChainRequestAgent.m in Sources */,
+				2D58ADBC1D59910500FA6347 /* YTKNetworkAgent.m in Sources */,
+				2D58ADBD1D59910500FA6347 /* YTKNetworkConfig.m in Sources */,
+				2D58ADBE1D59910500FA6347 /* YTKNetworkPrivate.m in Sources */,
+				2D58ADBF1D59910500FA6347 /* YTKRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADCD1D59973D00FA6347 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D58ADE91D5997D300FA6347 /* YTKBaseRequest.m in Sources */,
+				2D58ADEA1D5997D300FA6347 /* YTKBatchRequest.m in Sources */,
+				2D58ADEB1D5997D300FA6347 /* YTKBatchRequestAgent.m in Sources */,
+				2D58ADEC1D5997D300FA6347 /* YTKChainRequest.m in Sources */,
+				2D58ADED1D5997D300FA6347 /* YTKChainRequestAgent.m in Sources */,
+				2D58ADEE1D5997D300FA6347 /* YTKNetworkAgent.m in Sources */,
+				2D58ADEF1D5997D300FA6347 /* YTKNetworkConfig.m in Sources */,
+				2D58ADF01D5997D300FA6347 /* YTKNetworkPrivate.m in Sources */,
+				2D58ADF11D5997D300FA6347 /* YTKRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D58ADD71D59973D00FA6347 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D58ADFF1D59994D00FA6347 /* YTKRequestFilterTests.m in Sources */,
+				2D58AE001D59994D00FA6347 /* YTKJSONValidatorTests.m in Sources */,
+				2D58AE011D59994D00FA6347 /* YTKNetworkRequestTests.m in Sources */,
+				2D58AE021D59994D00FA6347 /* YTKConcurrencyTests.m in Sources */,
+				2D58AE031D59994D00FA6347 /* YTKPerformanceTests.m in Sources */,
+				2D58AE051D59994D00FA6347 /* YTKTestCase.m in Sources */,
+				2D58AE061D59994D00FA6347 /* YTKBasicUrlFilter.m in Sources */,
+				2D58AE071D59994D00FA6347 /* YTKBasicAuthRequest.m in Sources */,
+				2D58AE081D59994D00FA6347 /* YTKBasicHTTPRequest.m in Sources */,
+				2D58AE091D59994D00FA6347 /* YTKCustomHeaderFieldRequest.m in Sources */,
+				2D58AE0A1D59994D00FA6347 /* YTKJSONValidatorRequest.m in Sources */,
+				2D58AE0B1D59994D00FA6347 /* YTKStatusCodeValidatorRequest.m in Sources */,
+				2D58AE0C1D59994D00FA6347 /* YTKTimeoutRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DC79A601D599B0F00197527 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DC79A7C1D599B6B00197527 /* YTKBaseRequest.m in Sources */,
+				2DC79A7D1D599B6B00197527 /* YTKBatchRequest.m in Sources */,
+				2DC79A7E1D599B6B00197527 /* YTKBatchRequestAgent.m in Sources */,
+				2DC79A7F1D599B6B00197527 /* YTKChainRequest.m in Sources */,
+				2DC79A801D599B6B00197527 /* YTKChainRequestAgent.m in Sources */,
+				2DC79A811D599B6B00197527 /* YTKNetworkAgent.m in Sources */,
+				2DC79A821D599B6B00197527 /* YTKNetworkConfig.m in Sources */,
+				2DC79A831D599B6B00197527 /* YTKNetworkPrivate.m in Sources */,
+				2DC79A841D599B6B00197527 /* YTKRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DC79A691D599B0F00197527 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D6B77481D599CAC000C3BF2 /* YTKRequestFilterTests.m in Sources */,
+				2D6B77491D599CAC000C3BF2 /* YTKJSONValidatorTests.m in Sources */,
+				2D6B774A1D599CAC000C3BF2 /* YTKNetworkRequestTests.m in Sources */,
+				2D6B774B1D599CAC000C3BF2 /* YTKConcurrencyTests.m in Sources */,
+				2D6B774C1D599CAC000C3BF2 /* YTKPerformanceTests.m in Sources */,
+				2D6B774D1D599CAC000C3BF2 /* YTKTestCase.m in Sources */,
+				2D6B774E1D599CAC000C3BF2 /* YTKBasicUrlFilter.m in Sources */,
+				2D6B774F1D599CAC000C3BF2 /* YTKBasicAuthRequest.m in Sources */,
+				2D6B77501D599CAC000C3BF2 /* YTKBasicHTTPRequest.m in Sources */,
+				2D6B77511D599CAC000C3BF2 /* YTKCustomHeaderFieldRequest.m in Sources */,
+				2D6B77521D599CAC000C3BF2 /* YTKJSONValidatorRequest.m in Sources */,
+				2D6B77531D599CAC000C3BF2 /* YTKStatusCodeValidatorRequest.m in Sources */,
+				2D6B77541D599CAC000C3BF2 /* YTKTimeoutRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		2D244E161D4ED6470031202D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D244E081D4ED6470031202D /* YTKNetwork */;
+			target = 2D244E081D4ED6470031202D /* YTKNetwork iOS */;
 			targetProxy = 2D244E151D4ED6470031202D /* PBXContainerItemProxy */;
+		};
+		2D58ADDE1D59973D00FA6347 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2D58ADD11D59973D00FA6347 /* YTKNetwork tvOS */;
+			targetProxy = 2D58ADDD1D59973D00FA6347 /* PBXContainerItemProxy */;
+		};
+		2DC79A701D599B0F00197527 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2DC79A641D599B0F00197527 /* YTKNetwork macOS */;
+			targetProxy = 2DC79A6F1D599B0F00197527 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -510,17 +999,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS/AFNetworking.framework/Headers";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fenbi.YTKNetwork;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = YTKNetwork;
 				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -531,17 +1020,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS/AFNetworking.framework/Headers";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fenbi.YTKNetwork;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = YTKNetwork;
 				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -575,6 +1064,214 @@
 			};
 			name = Release;
 		};
+		2D58ADB41D598FE700FA6347 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/watchOS";
+				INFOPLIST_FILE = ./Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-watchOS";
+				PRODUCT_NAME = YTKNetwork;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		2D58ADB51D598FE700FA6347 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/watchOS";
+				INFOPLIST_FILE = ./Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-watchOS";
+				PRODUCT_NAME = YTKNetwork;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		2D58ADE41D59973D00FA6347 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS";
+				INFOPLIST_FILE = ./Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-tvOS";
+				PRODUCT_NAME = YTKNetwork;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		2D58ADE51D59973D00FA6347 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS";
+				INFOPLIST_FILE = ./Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-tvOS";
+				PRODUCT_NAME = YTKNetwork;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		2D58ADE71D59973D00FA6347 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS/AFNetworking.framework/Headers";
+				INFOPLIST_FILE = ./YTKNetworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Debug;
+		};
+		2D58ADE81D59973D00FA6347 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS/AFNetworking.framework/Headers";
+				INFOPLIST_FILE = ./YTKNetworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Release;
+		};
+		2DC79A761D599B0F00197527 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/Mac";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = ./Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-macOS";
+				PRODUCT_NAME = YTKNetwork;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		2DC79A771D599B0F00197527 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/Mac";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = ./Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-macOS";
+				PRODUCT_NAME = YTKNetwork;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		2DC79A781D599B0F00197527 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = ./YTKNetworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2DC79A791D599B0F00197527 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = ./YTKNetworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fenbi.YTKNetwork-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -587,7 +1284,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D244E1D1D4ED6470031202D /* Build configuration list for PBXNativeTarget "YTKNetwork" */ = {
+		2D244E1D1D4ED6470031202D /* Build configuration list for PBXNativeTarget "YTKNetwork iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D244E1E1D4ED6470031202D /* Debug */,
@@ -596,11 +1293,56 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D244E201D4ED6470031202D /* Build configuration list for PBXNativeTarget "YTKNetworkTests" */ = {
+		2D244E201D4ED6470031202D /* Build configuration list for PBXNativeTarget "YTKNetwork iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D244E211D4ED6470031202D /* Debug */,
 				2D244E221D4ED6470031202D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D58ADB61D598FE700FA6347 /* Build configuration list for PBXNativeTarget "YTKNetwork watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D58ADB41D598FE700FA6347 /* Debug */,
+				2D58ADB51D598FE700FA6347 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D58ADE31D59973D00FA6347 /* Build configuration list for PBXNativeTarget "YTKNetwork tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D58ADE41D59973D00FA6347 /* Debug */,
+				2D58ADE51D59973D00FA6347 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D58ADE61D59973D00FA6347 /* Build configuration list for PBXNativeTarget "YTKNetwork tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D58ADE71D59973D00FA6347 /* Debug */,
+				2D58ADE81D59973D00FA6347 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DC79A7A1D599B0F00197527 /* Build configuration list for PBXNativeTarget "YTKNetwork macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DC79A761D599B0F00197527 /* Debug */,
+				2DC79A771D599B0F00197527 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DC79A7B1D599B0F00197527 /* Build configuration list for PBXNativeTarget "YTKNetwork macOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DC79A781D599B0F00197527 /* Debug */,
+				2DC79A791D599B0F00197527 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2D244E081D4ED6470031202D"
+               BlueprintIdentifier = "2D58ADD11D59973D00FA6347"
                BuildableName = "YTKNetwork.framework"
-               BlueprintName = "YTKNetwork"
+               BlueprintName = "YTKNetwork tvOS"
                ReferencedContainer = "container:YTKNetwork.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2D244E121D4ED6470031202D"
-               BuildableName = "YTKNetworkTests.xctest"
-               BlueprintName = "YTKNetworkTests"
+               BlueprintIdentifier = "2D58ADDA1D59973D00FA6347"
+               BuildableName = "YTKNetwork tvOSTests.xctest"
+               BlueprintName = "YTKNetwork tvOSTests"
                ReferencedContainer = "container:YTKNetwork.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D244E081D4ED6470031202D"
+            BlueprintIdentifier = "2D58ADD11D59973D00FA6347"
             BuildableName = "YTKNetwork.framework"
-            BlueprintName = "YTKNetwork"
+            BlueprintName = "YTKNetwork tvOS"
             ReferencedContainer = "container:YTKNetwork.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D244E081D4ED6470031202D"
+            BlueprintIdentifier = "2D58ADD11D59973D00FA6347"
             BuildableName = "YTKNetwork.framework"
-            BlueprintName = "YTKNetwork"
+            BlueprintName = "YTKNetwork tvOS"
             ReferencedContainer = "container:YTKNetwork.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D244E081D4ED6470031202D"
+            BlueprintIdentifier = "2D58ADD11D59973D00FA6347"
             BuildableName = "YTKNetwork.framework"
-            BlueprintName = "YTKNetwork"
+            BlueprintName = "YTKNetwork tvOS"
             ReferencedContainer = "container:YTKNetwork.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
