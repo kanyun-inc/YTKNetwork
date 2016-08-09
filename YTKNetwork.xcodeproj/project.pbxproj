@@ -70,7 +70,7 @@
 
 /* Begin PBXFileReference section */
 		2D244E091D4ED6470031202D /* YTKNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YTKNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D244E0C1D4ED6470031202D /* YTKNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YTKNetwork.h; path = ../Framework/YTKNetwork.h; sourceTree = "<group>"; };
+		2D244E0C1D4ED6470031202D /* YTKNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YTKNetwork.h; sourceTree = "<group>"; };
 		2D244E0E1D4ED6470031202D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Framework/Info.plist; sourceTree = "<group>"; };
 		2D244E131D4ED6470031202D /* YTKNetworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YTKNetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D244E1A1D4ED6470031202D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };

@@ -24,11 +24,27 @@
 #import <Foundation/Foundation.h>
 
 #ifndef _YTKNETWORK_
-#define _YTKNETWORK_
+    #define _YTKNETWORK_
 
-#import "YTKRequest.h"
-#import "YTKBatchRequest.h"
-#import "YTKChainRequest.h"
-#import "YTKNetworkConfig.h"
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+
+    FOUNDATION_EXPORT double YTKNetworkVersionNumber;
+    FOUNDATION_EXPORT const unsigned char YTKNetworkVersionString[];
+
+    #import <YTKNetwork/YTKRequest.h>
+    #import <YTKNetwork/YTKBaseRequest.h>
+    #import <YTKNetwork/YTKBatchRequest.h>
+    #import <YTKNetwork/YTKChainRequest.h>
+    #import <YTKNetwork/YTKNetworkConfig.h>
+
+#else
+
+    #import "YTKRequest.h"
+    #import "YTKBaseRequest.h"
+    #import "YTKBatchRequest.h"
+    #import "YTKChainRequest.h"
+    #import "YTKNetworkConfig.h"
+
+#endif /* __has_include */
 
 #endif /* _YTKNETWORK_ */
