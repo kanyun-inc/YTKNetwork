@@ -75,4 +75,10 @@
     return [_cacheDirPathFilters copy];
 }
 
+#pragma mark - NSObject
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@: %p>{ baseURL: %@ } { cdnURL: %@ }", NSStringFromClass([self class]), self, self.baseUrl, self.cdnUrl];
+}
+
 @end
