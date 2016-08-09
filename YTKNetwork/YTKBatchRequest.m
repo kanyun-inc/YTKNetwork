@@ -28,16 +28,26 @@
 @interface YTKBatchRequest() <YTKRequestDelegate>
 
 @property (nonatomic) NSInteger finishedCount;
+@property (nonatomic, assign) BOOL hasFailed;
 
 @end
 
 @implementation YTKBatchRequest
+{
+    NSMutableArray *batchSucceedRequestArray;
+    NSMutableArray *batchFailedRequestArray;
+}
+@synthesize succeedRequestArray = batchSucceedRequestArray;
+@synthesize failedRequestArray = batchFailedRequestArray;
 
 - (instancetype)initWithRequestArray:(NSArray<YTKRequest *> *)requestArray {
     self = [super init];
     if (self) {
         _requestArray = [requestArray copy];
         _finishedCount = 0;
+        batchSucceedRequestArray = [NSMutableArray array];
+        batchFailedRequestArray = [NSMutableArray array];
+        _hasFailed = NO;
         for (YTKRequest * req in _requestArray) {
             if (![req isKindOfClass:[YTKRequest class]]) {
                 YTKLog(@"Error, request item must be YTKRequest instance.");
@@ -53,7 +63,6 @@
         YTKLog(@"Error! Batch request has already started.");
         return;
     }
-    _failedRequest = nil;
     [[YTKBatchRequestAgent sharedInstance] addBatchRequest:self];
     [self toggleAccessoriesWillStartCallBack];
     for (YTKRequest * req in _requestArray) {
@@ -106,14 +115,26 @@
 #pragma mark - Network Request Delegate
 
 - (void)requestFinished:(YTKRequest *)request {
+    [batchSucceedRequestArray addObject:request];
     _finishedCount++;
     if (_finishedCount == _requestArray.count) {
         [self toggleAccessoriesWillStopCallBack];
-        if ([_delegate respondsToSelector:@selector(batchRequestFinished:)]) {
-            [_delegate batchRequestFinished:self];
-        }
-        if (_successCompletionBlock) {
-            _successCompletionBlock(self);
+        if (self.hasFailed) {
+            //some request failed
+            if ([_delegate respondsToSelector:@selector(batchRequestFailed:)]) {
+                [_delegate batchRequestFailed:self];
+            }
+            if (_failureCompletionBlock) {
+                _failureCompletionBlock(self);
+            }
+        } else {
+            //all request succeed
+            if ([_delegate respondsToSelector:@selector(batchRequestFinished:)]) {
+                [_delegate batchRequestFinished:self];
+            }
+            if (_successCompletionBlock) {
+                _successCompletionBlock(self);
+            }
         }
         [self clearCompletionBlock];
         [self toggleAccessoriesDidStopCallBack];
@@ -122,24 +143,24 @@
 }
 
 - (void)requestFailed:(YTKRequest *)request {
-    _failedRequest = request;
-    [self toggleAccessoriesWillStopCallBack];
-    // Stop
-    for (YTKRequest *req in _requestArray) {
-        [req stop];
+    [batchFailedRequestArray addObject:request];
+    _finishedCount++;
+    self.hasFailed = YES;
+    if (_finishedCount == _requestArray.count) {
+        [self toggleAccessoriesWillStopCallBack];
+        // Callback
+        if ([_delegate respondsToSelector:@selector(batchRequestFailed:)]) {
+            [_delegate batchRequestFailed:self];
+        }
+        if (_failureCompletionBlock) {
+            _failureCompletionBlock(self);
+        }
+        // Clear
+        [self clearCompletionBlock];
+        
+        [self toggleAccessoriesDidStopCallBack];
+        [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
     }
-    // Callback
-    if ([_delegate respondsToSelector:@selector(batchRequestFailed:)]) {
-        [_delegate batchRequestFailed:self];
-    }
-    if (_failureCompletionBlock) {
-        _failureCompletionBlock(self);
-    }
-    // Clear
-    [self clearCompletionBlock];
-    
-    [self toggleAccessoriesDidStopCallBack];
-    [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
 }
 
 - (void)clearRequest {

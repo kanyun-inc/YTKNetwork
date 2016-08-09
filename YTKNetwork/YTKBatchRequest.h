@@ -51,7 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSMutableArray<id<YTKRequestAccessory>> *requestAccessories;
 
-@property (nonatomic, strong, readonly, nullable) YTKRequest *failedRequest;
+@property (nonatomic, strong, readonly, nullable) NSArray<YTKRequest *> *succeedRequestArray;
+@property (nonatomic, strong, readonly, nullable) NSArray<YTKRequest *> *failedRequestArray;
 
 - (instancetype)initWithRequestArray:(NSArray<YTKRequest *> *)requestArray;
 
