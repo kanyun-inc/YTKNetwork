@@ -24,6 +24,7 @@
 #import "YTKBaseRequest.h"
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkPrivate.h"
+
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
 #else
@@ -33,15 +34,29 @@
 @interface YTKBaseRequest ()
 
 @property (nonatomic, strong, readwrite) NSURLSessionTask *requestTask;
-@property (nonatomic, strong, readwrite, nullable) NSData *responseData;
-@property (nonatomic, strong, readwrite, nullable) id responseJSONObject;
-@property (nonatomic, strong, readwrite, nullable) id responseObject;
-@property (nonatomic, strong, readwrite, nullable) NSString *responseString;
-@property (nonatomic, strong, readwrite, nullable) NSError *error;
+@property (nonatomic, strong, readwrite) NSData *responseData;
+@property (nonatomic, strong, readwrite) id responseJSONObject;
+@property (nonatomic, strong, readwrite) id responseObject;
+@property (nonatomic, strong, readwrite) NSString *responseString;
+@property (nonatomic, strong, readwrite) NSError *error;
 
 @end
 
 @implementation YTKBaseRequest
+
+#pragma mark - Request and Response Information
+
+- (NSHTTPURLResponse *)response {
+    return (NSHTTPURLResponse *)self.requestTask.response;
+}
+
+- (NSInteger)responseStatusCode {
+    return self.response.statusCode;
+}
+
+- (NSDictionary *)responseHeaders {
+    return self.response.allHeaderFields;
+}
 
 - (NSURLRequest *)currentRequest {
     return self.requestTask.currentRequest;
@@ -51,7 +66,63 @@
     return self.requestTask.originalRequest;
 }
 
-/// for subclasses to overwrite
+- (BOOL)isCancelled {
+    if (!self.requestTask) {
+        return NO;
+    }
+    return self.requestTask.state == NSURLSessionTaskStateCanceling;
+}
+
+- (BOOL)isExecuting {
+    if (!self.requestTask) {
+        return NO;
+    }
+    return self.requestTask.state == NSURLSessionTaskStateRunning;
+}
+
+#pragma mark - Request Configuration
+
+- (void)setCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success
+                              failure:(YTKRequestCompletionBlock)failure {
+    self.successCompletionBlock = success;
+    self.failureCompletionBlock = failure;
+}
+
+- (void)clearCompletionBlock {
+    // nil out to break the retain cycle.
+    self.successCompletionBlock = nil;
+    self.failureCompletionBlock = nil;
+}
+
+- (void)addAccessory:(id<YTKRequestAccessory>)accessory {
+    if (!self.requestAccessories) {
+        self.requestAccessories = [NSMutableArray array];
+    }
+    [self.requestAccessories addObject:accessory];
+}
+
+#pragma mark - Request Action
+
+- (void)start {
+    [self toggleAccessoriesWillStartCallBack];
+    [[YTKNetworkAgent sharedInstance] addRequest:self];
+}
+
+- (void)stop {
+    [self toggleAccessoriesWillStopCallBack];
+    self.delegate = nil;
+    [[YTKNetworkAgent sharedInstance] cancelRequest:self];
+    [self toggleAccessoriesDidStopCallBack];
+}
+
+- (void)startWithCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success
+                                    failure:(YTKRequestCompletionBlock)failure {
+    [self setCompletionBlockWithSuccess:success failure:failure];
+    [self start];
+}
+
+#pragma mark - Subclass Override
+
 - (void)requestCompleteFilter {
 }
 
@@ -90,6 +161,10 @@
     return YTKRequestSerializerTypeHTTP;
 }
 
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+
 - (NSArray *)requestAuthorizationHeaderFieldArray {
     return nil;
 }
@@ -117,73 +192,6 @@
     } else {
         return NO;
     }
-}
-
-/// append self to request queue
-- (void)start {
-    [self toggleAccessoriesWillStartCallBack];
-    [[YTKNetworkAgent sharedInstance] addRequest:self];
-}
-
-/// remove self from request queue
-- (void)stop {
-    [self toggleAccessoriesWillStopCallBack];
-    self.delegate = nil;
-    [[YTKNetworkAgent sharedInstance] cancelRequest:self];
-    [self toggleAccessoriesDidStopCallBack];
-}
-
-- (BOOL)isCancelled {
-    if (!self.requestTask) {
-        return NO;
-    }
-    return self.requestTask.state == NSURLSessionTaskStateCanceling;
-}
-
-- (BOOL)isExecuting {
-    if (!self.requestTask) {
-        return NO;
-    }
-    return self.requestTask.state == NSURLSessionTaskStateRunning;
-}
-
-- (void)startWithCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success
-                                    failure:(YTKRequestCompletionBlock)failure {
-    [self setCompletionBlockWithSuccess:success failure:failure];
-    [self start];
-}
-
-- (void)setCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success
-                              failure:(YTKRequestCompletionBlock)failure {
-    self.successCompletionBlock = success;
-    self.failureCompletionBlock = failure;
-}
-
-- (void)clearCompletionBlock {
-    // nil out to break the retain cycle.
-    self.successCompletionBlock = nil;
-    self.failureCompletionBlock = nil;
-}
-
-- (NSHTTPURLResponse *)response {
-    return (NSHTTPURLResponse *)self.requestTask.response;
-}
-
-- (NSInteger)responseStatusCode {
-    return self.response.statusCode;
-}
-
-- (NSDictionary *)responseHeaders {
-    return self.response.allHeaderFields;
-}
-
-#pragma mark - Request Accessories
-
-- (void)addAccessory:(id<YTKRequestAccessory>)accessory {
-    if (!self.requestAccessories) {
-        self.requestAccessories = [NSMutableArray array];
-    }
-    [self.requestAccessories addObject:accessory];
 }
 
 #pragma mark - NSObject

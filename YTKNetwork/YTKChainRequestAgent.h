@@ -26,13 +26,21 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class YTKChainRequest;
-/// ChainRequestAgent is used for caching & keeping current request.
+
+///  YTKChainRequestAgent handles chain request management. It keeps track of all
+///  the chain requests.
 @interface YTKChainRequestAgent : NSObject
 
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+
+///  Get the shared chain request agent.
 + (YTKChainRequestAgent *)sharedInstance;
 
+///  Add a chain request.
 - (void)addChainRequest:(YTKChainRequest *)request;
 
+///  Remove a previously added chain request.
 - (void)removeChainRequest:(YTKChainRequest *)request;
 
 @end

@@ -27,12 +27,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class YTKBatchRequest;
 
+///  YTKBatchRequestAgent handles batch request management. It keeps track of all
+///  the batch requests.
 @interface YTKBatchRequestAgent : NSObject
 
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+
+///  Get the shared batch request agent.
 + (YTKBatchRequestAgent *)sharedInstance;
 
+///  Add a batch request.
 - (void)addBatchRequest:(YTKBatchRequest *)request;
 
+///  Remove a previously added batch request.
 - (void)removeBatchRequest:(YTKBatchRequest *)request;
 
 @end

@@ -25,28 +25,41 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+///  YTKRequest is the base class you should inherit to create your own request class.
+///  Based on YTKBaseRequest, YTKRequest adds local caching feature.
 @interface YTKRequest : YTKBaseRequest
 
+///  Whether to use cache or not.
+///  Default is NO, which means caching will take effect with specific arguments.
+///  Note that `cacheTimeInSeconds` default is -1. As a result caching is not actually
+///  enabled unless you use a positive value for `cacheTimeInSeconds`.
 @property (nonatomic) BOOL ignoreCache;
 
-/// 返回当前缓存的对象
+///  Cached JSON object.
 - (nullable id)cacheJson;
 
-/// 是否当前的数据从缓存获得
+///  Whether data is from local cache.
 - (BOOL)isDataFromCache;
 
-/// 返回是否当前缓存需要更新
+///  Whether local cache is expired according to version.
 - (BOOL)isCacheVersionExpired;
 
-/// 强制更新缓存
+///  Start request, completely ignores caching logic.
 - (void)startWithoutCache;
 
-/// 手动将其他请求的JsonResponse写入该请求的缓存
+///  Save response object (probably from another request) to this request's cache location
 - (void)saveJsonResponseToCacheFile:(id)jsonResponse;
 
-/// For subclass to overwrite
+#pragma mark - Subclass Override
+
+///  The max time duration that cache can stay in disk until it's considered expired.
+///  Default is -1, which means response is not actually saved as cache.
 - (NSInteger)cacheTimeInSeconds;
+
+///  Version can be used to identify and invalidate local cache. Default is 0.
 - (long long)cacheVersion;
+
+///  This can be used as additional identifier that tells the cache needs updating.
 - (nullable id)cacheSensitiveData;
 
 @end

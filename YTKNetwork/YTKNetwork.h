@@ -33,16 +33,22 @@
 
     #import <YTKNetwork/YTKRequest.h>
     #import <YTKNetwork/YTKBaseRequest.h>
+    #import <YTKNetwork/YTKNetworkAgent.h>
     #import <YTKNetwork/YTKBatchRequest.h>
+    #import <YTKNetwork/YTKBatchRequestAgent.h>
     #import <YTKNetwork/YTKChainRequest.h>
+    #import <YTKNetwork/YTKChainRequestAgent.h>
     #import <YTKNetwork/YTKNetworkConfig.h>
 
 #else
 
     #import "YTKRequest.h"
     #import "YTKBaseRequest.h"
+    #import "YTKNetworkAgent.h"
     #import "YTKBatchRequest.h"
+    #import "YTKBatchRequestAgent.h"
     #import "YTKChainRequest.h"
+    #import "YTKChainRequestAgent.h"
     #import "YTKNetworkConfig.h"
 
 #endif /* __has_include */

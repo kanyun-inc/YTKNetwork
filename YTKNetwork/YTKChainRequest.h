@@ -29,36 +29,55 @@ NS_ASSUME_NONNULL_BEGIN
 @class YTKBaseRequest;
 @protocol YTKRequestAccessory;
 
+///  The YTKChainRequestDelegate protocol defines several optional methods you can use
+///  to receive network-related messages. All the delegate methods will be called
+///  on the main queue. Note the delegate methods will be called when all the requests
+///  of chain request finishes.
 @protocol YTKChainRequestDelegate <NSObject>
 
 @optional
-
+///  Tell the delegate that the chain request has finished successfully.
+///
+///  @param chainRequest The corresponding chain request.
 - (void)chainRequestFinished:(YTKChainRequest *)chainRequest;
 
+///  Tell the delegate that the chain request has failed.
+///
+///  @param chainRequest The corresponding chain request.
+///  @param request      First failed request that causes the whole request to fail.
 - (void)chainRequestFailed:(YTKChainRequest *)chainRequest failedBaseRequest:(YTKBaseRequest*)request;
 
 @end
 
 typedef void (^ChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest);
 
+///  YTKBatchRequest can be used to chain several YTKRequest so that one will only starts after another finishes.
 @interface YTKChainRequest : NSObject
 
-@property (nonatomic, weak, nullable) id<YTKChainRequestDelegate> delegate;
-
-@property (nonatomic, strong, nullable) NSMutableArray<id<YTKRequestAccessory>> *requestAccessories;
-
-/// start chain request
-- (void)start;
-
-/// stop chain request
-- (void)stop;
-
-- (void)addRequest:(YTKBaseRequest *)request callback:(nullable ChainCallback)callback;
-
+///  All the requests are stored in this array.
 - (NSArray<YTKBaseRequest *> *)requestArray;
 
-/// Request Accessory，可以hook Request的start和stop
+///  The delegate object of the chain request. Default is nil.
+@property (nonatomic, weak, nullable) id<YTKChainRequestDelegate> delegate;
+
+///  This can be used to add several accossories object. Note if you use `addAccessory` to add acceesory
+///  this array will be automatically created. Default is nil.
+@property (nonatomic, strong, nullable) NSMutableArray<id<YTKRequestAccessory>> *requestAccessories;
+
+///  Convenience method to add request accessory. See also `requestAccessories`.
 - (void)addAccessory:(id<YTKRequestAccessory>)accessory;
+
+///  Start the chain request, adding first request in the chain to request queue.
+- (void)start;
+
+///  Stop the chain request. Remaining request in chain will be cancelled.
+- (void)stop;
+
+///  Add request to request chain.
+///
+///  @param request  The request to be chained.
+///  @param callback The finish callback
+- (void)addRequest:(YTKBaseRequest *)request callback:(nullable ChainCallback)callback;
 
 @end
 

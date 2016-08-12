@@ -27,17 +27,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class YTKBaseRequest;
 
+///  YTKNetworkAgent is the underlying class that handles actual request generation,
+///  serialization and response handling.
 @interface YTKNetworkAgent : NSObject
 
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+
+///  Get the shared agent.
 + (YTKNetworkAgent *)sharedInstance;
 
+///  Add request to session and start it.
 - (void)addRequest:(YTKBaseRequest *)request;
 
+///  Cancel a request that was previously added.
 - (void)cancelRequest:(YTKBaseRequest *)request;
 
+///  Cancel all requests that were previously added.
 - (void)cancelAllRequests;
 
-/// 根据request和networkConfig构建url
+///  Return the constructed URL of request.
 - (NSString *)buildRequestUrl:(YTKBaseRequest *)request;
 
 @end
