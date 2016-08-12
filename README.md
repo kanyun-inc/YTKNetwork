@@ -1,10 +1,10 @@
-YTKNetwork 
+YTKNetwork
 ==========
 
-![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
-![Pod version](http://img.shields.io/cocoapods/v/YTKNetwork.svg?style=flat)
+![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
+![Pod version](https://img.shields.io/cocoapods/v/YTKNetwork.svg?style=flat)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-![Platform info](http://img.shields.io/cocoapods/p/YTKNetwork.svg?style=flat)
+[![Platform info](https://img.shields.io/cocoapods/p/YTKNetwork.svg?style=flat)](http://cocoadocs.org/docsets/YTKNetwork)
 [![Build Status](https://api.travis-ci.org/yuantiku/YTKNetwork.svg?branch=master)](https://travis-ci.org/yuantiku/YTKNetwork)
 
 ## What

@@ -33,8 +33,8 @@ YTKNetwork 2.0 所依赖的 AFNetworking 版本从 2.X 变为 3.X 版本，抛�
 
 对于下载请求来说，响应属性的获取行为如下：
 
-* `responseData`：始终不能获取
-* `responseString`：始终不能获取
+* `responseData`：可以获取
+* `responseString`：不能获取
 * `responseObject`：为 NSURL，是下载文件在本地所存储的路径。
 
 如果在使用 YTKNetwork 1.X 的情况下，采用存储 `responseData` 的方式进行下载，那么无需进行改动。不过对于下载完整文件的情况，建议迁移到新的采用 `NSURLSessionDownloadTask` 的 API。
@@ -46,4 +46,11 @@ typedef void (^AFURLSessionTaskProgressBlock)(NSProgress *);
 ```
 
 可以通过 `NSProgress` 的 `totalUnitCount` 和 `completedUnitCount` 获取下载进度有关的信息。
+
+## YTKNetworkPrivate 不再暴露
+
+`YTKNetworkPrivate.h` 将会成为私有头文件，所以依赖于此头文件的方法将不再可用。
+
+## Cache API 更新
+ // TODO
 
