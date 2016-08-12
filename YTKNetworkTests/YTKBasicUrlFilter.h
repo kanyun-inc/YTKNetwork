@@ -12,6 +12,6 @@
 @protocol YTKUrlFilterProtocol;
 @interface YTKBasicUrlFilter : NSObject<YTKUrlFilterProtocol>
 
-+ (YTKBasicUrlFilter *)filterWithArguments:(NSDictionary<NSString *, NSString *> *)arguments;
++ (instancetype)filterWithArguments:(NSDictionary<NSString *, NSString *> *)arguments;
 
 @end

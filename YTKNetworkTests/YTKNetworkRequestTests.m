@@ -9,17 +9,18 @@
 #import "YTKTestCase.h"
 #import "YTKNetworkConfig.h"
 #import "YTKBasicHTTPRequest.h"
+#import "YTKXMLRequest.h"
 #import "YTKBasicAuthRequest.h"
 #import "YTKCustomHeaderFieldRequest.h"
 #import "YTKJSONValidatorRequest.h"
 #import "YTKStatusCodeValidatorRequest.h"
 #import "YTKTImeoutRequest.h"
 
-@interface YTKNetworkDemoTests : YTKTestCase
+@interface YTKNetworkRequestTests : YTKTestCase
 
 @end
 
-@implementation YTKNetworkDemoTests
+@implementation YTKNetworkRequestTests
 
 - (void)setUp {
     [super setUp];
@@ -81,6 +82,14 @@
 
     YTKJSONValidatorRequest *validateFailure = [[YTKJSONValidatorRequest alloc] initWithJSONValidator:@{@"headers": [NSDictionary class], @"args": [NSString class]} requestUrl:@"get?key1=value&key2=123456"];
     [self expectFailure:validateFailure];
+}
+
+- (void)testXMLRequest {
+    YTKXMLRequest *req = [[YTKXMLRequest alloc] initWithRequestUrl:@"xml"];
+    [self expectSuccess:req withAssertion:^(YTKBaseRequest *request) {
+        XCTAssertNotNil(request);
+        XCTAssertTrue([request.responseObject isMemberOfClass:[NSXMLParser class]]);
+    }];
 }
 
 - (void)testStatusCodeValidator {

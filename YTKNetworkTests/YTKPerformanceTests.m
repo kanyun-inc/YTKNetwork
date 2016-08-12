@@ -33,7 +33,7 @@
                 NSNumber *result = request.responseObject;
                 XCTAssertTrue([result isEqualToNumber:@(i)]);
             } failure:nil];
-            [req.requestTask cancel];
+            [req stop];
         }
     }];
 }

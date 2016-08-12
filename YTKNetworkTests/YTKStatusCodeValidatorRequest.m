@@ -32,4 +32,8 @@
     return [self responseStatusCode] == 418;// 418 I'm a teapot
 }
 
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeHTTP;
+}
+
 @end

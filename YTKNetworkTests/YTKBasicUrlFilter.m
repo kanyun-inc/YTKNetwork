@@ -18,7 +18,7 @@
 
 @implementation YTKBasicUrlFilter
 
-+ (YTKBasicUrlFilter *)filterWithArguments:(NSDictionary *)arguments {
++ (instancetype)filterWithArguments:(NSDictionary *)arguments {
     return [[self alloc] initWithArguments:arguments];
 }
 
