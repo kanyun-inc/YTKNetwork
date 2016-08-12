@@ -23,6 +23,7 @@
 
 #import <CommonCrypto/CommonDigest.h>
 #import "YTKNetworkPrivate.h"
+
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFURLRequestSerialization.h>
 #else
@@ -87,37 +88,34 @@ void YTKLog(NSString *format, ...) {
     }
 }
 
-+ (NSString *)urlParametersStringFromParameters:(NSDictionary *)parameters {
-    NSMutableString *urlParametersString = [[NSMutableString alloc] initWithString:@""];
-    if (parameters && parameters.count > 0) {
-        for (NSString *key in parameters) {
-            NSString *value = parameters[key];
-            value = [NSString stringWithFormat:@"%@",value];
-            value = [self urlEncode:value];
-            [urlParametersString appendFormat:@"&%@=%@", key, value];
-        }
-    }
-    return urlParametersString;
-}
-
 + (NSString *)urlStringWithOriginUrlString:(NSString *)originUrlString appendParameters:(NSDictionary *)parameters {
-    NSString *filteredUrl = originUrlString;
-    NSString *paraUrlString = [self urlParametersStringFromParameters:parameters];
-    if (paraUrlString && paraUrlString.length > 0) {
-        if ([originUrlString rangeOfString:@"?"].location != NSNotFound) {
-            filteredUrl = [filteredUrl stringByAppendingString:paraUrlString];
-        } else {
-            filteredUrl = [filteredUrl stringByAppendingFormat:@"?%@", [paraUrlString substringFromIndex:1]];
-        }
-        return filteredUrl;
-    } else {
+    NSString *paraUrlString = AFQueryStringFromParameters(parameters);
+
+    if (!(paraUrlString.length > 0)) {
         return originUrlString;
     }
-}
 
+    BOOL useDummyUrl = NO;
+    static NSString *dummyUrl = nil;
+    NSURLComponents *components = [NSURLComponents componentsWithString:originUrlString];
+    if (!components) {
+        useDummyUrl = YES;
+        if (!dummyUrl) {
+            dummyUrl = @"http://www.dummy.com";
+        }
+        components = [NSURLComponents componentsWithString:dummyUrl];
+    }
 
-+ (NSString*)urlEncode:(NSString*)str {
-    return AFPercentEscapedStringFromString(str);
+    NSString *queryString = components.query ?: @"";
+    NSString *newQueryString = [queryString stringByAppendingFormat:queryString.length > 0 ? @"&%@" : @"%@", paraUrlString];
+
+    components.query = newQueryString;
+
+    if (useDummyUrl) {
+        return [components.URL.absoluteString substringFromIndex:dummyUrl.length - 1];
+    } else {
+        return components.URL.absoluteString;
+    }
 }
 
 + (void)addDoNotBackupAttribute:(NSString *)path {
