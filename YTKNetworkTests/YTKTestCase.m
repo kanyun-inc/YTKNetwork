@@ -45,6 +45,7 @@ NSString * const YTKNetworkingTestsBaseURLString = @"https://httpbin.org/";
         [exp fulfill];
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         XCTFail(@"Request should succeed, but failed");
+        [exp fulfill];
     }];
 
     [self waitForExpectationsWithCommonTimeout];
@@ -59,6 +60,7 @@ NSString * const YTKNetworkingTestsBaseURLString = @"https://httpbin.org/";
 
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         XCTFail(@"Request should fail, but succeeded");
+        [exp fulfill];
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         XCTAssertNotNil(request);
         if (assertion) {
@@ -80,6 +82,35 @@ NSString * const YTKNetworkingTestsBaseURLString = @"https://httpbin.org/";
 
 - (void)waitForExpectationsWithCommonTimeoutUsingHandler:(XCWaitCompletionHandler)handler {
     [self waitForExpectationsWithTimeout:self.networkTimeout handler:handler];
+}
+
+#pragma mark -
+
+- (void)createDirectory:(NSString *)path {
+    NSError *error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES
+                                               attributes:nil error:&error];
+    if (error) {
+        NSLog(@"Create directory error: %@", error);
+    }
+}
+
+- (void)clearDirectory:(NSString *)path {
+    NSFileManager* fileManager = [[NSFileManager alloc] init];
+    if (![fileManager fileExistsAtPath:path isDirectory:nil]) {
+        return;
+    }
+    NSDirectoryEnumerator* enumerator = [fileManager enumeratorAtPath:path];
+    NSError* err = nil;
+    BOOL res;
+
+    NSString* file;
+    while (file = [enumerator nextObject]) {
+        res = [fileManager removeItemAtPath:[path stringByAppendingPathComponent:file] error:&err];
+        if (!res && err) {
+            NSLog(@"Delete file error: %@", err);
+        }
+    }
 }
 
 @end

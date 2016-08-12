@@ -22,9 +22,13 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "YTKRequest.h"
 #import "YTKBaseRequest.h"
 #import "YTKBatchRequest.h"
 #import "YTKChainRequest.h"
+#import "YTKNetworkAgent.h"
+
+@class AFHTTPSessionManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,6 +48,14 @@ FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 + (NSString *)appVersionString;
 
 + (NSStringEncoding)stringEncodingWithRequest:(YTKBaseRequest *)request;
+
++ (BOOL)isResumeDataValid:(NSData *)data;
+
+@end
+
+@interface YTKRequest (Getter)
+
+- (NSString *)cacheBasePath;
 
 @end
 
@@ -79,6 +91,16 @@ FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 - (void)toggleAccessoriesWillStartCallBack;
 - (void)toggleAccessoriesWillStopCallBack;
 - (void)toggleAccessoriesDidStopCallBack;
+
+@end
+
+@interface YTKNetworkAgent (Private)
+
+- (AFHTTPSessionManager *)manager;
+- (void)resetURLSessionManager;
+- (void)resetURLSessionManagerWithConfiguration:(NSURLSessionConfiguration *)configuration;
+
+- (NSString *)incompleteDownloadTempCacheFolder;
 
 @end
 

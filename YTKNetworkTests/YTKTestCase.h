@@ -21,4 +21,7 @@
 - (void)waitForExpectationsWithCommonTimeout;
 - (void)waitForExpectationsWithCommonTimeoutUsingHandler:(XCWaitCompletionHandler)handler;
 
+- (void)createDirectory:(NSString *)path;
+- (void)clearDirectory:(NSString *)path;
+
 @end

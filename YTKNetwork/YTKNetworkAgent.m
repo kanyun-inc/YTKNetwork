@@ -180,15 +180,54 @@
             if (request.resumableDownloadPath) {
                 // add parameters to URL;
                 NSString *filteredUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:url appendParameters:param];
-                NSURLRequest *requestUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:filteredUrl]];
+                NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:filteredUrl]];
+                urlRequest.timeoutInterval = [request requestTimeoutInterval];
 
+                NSString *downloadTargetPath;
+                BOOL isDirectory;
+                if(![[NSFileManager defaultManager] fileExistsAtPath:request.resumableDownloadPath isDirectory:&isDirectory]) {
+                    isDirectory = NO;
+                }
+                // If targetPath is a directory, use the file name we got from the urlRequest.
+                // Make sure downloadTargetPath is always a file, not directory.
+                if (isDirectory) {
+                    NSString *fileName = [urlRequest.URL lastPathComponent];
+                    downloadTargetPath = [NSString pathWithComponents:@[request.resumableDownloadPath, fileName]];
+                } else {
+                    downloadTargetPath = request.resumableDownloadPath;
+                }
+
+                BOOL resumeDataFileExists = [[NSFileManager defaultManager] fileExistsAtPath:[self incompleteDownloadTempPathForDownloadRequest:request].path];
+                NSData *data = [NSData dataWithContentsOfURL:[self incompleteDownloadTempPathForDownloadRequest:request]];
+                BOOL resumeDataIsValid = [YTKNetworkPrivate isResumeDataValid:data];
+
+                BOOL canBeResumed = resumeDataFileExists && resumeDataIsValid;
+                BOOL resumeSucceeded = NO;
                 __block NSURLSessionDownloadTask *downloadTask = nil;
-                downloadTask = [_manager downloadTaskWithRequest:requestUrl progress:request.resumableDownloadProgressBlock destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-                    return [NSURL fileURLWithPath:request.resumableDownloadPath];
-                } completionHandler:
-                    ^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-                    [self handleRequestResult:downloadTask responseObject:filePath error:error];
-                }];
+                // Try to resume with resumeData.
+                // Even though we try to validate the resumeData, this may still fail and raise excecption.
+                if (canBeResumed) {
+                    @try {
+                        downloadTask = [_manager downloadTaskWithResumeData:data progress:request.resumableDownloadProgressBlock destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+                            return [NSURL fileURLWithPath:downloadTargetPath isDirectory:NO];
+                        } completionHandler:
+                                        ^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+                                            [self handleRequestResult:downloadTask responseObject:filePath error:error];
+                                        }];
+                        resumeSucceeded = YES;
+                    } @catch (NSException *exception) {
+                        YTKLog(@"Resume download failed, reason = %@", exception.reason);
+                        resumeSucceeded = NO;
+                    }
+                }
+                if (!resumeSucceeded) {
+                    downloadTask = [_manager downloadTaskWithRequest:urlRequest progress:request.resumableDownloadProgressBlock destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+                        return [NSURL fileURLWithPath:downloadTargetPath isDirectory:NO];
+                    } completionHandler:
+                                    ^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+                                        [self handleRequestResult:downloadTask responseObject:filePath error:error];
+                                    }];
+                }
                 request.requestTask = downloadTask;
             } else {
                 request.requestTask = [self dataTaskWithHTTPMethod:@"GET" requestSerializer:requestSerializer URLString:url parameters:param];
@@ -197,6 +236,8 @@
             if (constructingBlock != nil) {
                 NSError *serializationError = nil;
                 NSMutableURLRequest *urlRequest = [requestSerializer multipartFormRequestWithMethod:@"POST" URLString:url parameters:param constructingBodyWithBlock:constructingBlock error:&serializationError];
+                urlRequest.timeoutInterval = [request requestTimeoutInterval];
+
                 if (serializationError) {
                     dispatch_async(_manager.completionQueue ?: dispatch_get_main_queue(), ^{
                         [self handleRequestResult:nil responseObject:nil error:serializationError];
