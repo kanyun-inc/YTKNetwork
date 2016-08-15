@@ -25,30 +25,45 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT NSString *const YTKRequestCacheErrorDomain;
+
+NS_ENUM(NSInteger) {
+    YTKRequestCacheErrorExpired = -1,
+    YTKRequestCacheErrorVersionMismatch = -2,
+    YTKRequestCacheErrorSensitiveDataMismatch = -3,
+    YTKRequestCacheErrorAppVersionMismatch = -4,
+    YTKRequestCacheErrorInvalidCacheTime = -5,
+    YTKRequestCacheErrorInvalidMetadata = -6,
+    YTKRequestCacheErrorInvalidCacheData = -7,
+};
+
 ///  YTKRequest is the base class you should inherit to create your own request class.
-///  Based on YTKBaseRequest, YTKRequest adds local caching feature.
+///  Based on YTKBaseRequest, YTKRequest adds local caching feature. Note download
+///  request will not be cached whatsoever, because download request may involve complicated
+///  cache control policy controlled by `Cache-Control`, `If-Modified-Since`, etc.
 @interface YTKRequest : YTKBaseRequest
 
 ///  Whether to use cache or not.
 ///  Default is NO, which means caching will take effect with specific arguments.
-///  Note that `cacheTimeInSeconds` default is -1. As a result caching is not actually
-///  enabled unless you use a positive value for `cacheTimeInSeconds`.
+///  Note that `cacheTimeInSeconds` default is -1. As result caching is not actually
+///  enabled unless you return a positive value in `cacheTimeInSeconds`.
 @property (nonatomic) BOOL ignoreCache;
-
-///  Cached JSON object.
-- (nullable id)cacheJson;
 
 ///  Whether data is from local cache.
 - (BOOL)isDataFromCache;
 
-///  Whether local cache is expired according to version.
-- (BOOL)isCacheVersionExpired;
+///  Manually load cache from storage.
+///
+///  @param error If an error occurred causing cache loading failed, an error object will be passed, otherwise NULL.
+///
+///  @return Whether cache is successfully loaded.
+- (BOOL)loadCacheWithError:(NSError **)error;
 
-///  Start request, completely ignores caching logic.
+///  Start request, completely ignores caching logic. Clear local cache if exists.
 - (void)startWithoutCache;
 
-///  Save response object (probably from another request) to this request's cache location
-- (void)saveJsonResponseToCacheFile:(id)jsonResponse;
+///  Save response data (probably from another request) to this request's cache location
+- (void)saveResponseDataToCacheFile:(NSData *)data;
 
 #pragma mark - Subclass Override
 
@@ -60,6 +75,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (long long)cacheVersion;
 
 ///  This can be used as additional identifier that tells the cache needs updating.
+///
+///  @discussion The `description` string of this object will be used as an identifier to verify whether cache
+///              is invalid. Using `NSArray` or `NSDictionary` as return value type is recommended. However,
+///              If you intend to use your custom class type, make sure that `description` is correctly implemented.
 - (nullable id)cacheSensitiveData;
 
 @end

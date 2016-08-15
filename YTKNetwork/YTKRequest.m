@@ -25,15 +25,100 @@
 #import "YTKRequest.h"
 #import "YTKNetworkPrivate.h"
 
-@interface YTKRequest()
+NSString *const YTKRequestCacheErrorDomain = @"com.yuantiku.request.caching";
 
-@property (strong, nonatomic) id cacheJson;
+@interface YTKCacheMetadata : NSObject<NSSecureCoding>
+
+@property (nonatomic, assign) long long version;
+@property (nonatomic, strong) NSString *sensitiveDataString;
+@property (nonatomic, assign) NSStringEncoding stringEncoding;
+@property (nonatomic, strong) NSDate *creationDate;
+@property (nonatomic, strong) NSString *appVersionString;
 
 @end
 
-@implementation YTKRequest {
-    BOOL _dataFromCache;
+@implementation YTKCacheMetadata
+
++ (BOOL)supportsSecureCoding {
+    return YES;
 }
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:@(self.version) forKey:NSStringFromSelector(@selector(version))];
+    [aCoder encodeObject:self.sensitiveDataString forKey:NSStringFromSelector(@selector(sensitiveDataString))];
+    [aCoder encodeObject:@(self.stringEncoding) forKey:NSStringFromSelector(@selector(stringEncoding))];
+    [aCoder encodeObject:self.creationDate forKey:NSStringFromSelector(@selector(creationDate))];
+    [aCoder encodeObject:self.appVersionString forKey:NSStringFromSelector(@selector(appVersionString))];
+}
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    if (!self) {
+        return nil;
+    }
+
+    self.version = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:NSStringFromSelector(@selector(version))] integerValue];
+    self.sensitiveDataString = [aDecoder decodeObjectOfClass:[NSString class] forKey:NSStringFromSelector(@selector(sensitiveDataString))];
+    self.stringEncoding = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:NSStringFromSelector(@selector(stringEncoding))] integerValue];
+    self.creationDate = [aDecoder decodeObjectOfClass:[NSDate class] forKey:NSStringFromSelector(@selector(creationDate))];
+    self.appVersionString = [aDecoder decodeObjectOfClass:[NSString class] forKey:NSStringFromSelector(@selector(appVersionString))];
+
+    return self;
+}
+
+@end
+
+@interface YTKRequest()
+
+@property (nonatomic, strong) NSData *cacheData;
+@property (nonatomic, strong) NSString *cacheString;
+@property (nonatomic, strong) id cacheJSON;
+@property (nonatomic, strong) NSXMLParser *cacheXML;
+
+@property (nonatomic, strong) YTKCacheMetadata *cacheMetadata;
+@property (nonatomic, assign) BOOL dataFromCache;
+
+@end
+
+@implementation YTKRequest
+
+- (void)start {
+    if (self.ignoreCache) {
+        [self startWithoutCache];
+        return;
+    }
+
+    // Do not cache download request.
+    if (self.resumableDownloadPath) {
+        [self startWithoutCache];
+        return;
+    }
+
+    if (![self loadCacheWithError:nil]) {
+        [self startWithoutCache];
+        return;
+    }
+
+    _dataFromCache = YES;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self requestCompleteFilter];
+        YTKRequest *strongSelf = self;
+        [strongSelf.delegate requestFinished:strongSelf];
+        if (strongSelf.successCompletionBlock) {
+            strongSelf.successCompletionBlock(strongSelf);
+        }
+        [strongSelf clearCompletionBlock];
+    });
+}
+
+- (void)startWithoutCache {
+    [self clearCacheVariables];
+    [self clearInvalidCacheIfNeeded];
+    [super start];
+}
+
+#pragma mark -
 
 - (NSInteger)cacheTimeInSeconds {
     return -1;
@@ -47,7 +132,150 @@
     return nil;
 }
 
-- (void)checkDirectory:(NSString *)path {
+- (BOOL)isDataFromCache {
+    return _dataFromCache;
+}
+
+- (BOOL)loadCacheWithError:(NSError * _Nullable __autoreleasing *)error {
+    // Make sure cache time in valid.
+    if ([self cacheTimeInSeconds] < 0) {
+        if (error) {
+            *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorInvalidCacheTime userInfo:@{ NSLocalizedDescriptionKey:@"Invalid cache time"}];
+        }
+        return NO;
+    }
+
+    // Try load metadata.
+    if (![self loadCacheMetadata]) {
+        if (error) {
+            *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorInvalidMetadata userInfo:@{ NSLocalizedDescriptionKey:@"Invalid metadata. Cache may not exist"}];
+        }
+        return NO;
+    }
+
+    // Check if cache is still valid.
+    if (![self isCacheValidWithError:error]) {
+        return NO;
+    }
+
+    // Try load cache.
+    if (![self loadCacheData]) {
+        if (error) {
+            *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorInvalidCacheData userInfo:@{ NSLocalizedDescriptionKey:@"Invalid cache data"}];
+        }
+        return NO;
+    }
+
+    return YES;
+}
+
+- (BOOL)isCacheValidWithError:(NSError * _Nullable __autoreleasing *)error {
+    // Date
+    NSDate *creationDate = self.cacheMetadata.creationDate;
+    NSTimeInterval duration = -[creationDate timeIntervalSinceNow];
+    if (duration < 0 || duration > [self cacheTimeInSeconds]) {
+        if (error) {
+            *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorExpired userInfo:@{ NSLocalizedDescriptionKey:@"Cache expired"}];
+        }
+        return NO;
+    }
+    // Version
+    long long cacheVersionFileContent = self.cacheMetadata.version;
+    if (cacheVersionFileContent != [self cacheVersion]) {
+        if (error) {
+            *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorVersionMismatch userInfo:@{ NSLocalizedDescriptionKey:@"Cache version mismatch"}];
+        }
+        return NO;
+    }
+    // Sensitive data
+    NSString *sensitiveDataString = self.cacheMetadata.sensitiveDataString;
+    NSString *currentSensitiveDataString = ((NSObject *)[self cacheSensitiveData]).description;
+    if (sensitiveDataString || currentSensitiveDataString) {
+        if (![sensitiveDataString isEqualToString:currentSensitiveDataString]) {
+            if (error) {
+                *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorSensitiveDataMismatch userInfo:@{ NSLocalizedDescriptionKey:@"Cache sensitive data mismatch"}];
+            }
+            return NO;
+        }
+    }
+    // App version
+    NSString *appVersionString = self.cacheMetadata.appVersionString;
+    NSString *currentAppVersionString = [YTKNetworkPrivate appVersionString];
+    if (appVersionString || currentAppVersionString) {
+        if (![appVersionString isEqualToString:currentAppVersionString]) {
+            if (error) {
+                *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorAppVersionMismatch userInfo:@{ NSLocalizedDescriptionKey:@"App version mismatch"}];
+            }
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)clearInvalidCacheIfNeeded {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:[self cacheFilePath] isDirectory:nil]) {
+        return;
+    }
+    NSError *error;
+    if ([fileManager isDeletableFileAtPath:[self cacheFilePath]]) {
+        BOOL success = [[NSFileManager defaultManager] removeItemAtPath:[self cacheFilePath] error:&error];
+        if (!success) {
+            YTKLog(@"Error removing cache at path: %@", error.localizedDescription);
+        }
+    }
+    if ([fileManager isDeletableFileAtPath:[self cacheMetadataFilePath]]) {
+        BOOL success = [[NSFileManager defaultManager] removeItemAtPath:[self cacheMetadataFilePath] error:&error];
+        if (!success) {
+            YTKLog(@"Error removing cache metadata at path: %@", error.localizedDescription);
+        }
+    }
+}
+
+- (NSData *)responseData {
+    if (_cacheData) {
+        return _cacheData;
+    }
+    return [super responseData];
+}
+
+- (NSString *)responseString {
+    if (_cacheString) {
+        return _cacheString;
+    }
+    return [super responseString];
+}
+
+- (id)responseJSONObject {
+    if (_cacheJSON) {
+        return _cacheJSON;
+    }
+    return [super responseJSONObject];
+}
+
+- (id)responseObject {
+    if (_cacheJSON) {
+        return _cacheJSON;
+    }
+    if (_cacheXML) {
+        return _cacheXML;
+    }
+    if (_cacheData) {
+        return _cacheData;
+    }
+    return [super responseObject];
+}
+
+#pragma mark - Network Request Delegate
+
+- (void)requestCompleteFilter {
+    [super requestCompleteFilter];
+    [self saveResponseDataToCacheFile:[super responseData]];
+}
+
+#pragma mark - Private
+
+- (void)createDirectoryIfNeeded:(NSString *)path {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDir;
     if (![fileManager fileExistsAtPath:path isDirectory:&isDir]) {
@@ -76,7 +304,7 @@
     NSString *pathOfLibrary = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *path = [pathOfLibrary stringByAppendingPathComponent:@"LazyRequestCache"];
 
-    // filter cache base path
+    // Filter cache base path
     NSArray<id<YTKCacheDirPathFilterProtocol>> *filters = [[YTKNetworkConfig sharedInstance] cacheDirPathFilters];
     if (filters.count > 0) {
         for (id<YTKCacheDirPathFilterProtocol> f in filters) {
@@ -84,7 +312,7 @@
         }
     }
 
-    [self checkDirectory:path];
+    [self createDirectoryIfNeeded:path];
     return path;
 }
 
@@ -92,9 +320,8 @@
     NSString *requestUrl = [self requestUrl];
     NSString *baseUrl = [YTKNetworkConfig sharedInstance].baseUrl;
     id argument = [self cacheFileNameFilterForRequestArgument:[self requestArgument]];
-    NSString *requestInfo = [NSString stringWithFormat:@"Method:%ld Host:%@ Url:%@ Argument:%@ AppVersion:%@ Sensitive:%@",
-                                                        (long)[self requestMethod], baseUrl, requestUrl,
-                                                        argument, [YTKNetworkPrivate appVersionString], [self cacheSensitiveData]];
+    NSString *requestInfo = [NSString stringWithFormat:@"Method:%ld Host:%@ Url:%@ Argument:%@",
+                             (long)[self requestMethod], baseUrl, requestUrl, argument];
     NSString *cacheFileName = [YTKNetworkPrivate md5StringFromString:requestInfo];
     return cacheFileName;
 }
@@ -106,144 +333,74 @@
     return path;
 }
 
-- (NSString *)cacheVersionFilePath {
-    NSString *cacheVersionFileName = [NSString stringWithFormat:@"%@.version", [self cacheFileName]];
+- (NSString *)cacheMetadataFilePath {
+    NSString *cacheMetadataFileName = [NSString stringWithFormat:@"%@.metadata", [self cacheFileName]];
     NSString *path = [self cacheBasePath];
-    path = [path stringByAppendingPathComponent:cacheVersionFileName];
+    path = [path stringByAppendingPathComponent:cacheMetadataFileName];
     return path;
 }
 
-- (long long)cacheVersionFileContent {
-    NSString *path = [self cacheVersionFilePath];
-    NSFileManager * fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
-        NSNumber *version = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-        return [version longLongValue];
-    } else {
-        return 0;
-    }
-}
-
-- (int)cacheFileDuration:(NSString *)path {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    // get file attribute
-    NSError *attributesRetrievalError = nil;
-    NSDictionary *attributes = [fileManager attributesOfItemAtPath:path
-                                                             error:&attributesRetrievalError];
-    if (!attributes) {
-        YTKLog(@"Error get attributes for file at %@: %@", path, attributesRetrievalError);
-        return -1;
-    }
-    int seconds = -[[attributes fileModificationDate] timeIntervalSinceNow];
-    return seconds;
-}
-
-- (void)start {
-    if (self.ignoreCache) {
-        [super start];
-        return;
-    }
-
-    // check cache time
-    if ([self cacheTimeInSeconds] < 0) {
-        [super start];
-        return;
-    }
-
-    // check cache version
-    long long cacheVersionFileContent = [self cacheVersionFileContent];
-    if (cacheVersionFileContent != [self cacheVersion]) {
-        [super start];
-        return;
-    }
-
-    // check cache existance
+- (BOOL)loadCacheData {
     NSString *path = [self cacheFilePath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:path isDirectory:nil]) {
-        [super start];
-        return;
-    }
+    NSError *error = nil;
 
-    // check cache time
-    int seconds = [self cacheFileDuration:path];
-    if (seconds < 0 || seconds > [self cacheTimeInSeconds]) {
-        [super start];
-        return;
-    }
-
-    // load cache
-    _cacheJson = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    if (_cacheJson == nil) {
-        [super start];
-        return;
-    }
-
-    _dataFromCache = YES;
-    [self requestCompleteFilter];
-    YTKRequest *strongSelf = self;
-    [strongSelf.delegate requestFinished:strongSelf];
-    if (strongSelf.successCompletionBlock) {
-        strongSelf.successCompletionBlock(strongSelf);
-    }
-    [strongSelf clearCompletionBlock];
-}
-
-- (void)startWithoutCache {
-    [super start];
-}
-
-- (id)cacheJson {
-    if (_cacheJson) {
-        return _cacheJson;
-    } else {
-        NSString *path = [self cacheFilePath];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
-            _cacheJson = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        _cacheData = data;
+        _cacheString = [[NSString alloc] initWithData:_cacheData encoding:self.cacheMetadata.stringEncoding];
+        switch (self.responseSerializerType) {
+            case YTKResponseSerializerTypeHTTP:
+                // Do nothing.
+                return YES;
+            case YTKResponseSerializerTypeJSON:
+                _cacheJSON = [NSJSONSerialization JSONObjectWithData:_cacheData options:(NSJSONReadingOptions)0 error:&error];
+                return error == nil;
+            case YTKResponseSerializerTypeXMLParser:
+                _cacheXML = [[NSXMLParser alloc] initWithData:_cacheData];
+                return YES;
         }
-        return _cacheJson;
     }
+    return NO;
 }
 
-- (BOOL)isDataFromCache {
-    return _dataFromCache;
-}
-
-- (BOOL)isCacheVersionExpired {
-    // check cache version
-    long long cacheVersionFileContent = [self cacheVersionFileContent];
-    if (cacheVersionFileContent != [self cacheVersion]) {
-        return YES;
-    } else {
-        return NO;
+- (BOOL)loadCacheMetadata {
+    NSString *path = [self cacheMetadataFilePath];
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
+        @try {
+            _cacheMetadata = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+            return YES;
+        } @catch (NSException *exception) {
+            YTKLog(@"Load cache metadata failed, reason = %@", exception.reason);
+            return NO;
+        }
     }
+    return NO;
 }
 
-- (id)responseJSONObject {
-    if (_cacheJson) {
-        return _cacheJson;
-    } else {
-        return [super responseJSONObject];
-    }
+- (void)clearCacheVariables {
+    _cacheData = nil;
+    _cacheXML = nil;
+    _cacheJSON = nil;
+    _cacheString = nil;
+    _cacheMetadata = nil;
+    _dataFromCache = NO;
 }
 
-#pragma mark - Network Request Delegate
-
-- (void)requestCompleteFilter {
-    [super requestCompleteFilter];
-    [self saveJsonResponseToCacheFile:[super responseJSONObject]];
-}
-
-// 手动将其他请求的JsonResponse写入该请求的缓存
-// 比如AddNoteApi, UpdateNoteApi都会获得Note，且其与GetNoteApi共享缓存，可以通过这个接口写入GetNoteApi缓存
-- (void)saveJsonResponseToCacheFile:(id)jsonResponse {
+- (void)saveResponseDataToCacheFile:(NSData *)data {
     if ([self cacheTimeInSeconds] > 0 && ![self isDataFromCache]) {
-        NSDictionary *json = jsonResponse;
-        if (json != nil) {
+        if (data != nil) {
             @try {
-                [NSKeyedArchiver archiveRootObject:json toFile:[self cacheFilePath]];
-                [NSKeyedArchiver archiveRootObject:@([self cacheVersion]) toFile:[self cacheVersionFilePath]];
+                [data writeToFile:[self cacheFilePath] atomically:YES];
+                // Write metadata.
+                YTKCacheMetadata *metadata = [[YTKCacheMetadata alloc] init];
+                metadata.version = [self cacheVersion];
+                metadata.sensitiveDataString = ((NSObject *)[self cacheSensitiveData]).description;
+                metadata.stringEncoding = [YTKNetworkPrivate stringEncodingWithRequest:self];
+                metadata.creationDate = [NSDate date];
+                metadata.appVersionString = [YTKNetworkPrivate appVersionString];
+                [NSKeyedArchiver archiveRootObject:metadata toFile:[self cacheMetadataFilePath]];
             } @catch (NSException *exception) {
                 YTKLog(@"Save cache failed, reason = %@", exception.reason);
             }
