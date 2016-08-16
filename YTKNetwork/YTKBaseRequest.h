@@ -244,10 +244,18 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 /// @name Subclass Override
 ///=============================================================================
 
-///  Called when request succeeded.
+///  Called on background thread after request succeded but before switching to main thread. Note if
+///  cache is loaded, this method WILL be called on the main thread, just like `requestCompleteFilter`.
+- (void)requestCompletePreprocessor;
+
+///  Called on the main thread after request succeeded.
 - (void)requestCompleteFilter;
 
-///  Called when request failed.
+///  Called on background thread after request succeded but before switching to main thread. See also
+///  `requestCompletePreprocessor`.
+- (void)requestFailedPreprocessor;
+
+///  Called on the main thread when request failed.
 - (void)requestFailedFilter;
 
 ///  The URL of request.

@@ -123,7 +123,13 @@
 
 #pragma mark - Subclass Override
 
+- (void)requestCompletePreprocessor {
+}
+
 - (void)requestCompleteFilter {
+}
+
+- (void)requestFailedPreprocessor {
 }
 
 - (void)requestFailedFilter {

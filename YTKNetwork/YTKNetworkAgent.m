@@ -361,6 +361,9 @@
             succeed = (error == nil) && [self checkResult:request];
         }
         if (succeed) {
+            @autoreleasepool {
+                [request requestCompletePreprocessor];
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [request toggleAccessoriesWillStopCallBack];
                 [request requestCompleteFilter];
@@ -383,6 +386,9 @@
                 [incompleteDownloadData writeToURL:[self incompleteDownloadTempPathForDownloadRequest:request] atomically:YES];
             }
 
+            @autoreleasepool {
+                [request requestFailedPreprocessor];
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [request toggleAccessoriesWillStopCallBack];
                 [request requestFailedFilter];
