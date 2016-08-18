@@ -57,7 +57,7 @@ NS_ENUM(NSInteger) {
 ///  @param error If an error occurred causing cache loading failed, an error object will be passed, otherwise NULL.
 ///
 ///  @return Whether cache is successfully loaded.
-- (BOOL)loadCacheWithError:(NSError **)error;
+- (BOOL)loadCacheWithError:(NSError * __autoreleasing *)error;
 
 ///  Start request, completely ignores caching logic. Clear local cache if exists.
 - (void)startWithoutCache;
@@ -80,6 +80,9 @@ NS_ENUM(NSInteger) {
 ///              is invalid. Using `NSArray` or `NSDictionary` as return value type is recommended. However,
 ///              If you intend to use your custom class type, make sure that `description` is correctly implemented.
 - (nullable id)cacheSensitiveData;
+
+///  Whether cache is asynchronously written to storage. Default is YES.
+- (BOOL)writeCacheAsynchronously;
 
 @end
 

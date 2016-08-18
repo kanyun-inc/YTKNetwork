@@ -101,7 +101,7 @@ NSString * const YTKNetworkingTestsBaseURLString = @"https://httpbin.org/";
         return;
     }
     NSDirectoryEnumerator* enumerator = [fileManager enumeratorAtPath:path];
-    NSError* err = nil;
+    NSError *err = nil;
     BOOL res;
 
     NSString* file;

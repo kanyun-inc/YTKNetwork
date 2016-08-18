@@ -266,6 +266,9 @@
         }
     }
 
+    if (!request.requestTask) {
+        return;
+    }
     // Set request task priority
     // !!Available on iOS 8 +
     if ([request.requestTask respondsToSelector:@selector(priority)]) {
@@ -333,11 +336,12 @@
     Lock();
     YTKBaseRequest *request = _requestsRecord[key];
     Unlock();
-    YTKLog(@"Finished Request: %@", NSStringFromClass([request class]));
-
-    NSError *serializationError = nil;
-    BOOL succeed = NO;
     if (request) {
+        YTKLog(@"Finished Request: %@", NSStringFromClass([request class]));
+
+        NSError * __autoreleasing serializationError = nil;
+        BOOL succeed = NO;
+
         request.responseObject = responseObject;
         if ([request.responseObject isKindOfClass:[NSData class]]) {
             request.responseData = responseObject;
@@ -402,11 +406,11 @@
                 [request toggleAccessoriesDidStopCallBack];
             });
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self removeRequestFromRecord:request];
+            [request clearCompletionBlock];
+        });
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self removeRequestFromRecord:request];
-        [request clearCompletionBlock];
-    });
 }
 
 - (NSString *)requestHashKey:(NSURLSessionTask *)task {
@@ -439,9 +443,7 @@
     NSError *serializationError = nil;
     NSMutableURLRequest *request = [requestSerializer requestWithMethod:method URLString:URLString parameters:parameters error:&serializationError];
     if (serializationError) {
-        dispatch_async(_manager.completionQueue ?: dispatch_get_main_queue(), ^{
-            [self handleRequestResult:nil responseObject:nil error:serializationError];
-        });
+        YTKLog(@"Request serialization failed, error = %@", serializationError.localizedDescription);
         return nil;
     }
 
@@ -457,7 +459,7 @@
 #pragma mark - Resumable Download
 
 - (NSString *)incompleteDownloadTempCacheFolder {
-    NSFileManager *filemgr = [NSFileManager new];
+    NSFileManager *fileManager = [NSFileManager new];
     static NSString *cacheFolder;
 
     if (!cacheFolder) {
@@ -466,7 +468,7 @@
     }
 
     NSError *error = nil;
-    if(![filemgr createDirectoryAtPath:cacheFolder withIntermediateDirectories:YES attributes:nil error:&error]) {
+    if(![fileManager createDirectoryAtPath:cacheFolder withIntermediateDirectories:YES attributes:nil error:&error]) {
         YTKLog(@"Failed to create cache directory at %@", cacheFolder);
         cacheFolder = nil;
     }

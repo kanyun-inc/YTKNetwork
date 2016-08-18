@@ -49,4 +49,8 @@
     return _cacheSensitiveData;
 }
 
+- (BOOL)writeCacheAsynchronously {
+    return NO; // For testing.
+}
+
 @end

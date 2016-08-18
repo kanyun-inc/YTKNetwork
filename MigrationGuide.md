@@ -26,6 +26,21 @@ YTKNetwork 2.0 所依赖的 AFNetworking 版本从 2.X 变为 3.X 版本，抛�
 * `request.requestOperation.response` --> `request.response`
 * `request.requestOperation.request` --> `request.currentRequest` & `request.originalRequest`
 
+由于失去了 Operation 封装类，`request.currentRequest` 和 `request.originalRequest` 属性需要在 request 进行 `start` 之后才能获取，否则为 nil。
+
+## 响应序列化选项
+
+YTKNetwork 2.0 中加入了新的响应序列化选项，以及对应的 `responseObject` 属性，不同的序列化选项会导致响应返回不同类型的 `responseObject`，具体对应如下：
+
+```Objective-C
+typedef NS_ENUM(NSInteger, YTKResponseSerializerType) {
+    YTKResponseSerializerTypeHTTP = 0,  /// NSData
+    YTKResponseSerializerTypeJSON,      /// JSON object
+    YTKResponseSerializerTypeXMLParser  /// NSXMLParser
+};
+```
+
+默认的序列化选项是 `YTKResponseSerializerTypeHTTP`。
 
 ## 下载请求
 
@@ -52,5 +67,34 @@ typedef void (^AFURLSessionTaskProgressBlock)(NSProgress *);
 `YTKNetworkPrivate.h` 将会成为私有头文件，所以依赖于此头文件的方法将不再可用。
 
 ## Cache API 更新
- // TODO
 
+`YTKRequest` 类当中的 Cache 有关接口发生改变，不发送请求的情况下获取 Cache 的下列接口被去除：
+
+* `- (id)cacheJson`
+* `- (BOOL)isCacheVersionExpired;`
+
+新的替代接口为：
+
+* `- (BOOL)loadCacheWithError:(NSError **)error`
+
+这个接口可以用于在不发送请求的情况下，直接读取磁盘缓存，返回值表示获取成功与否，如果获取失败，error 会返回错误的具体信息。读取缓存成功后，可以直接通过 `responseObject`，`responseData` 等属性获取数据。
+
+用于将一个请求的响应写到另一个请求的缓存中的接口，也发生了变化：
+
+#### YTKNetwork 1.X
+
+`- (void)saveJsonResponseToCacheFile:(id)jsonResponse`
+
+#### YTKNetwork 2.X
+
+`- (void)saveResponseDataToCacheFile:(NSData *)data`
+
+YTKNetwork 2.0 中加入了用于控制是否进行异步写缓存的接口：
+
+`- (BOOL)writeCacheAsynchronously`
+
+默认返回 `YES`，即使用异步方式写缓存，以提高性能。如果需要关闭此功能，可以在子类中覆盖这个方法并返回 `NO`。
+
+## 响应前向处理
+
+与 `- (void)requestCompleteFilter` 和 `- (void)requestFailedFilter` 对应， YTKNetwork 2.0 中加入了用于在响应结束，但是切换回主线程之前执行操作的函数 `- (void)requestCompletePreprocessor` 和 `- (void)requestFailedPreprocessor`，在这里执行的操作，可以避免卡顿主线程。
