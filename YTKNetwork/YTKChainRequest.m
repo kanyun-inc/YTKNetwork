@@ -29,9 +29,9 @@
 @interface YTKChainRequest()<YTKRequestDelegate>
 
 @property (strong, nonatomic) NSMutableArray<YTKBaseRequest *> *requestArray;
-@property (strong, nonatomic) NSMutableArray<ChainCallback> *requestCallbackArray;
+@property (strong, nonatomic) NSMutableArray<YTKChainCallback> *requestCallbackArray;
 @property (assign, nonatomic) NSUInteger nextRequestIndex;
-@property (strong, nonatomic) ChainCallback emptyCallback;
+@property (strong, nonatomic) YTKChainCallback emptyCallback;
 
 @end
 
@@ -72,7 +72,7 @@
     [self toggleAccessoriesDidStopCallBack];
 }
 
-- (void)addRequest:(YTKBaseRequest *)request callback:(ChainCallback)callback {
+- (void)addRequest:(YTKBaseRequest *)request callback:(YTKChainCallback)callback {
     [_requestArray addObject:request];
     if (callback != nil) {
         [_requestCallbackArray addObject:callback];
@@ -101,7 +101,7 @@
 
 - (void)requestFinished:(YTKBaseRequest *)request {
     NSUInteger currentRequestIndex = _nextRequestIndex - 1;
-    ChainCallback callback = _requestCallbackArray[currentRequestIndex];
+    YTKChainCallback callback = _requestCallbackArray[currentRequestIndex];
     callback(self, request);
     if (![self startNextRequest]) {
         [self toggleAccessoriesWillStopCallBack];

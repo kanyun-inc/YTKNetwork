@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-typedef void (^ChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest);
+typedef void (^YTKChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest);
 
 ///  YTKBatchRequest can be used to chain several YTKRequest so that one will only starts after another finishes.
 @interface YTKChainRequest : NSObject
@@ -77,7 +77,7 @@ typedef void (^ChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *bas
 ///
 ///  @param request  The request to be chained.
 ///  @param callback The finish callback
-- (void)addRequest:(YTKBaseRequest *)request callback:(nullable ChainCallback)callback;
+- (void)addRequest:(YTKBaseRequest *)request callback:(nullable YTKChainCallback)callback;
 
 @end
 
