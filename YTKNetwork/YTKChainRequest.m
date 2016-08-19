@@ -59,7 +59,7 @@
     if ([_requestArray count] > 0) {
         [self toggleAccessoriesWillStartCallBack];
         [self startNextRequest];
-        [[YTKChainRequestAgent sharedInstance] addChainRequest:self];
+        [[YTKChainRequestAgent sharedAgent] addChainRequest:self];
     } else {
         YTKLog(@"Error! Chain request array is empty.");
     }
@@ -68,7 +68,7 @@
 - (void)stop {
     [self toggleAccessoriesWillStopCallBack];
     [self clearRequest];
-    [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
+    [[YTKChainRequestAgent sharedAgent] removeChainRequest:self];
     [self toggleAccessoriesDidStopCallBack];
 }
 
@@ -107,7 +107,7 @@
         [self toggleAccessoriesWillStopCallBack];
         if ([_delegate respondsToSelector:@selector(chainRequestFinished:)]) {
             [_delegate chainRequestFinished:self];
-            [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
+            [[YTKChainRequestAgent sharedAgent] removeChainRequest:self];
         }
         [self toggleAccessoriesDidStopCallBack];
     }
@@ -117,7 +117,7 @@
     [self toggleAccessoriesWillStopCallBack];
     if ([_delegate respondsToSelector:@selector(chainRequestFailed:failedBaseRequest:)]) {
         [_delegate chainRequestFailed:self failedBaseRequest:request];
-        [[YTKChainRequestAgent sharedInstance] removeChainRequest:self];
+        [[YTKChainRequestAgent sharedAgent] removeChainRequest:self];
     }
     [self toggleAccessoriesDidStopCallBack];
 }

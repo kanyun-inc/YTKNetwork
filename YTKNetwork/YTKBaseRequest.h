@@ -27,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///  HTTP Request method.
 typedef NS_ENUM(NSInteger, YTKRequestMethod) {
-    YTKRequestMethodGet = 0,
-    YTKRequestMethodPost,
-    YTKRequestMethodHead,
-    YTKRequestMethodPut,
-    YTKRequestMethodDelete,
-    YTKRequestMethodPatch,
+    YTKRequestMethodGET = 0,
+    YTKRequestMethodPOST,
+    YTKRequestMethodHEAD,
+    YTKRequestMethodPUT,
+    YTKRequestMethodDELETE,
+    YTKRequestMethodPATCH,
 };
 
 ///  Request serializer type.
@@ -44,9 +44,12 @@ typedef NS_ENUM(NSInteger, YTKRequestSerializerType) {
 ///  Response serializer type, which determines response serialization process and
 ///  the type of `responseObject`.
 typedef NS_ENUM(NSInteger, YTKResponseSerializerType) {
-    YTKResponseSerializerTypeHTTP = 0,  /// NSData
-    YTKResponseSerializerTypeJSON,      /// JSON object
-    YTKResponseSerializerTypeXMLParser  /// NSXMLParser
+    /// NSData type
+    YTKResponseSerializerTypeHTTP,
+    /// JSON object type
+    YTKResponseSerializerTypeJSON,
+    /// NSXMLParser type
+    YTKResponseSerializerTypeXMLParser,
 };
 
 ///  Request priority

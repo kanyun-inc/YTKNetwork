@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 
 ///  Get the shared batch request agent.
-+ (YTKBatchRequestAgent *)sharedInstance;
++ (YTKBatchRequestAgent *)sharedAgent;
 
 ///  Add a batch request.
 - (void)addBatchRequest:(YTKBatchRequest *)request;

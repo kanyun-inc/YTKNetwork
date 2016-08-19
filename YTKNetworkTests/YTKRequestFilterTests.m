@@ -27,7 +27,7 @@
 
 - (void)testBasicFilter {
     YTKBasicUrlFilter *filter = [YTKBasicUrlFilter filterWithArguments:@{@"key": @"value"}];
-    [[YTKNetworkConfig sharedInstance] addUrlFilter:filter];
+    [[YTKNetworkConfig sharedConfig] addUrlFilter:filter];
 
     YTKBasicHTTPRequest *req = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"get"];
     [self expectSuccess:req withAssertion:^(YTKBaseRequest *request) {

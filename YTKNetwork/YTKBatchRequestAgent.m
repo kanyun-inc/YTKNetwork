@@ -32,7 +32,7 @@
 
 @implementation YTKBatchRequestAgent
 
-+ (YTKBatchRequestAgent *)sharedInstance {
++ (YTKBatchRequestAgent *)sharedAgent {
     static id sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

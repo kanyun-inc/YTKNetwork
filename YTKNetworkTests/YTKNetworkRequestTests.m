@@ -31,22 +31,22 @@
 }
 
 - (void)testBasicHTTPRequest {
-    YTKBasicHTTPRequest *get = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"get" method:YTKRequestMethodGet];
+    YTKBasicHTTPRequest *get = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"get" method:YTKRequestMethodGET];
     [self expectSuccess:get];
 
-    YTKBasicHTTPRequest *post = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"post" method:YTKRequestMethodPost];
+    YTKBasicHTTPRequest *post = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"post" method:YTKRequestMethodPOST];
     [self expectSuccess:post];
 
-    YTKBasicHTTPRequest *patch = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"patch" method:YTKRequestMethodPatch];
+    YTKBasicHTTPRequest *patch = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"patch" method:YTKRequestMethodPATCH];
     [self expectSuccess:patch];
 
-    YTKBasicHTTPRequest *put = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"put" method:YTKRequestMethodPut];
+    YTKBasicHTTPRequest *put = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"put" method:YTKRequestMethodPUT];
     [self expectSuccess:put];
 
-    YTKBasicHTTPRequest *delete = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"delete" method:YTKRequestMethodDelete];
+    YTKBasicHTTPRequest *delete = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"delete" method:YTKRequestMethodDELETE];
     [self expectSuccess:delete];
 
-    YTKBasicHTTPRequest *fail404 = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"status/404" method:YTKRequestMethodGet];
+    YTKBasicHTTPRequest *fail404 = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"status/404" method:YTKRequestMethodGET];
     [self expectFailure:fail404];
 }
 

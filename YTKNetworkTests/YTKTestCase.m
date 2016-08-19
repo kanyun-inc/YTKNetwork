@@ -18,16 +18,16 @@ NSString * const YTKNetworkingTestsBaseURLString = @"https://httpbin.org/";
 - (void)setUp {
     [super setUp];
     self.networkTimeout = 20.0;
-    [YTKNetworkConfig sharedInstance].baseUrl = YTKNetworkingTestsBaseURLString;
+    [YTKNetworkConfig sharedConfig].baseUrl = YTKNetworkingTestsBaseURLString;
 }
 
 - (void)tearDown {
     [super tearDown];
-    [[YTKNetworkAgent sharedInstance] cancelAllRequests];
-    [YTKNetworkConfig sharedInstance].baseUrl = @"";
-    [YTKNetworkConfig sharedInstance].cdnUrl = @"";
-    [[YTKNetworkConfig sharedInstance] clearUrlFilter];
-    [[YTKNetworkConfig sharedInstance] clearCacheDirPathFilter];
+    [[YTKNetworkAgent sharedAgent] cancelAllRequests];
+    [YTKNetworkConfig sharedConfig].baseUrl = @"";
+    [YTKNetworkConfig sharedConfig].cdnUrl = @"";
+    [[YTKNetworkConfig sharedConfig] clearUrlFilter];
+    [[YTKNetworkConfig sharedConfig] clearCacheDirPathFilter];
 }
 
 - (void)expectSuccess:(YTKRequest *)request {

@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 
 ///  Return a shared config object.
-+ (YTKNetworkConfig *)sharedInstance;
++ (YTKNetworkConfig *)sharedConfig;
 
 ///  Request base URL, such as "http://www.yuantiku.com". Default is empty string.
 @property (strong, nonatomic) NSString *baseUrl;

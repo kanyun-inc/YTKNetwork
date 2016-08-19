@@ -35,7 +35,7 @@
     NSMutableArray<id<YTKCacheDirPathFilterProtocol>> *_cacheDirPathFilters;
 }
 
-+ (YTKNetworkConfig *)sharedInstance {
++ (YTKNetworkConfig *)sharedConfig {
     static id sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -98,3 +98,23 @@ YTKNetwork 2.0 中加入了用于控制是否进行异步写缓存的接口：
 ## 响应前向处理
 
 与 `- (void)requestCompleteFilter` 和 `- (void)requestFailedFilter` 对应， YTKNetwork 2.0 中加入了用于在响应结束，但是切换回主线程之前执行操作的函数 `- (void)requestCompletePreprocessor` 和 `- (void)requestFailedPreprocessor`，在这里执行的操作，可以避免卡顿主线程。
+
+## 命名变更
+
+YTKNetwork 2.0 中部分函数命名发生了变更：
+
+* `[YTKNetworkAgent sharedInstance]` -> `[YTKNetworkAgent sharedAgent]`
+* `[YTKChainRequestAgent sharedInstance]` -> `[YTKChainRequestAgent sharedAgent]`
+* `[YTKBatchRequestAgent sharedInstance]` -> `[YTKBatchRequestAgent sharedAgent]`
+* `[YTKNetworkConfig sharedInstance]` -> `[YTKNetworkConfig sharedConfig]`
+
+部分枚举的命名也发生了变化：
+
+* `YTKRequestMethodGet` -> `YTKRequestMethodGET`
+* `YTKRequestMethodPost` -> `YTKRequestMethodPOST`
+* ...
+
+同时 `ChainCallback` 类型被重命名为 `YTKChainCallback`：
+
+```typedef void (^YTKChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest);```
+

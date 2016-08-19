@@ -22,7 +22,7 @@ NSString *const kTestDownloadURL = @"https://qd.myapp.com/myapp/qqteam/AndroidQQ
 - (void)setUp {
     [super setUp];
     [self createDirectory:[self saveBasePath]];
-    [self clearDirectory:[[YTKNetworkAgent sharedInstance] incompleteDownloadTempCacheFolder]];
+    [self clearDirectory:[[YTKNetworkAgent sharedAgent] incompleteDownloadTempCacheFolder]];
 
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     // Ignore cache
@@ -30,15 +30,15 @@ NSString *const kTestDownloadURL = @"https://qd.myapp.com/myapp/qqteam/AndroidQQ
     config.HTTPCookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
     // Force download failed because of timeout.
     config.timeoutIntervalForResource = 1;
-    [[YTKNetworkAgent sharedInstance] resetURLSessionManagerWithConfiguration:config];
+    [[YTKNetworkAgent sharedAgent] resetURLSessionManagerWithConfiguration:config];
     // Allow all content type
-    [[YTKNetworkAgent sharedInstance] manager].responseSerializer.acceptableContentTypes = nil;
+    [[YTKNetworkAgent sharedAgent] manager].responseSerializer.acceptableContentTypes = nil;
 }
 
 - (void)tearDown {
     [super tearDown];
     [self clearDirectory:[self saveBasePath]];
-    [self clearDirectory:[[YTKNetworkAgent sharedInstance] incompleteDownloadTempCacheFolder]];
+    [self clearDirectory:[[YTKNetworkAgent sharedAgent] incompleteDownloadTempCacheFolder]];
 }
 
 - (NSString *)saveBasePath {
@@ -61,9 +61,9 @@ NSString *const kTestDownloadURL = @"https://qd.myapp.com/myapp/qqteam/AndroidQQ
     [self expectFailure:req];
 
     // Start the request again
-    [[YTKNetworkAgent sharedInstance] resetURLSessionManager];
+    [[YTKNetworkAgent sharedAgent] resetURLSessionManager];
     // Allow all content type
-    [[YTKNetworkAgent sharedInstance] manager].responseSerializer.acceptableContentTypes = nil;
+    [[YTKNetworkAgent sharedAgent] manager].responseSerializer.acceptableContentTypes = nil;
 
     YTKDownloadRequest *req2 = [[YTKDownloadRequest alloc] initWithTimeout:self.networkTimeout requestUrl:kTestDownloadURL];
     req2.resumableDownloadPath = [[self saveBasePath] stringByAppendingPathComponent:@"downloaded.bin"];
@@ -84,8 +84,8 @@ NSString *const kTestDownloadURL = @"https://qd.myapp.com/myapp/qqteam/AndroidQQ
 
     [self expectFailure:req];
 
-    [[YTKNetworkAgent sharedInstance] resetURLSessionManager];
-    [[YTKNetworkAgent sharedInstance] manager].responseSerializer.acceptableContentTypes = nil;
+    [[YTKNetworkAgent sharedAgent] resetURLSessionManager];
+    [[YTKNetworkAgent sharedAgent] manager].responseSerializer.acceptableContentTypes = nil;
 
     YTKDownloadRequest *req2 = [[YTKDownloadRequest alloc] initWithTimeout:self.networkTimeout requestUrl:kTestDownloadURL];
     req2.resumableDownloadPath = [self saveBasePath];

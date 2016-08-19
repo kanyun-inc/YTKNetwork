@@ -18,7 +18,7 @@
 @implementation YTKBasicHTTPRequest
 
 - (instancetype)initWithRequestUrl:(NSString *)url {
-    return [self initWithRequestUrl:url method:YTKRequestMethodGet];
+    return [self initWithRequestUrl:url method:YTKRequestMethodGET];
 }
 
 - (instancetype)initWithRequestUrl:(NSString *)url method:(YTKRequestMethod)method {

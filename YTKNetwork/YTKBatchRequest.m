@@ -55,7 +55,7 @@
         return;
     }
     _failedRequest = nil;
-    [[YTKBatchRequestAgent sharedInstance] addBatchRequest:self];
+    [[YTKBatchRequestAgent sharedAgent] addBatchRequest:self];
     [self toggleAccessoriesWillStartCallBack];
     for (YTKRequest * req in _requestArray) {
         req.delegate = self;
@@ -68,7 +68,7 @@
     _delegate = nil;
     [self clearRequest];
     [self toggleAccessoriesDidStopCallBack];
-    [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
+    [[YTKBatchRequestAgent sharedAgent] removeBatchRequest:self];
 }
 
 - (void)startWithCompletionBlockWithSuccess:(void (^)(YTKBatchRequest *batchRequest))success
@@ -118,7 +118,7 @@
         }
         [self clearCompletionBlock];
         [self toggleAccessoriesDidStopCallBack];
-        [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
+        [[YTKBatchRequestAgent sharedAgent] removeBatchRequest:self];
     }
 }
 
@@ -140,7 +140,7 @@
     [self clearCompletionBlock];
 
     [self toggleAccessoriesDidStopCallBack];
-    [[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
+    [[YTKBatchRequestAgent sharedAgent] removeBatchRequest:self];
 }
 
 - (void)clearRequest {

@@ -49,7 +49,7 @@
     NSIndexSet *_allStatusCodes;
 }
 
-+ (YTKNetworkAgent *)sharedInstance {
++ (YTKNetworkAgent *)sharedAgent {
     static id sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -61,7 +61,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _config = [YTKNetworkConfig sharedInstance];
+        _config = [YTKNetworkConfig sharedConfig];
         _manager = [AFHTTPSessionManager manager];
         _requestsRecord = [NSMutableDictionary dictionary];
         _processingQueue = dispatch_queue_create("com.yuantiku.networkagent.processing", DISPATCH_QUEUE_CONCURRENT);
@@ -176,7 +176,7 @@
         }];
         request.requestTask = dataTask;
     } else {
-        if (method == YTKRequestMethodGet) {
+        if (method == YTKRequestMethodGET) {
             if (request.resumableDownloadPath) {
                 // add parameters to URL;
                 NSString *filteredUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:url appendParameters:param];
@@ -232,7 +232,7 @@
             } else {
                 request.requestTask = [self dataTaskWithHTTPMethod:@"GET" requestSerializer:requestSerializer URLString:url parameters:param];
             }
-        } else if (method == YTKRequestMethodPost) {
+        } else if (method == YTKRequestMethodPOST) {
             if (constructingBlock != nil) {
                 NSError *serializationError = nil;
                 NSMutableURLRequest *urlRequest = [requestSerializer multipartFormRequestWithMethod:@"POST" URLString:url parameters:param constructingBodyWithBlock:constructingBlock error:&serializationError];
@@ -252,13 +252,13 @@
             } else {
                 request.requestTask = [self dataTaskWithHTTPMethod:@"POST" requestSerializer:requestSerializer URLString:url parameters:param];
             }
-        } else if (method == YTKRequestMethodHead) {
+        } else if (method == YTKRequestMethodHEAD) {
             request.requestTask = [self dataTaskWithHTTPMethod:@"HEAD" requestSerializer:requestSerializer URLString:url parameters:param];
-        } else if (method == YTKRequestMethodPut) {
+        } else if (method == YTKRequestMethodPUT) {
             request.requestTask = [self dataTaskWithHTTPMethod:@"PUT" requestSerializer:requestSerializer URLString:url parameters:param];
-        } else if (method == YTKRequestMethodDelete) {
+        } else if (method == YTKRequestMethodDELETE) {
             request.requestTask = [self dataTaskWithHTTPMethod:@"DELETE" requestSerializer:requestSerializer URLString:url parameters:param];
-        } else if (method == YTKRequestMethodPatch) {
+        } else if (method == YTKRequestMethodPATCH) {
             request.requestTask = [self dataTaskWithHTTPMethod:@"PATCH" requestSerializer:requestSerializer URLString:url parameters:param];
         } else {
             YTKLog(@"Error, unsupport method type");

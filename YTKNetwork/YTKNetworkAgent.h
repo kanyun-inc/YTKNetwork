@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 
 ///  Get the shared agent.
-+ (YTKNetworkAgent *)sharedInstance;
++ (YTKNetworkAgent *)sharedAgent;
 
 ///  Add request to session and start it.
 - (void)addRequest:(YTKBaseRequest *)request;

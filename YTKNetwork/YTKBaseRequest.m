@@ -105,13 +105,13 @@
 
 - (void)start {
     [self toggleAccessoriesWillStartCallBack];
-    [[YTKNetworkAgent sharedInstance] addRequest:self];
+    [[YTKNetworkAgent sharedAgent] addRequest:self];
 }
 
 - (void)stop {
     [self toggleAccessoriesWillStopCallBack];
     self.delegate = nil;
-    [[YTKNetworkAgent sharedInstance] cancelRequest:self];
+    [[YTKNetworkAgent sharedAgent] cancelRequest:self];
     [self toggleAccessoriesDidStopCallBack];
 }
 
@@ -160,7 +160,7 @@
 }
 
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGet;
+    return YTKRequestMethodGET;
 }
 
 - (YTKRequestSerializerType)requestSerializerType {

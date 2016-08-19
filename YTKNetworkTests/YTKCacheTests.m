@@ -245,7 +245,7 @@
     NSString *const pathSuffix = @"MyCachePath";
     // Add filter.
     YTKBasicCacheDirFilter *filter = [YTKBasicCacheDirFilter filterWithPathComponent:pathSuffix];
-    [[YTKNetworkConfig sharedInstance] addCacheDirPathFilter:filter];
+    [[YTKNetworkConfig sharedConfig] addCacheDirPathFilter:filter];
 
     // Test caching logic.
     YTKCustomCacheRequest *req = [[YTKCustomCacheRequest alloc] initWithRequestUrl:@"get" cacheTimeInSeconds:5 cacheVersion:0 cacheSensitiveData:nil];
