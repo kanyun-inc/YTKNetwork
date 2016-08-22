@@ -146,6 +146,7 @@
     }
 
     requestSerializer.timeoutInterval = [request requestTimeoutInterval];
+    requestSerializer.allowsCellularAccess = [request allowsCellularAccess];
 
     // If api needs server username and password
     NSArray<NSString *> *authorizationHeaderFieldArray = [request requestAuthorizationHeaderFieldArray];
@@ -182,6 +183,7 @@
                 NSString *filteredUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:url appendParameters:param];
                 NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:filteredUrl]];
                 urlRequest.timeoutInterval = [request requestTimeoutInterval];
+                urlRequest.allowsCellularAccess = [request allowsCellularAccess];
 
                 NSString *downloadTargetPath;
                 BOOL isDirectory;
@@ -237,6 +239,7 @@
                 NSError *serializationError = nil;
                 NSMutableURLRequest *urlRequest = [requestSerializer multipartFormRequestWithMethod:@"POST" URLString:url parameters:param constructingBodyWithBlock:constructingBlock error:&serializationError];
                 urlRequest.timeoutInterval = [request requestTimeoutInterval];
+                urlRequest.allowsCellularAccess = [request allowsCellularAccess];
 
                 if (serializationError) {
                     dispatch_async(_manager.completionQueue ?: dispatch_get_main_queue(), ^{

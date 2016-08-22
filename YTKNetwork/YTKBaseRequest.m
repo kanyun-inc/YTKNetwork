@@ -187,6 +187,10 @@
     return NO;
 }
 
+- (BOOL)allowsCellularAccess {
+    return YES;
+}
+
 - (id)jsonValidator {
     return nil;
 }

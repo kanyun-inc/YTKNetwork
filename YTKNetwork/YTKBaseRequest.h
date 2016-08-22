@@ -299,11 +299,14 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 - (nullable NSDictionary<NSString *, NSString *> *)requestHeaderFieldValueDictionary;
 
 ///  Use this to build custom request. If this method return non-nil value, `requestUrl`, `requestTimeoutInterval`,
-///  `requestArgument`, `requestMethod` and `requestSerializerType` will all be ignored.
+///  `requestArgument`, `allowsCellularAccess`, `requestMethod` and `requestSerializerType` will all be ignored.
 - (nullable NSURLRequest *)buildCustomUrlRequest;
 
 ///  Should use CDN when sending request.
 - (BOOL)useCDN;
+
+///  Whether the request is allowed to use the cellular radio (if present). Default is YES.
+- (BOOL)allowsCellularAccess;
 
 ///  The validator will be used to test if `responseJSONObject` is correctly formed.
 - (nullable id)jsonValidator;
