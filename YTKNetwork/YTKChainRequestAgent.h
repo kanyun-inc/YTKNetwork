@@ -1,7 +1,7 @@
 //
 //  YTKChainRequestAgent.h
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,25 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "YTKChainRequest.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// ChainRequestAgent is used for caching & keeping current request.
+@class YTKChainRequest;
+
+///  YTKChainRequestAgent handles chain request management. It keeps track of all
+///  the chain requests.
 @interface YTKChainRequestAgent : NSObject
 
-+ (YTKChainRequestAgent *)sharedInstance;
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 
+///  Get the shared chain request agent.
++ (YTKChainRequestAgent *)sharedAgent;
+
+///  Add a chain request.
 - (void)addChainRequest:(YTKChainRequest *)request;
 
+///  Remove a previously added chain request.
 - (void)removeChainRequest:(YTKChainRequest *)request;
 
 @end

@@ -1,4 +1,32 @@
-language: objective-c 
-osx_image: xcode7
+language: objective-c
+osx_image: xcode8
+cache:
+  - cocoapods
+  - bundler
+env:
+  matrix:
+    - TEST_TYPE=iOS
+    - TEST_TYPE=macOS
+    - TEST_TYPE=tvOS
+before_install:
+- |
+  brew update
+  brew install carthage
+  carthage bootstrap
+  if [ "$TEST_TYPE" = iOS ] || [ "$TEST_TYPE" = macOS ] || [ "$TEST_TYPE" = tvOS ]; then
+    gem install xcpretty --no-ri --no-rdoc --no-document --quiet
+  elif [ "$TEST_TYPE" = CocoaPods ]; then
+    gem install cocoapods --no-ri --no-rdoc --no-document --quiet
+  fi
 script:
- - xctool -project YTKNetworkDemo/YTKNetworkDemo.xcodeproj -scheme YTKNetworkDemo -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- |
+  if [ "$TEST_TYPE" = iOS ]; then
+    set -o pipefail
+    xcodebuild test -scheme "YTKNetwork iOS" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6" -skip-testing:"YTKNetwork iOSTests"/YTKPerformanceTests -skip-testing:"YTKNetwork iOSTests"/YTKResumableDownloadTests | xcpretty -c
+  elif [ "$TEST_TYPE" = macOS ]; then
+    set -o pipefail
+    xcodebuild test -scheme "YTKNetwork macOS" -sdk macosx -skip-testing:"YTKNetwork macOSTests"/YTKPerformanceTests -skip-testing:"YTKNetwork macOSTests"/YTKResumableDownloadTests | xcpretty -c
+  elif [ "$TEST_TYPE" = tvOS ]; then
+    set -o pipefail
+    xcodebuild test -scheme "YTKNetwork tvOS" -sdk appletvsimulator -destination "platform=tvOS Simulator,name=Apple TV 1080p" -skip-testing:"YTKNetwork tvOSTests"/YTKPerformanceTests -skip-testing:"YTKNetwork tvOSTests"/YTKResumableDownloadTests | xcpretty -c
+  fi

@@ -1,9 +1,10 @@
-YTKNetwork 
+YTKNetwork
 ==========
 
-![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
-![Pod version](http://img.shields.io/cocoapods/v/YTKNetwork.svg?style=flat)
-![Platform info](http://img.shields.io/cocoapods/p/YTKNetwork.svg?style=flat)
+![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
+![Pod version](https://img.shields.io/cocoapods/v/YTKNetwork.svg?style=flat)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Platform info](https://img.shields.io/cocoapods/p/YTKNetwork.svg?style=flat)](http://cocoadocs.org/docsets/YTKNetwork)
 [![Build Status](https://api.travis-ci.org/yuantiku/YTKNetwork.svg?branch=master)](https://travis-ci.org/yuantiku/YTKNetwork)
 
 ## What
@@ -49,6 +50,10 @@ But YTKNetwork is not suitable if your project is very simple. You can use AFNet
 To use YTKNetwork add the following to your Podfile
 
     pod 'YTKNetwork'
+
+Or add this in your Cartfile:
+
+    github "yuantiku/YTKNetwork" ~> 2.0
 
 ## Guide & Demo
 
@@ -121,6 +126,12 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 你可以在 Podfile 中加入下面一行代码来使用YTKNetwork
 
     pod 'YTKNetwork'
+
+## Carthage 支持
+
+在 Cartfile 中加入下面的代码以使用 YTKNetwork
+
+    github "yuantiku/YTKNetwork" ~> 2.0
 
 ## 相关的使用教程和 Demo
 

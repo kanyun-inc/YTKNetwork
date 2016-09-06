@@ -1,0 +1,8 @@
+target 'YTKNetworkDemo' do
+    pod 'YTKNetwork', :path => '../'
+end
+
+target 'YTKNetworkDemoTests' do
+    pod 'YTKNetwork', :path => '../'
+end
+

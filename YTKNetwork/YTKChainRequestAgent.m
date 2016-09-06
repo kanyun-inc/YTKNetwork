@@ -1,7 +1,7 @@
 //
 //  YTKChainRequestAgent.m
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 #import "YTKChainRequestAgent.h"
+#import "YTKChainRequest.h"
 
 @interface YTKChainRequestAgent()
 
@@ -31,7 +32,7 @@
 
 @implementation YTKChainRequestAgent
 
-+ (YTKChainRequestAgent *)sharedInstance {
++ (YTKChainRequestAgent *)sharedAgent {
     static id sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

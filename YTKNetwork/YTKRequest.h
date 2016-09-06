@@ -1,7 +1,7 @@
 //
 //  YTKRequest.h
 //
-//  Copyright (c) 2012-2014 YTKNetwork https://github.com/yuantiku
+//  Copyright (c) 2012-2016 YTKNetwork https://github.com/yuantiku
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,29 +25,64 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT NSString *const YTKRequestCacheErrorDomain;
+
+NS_ENUM(NSInteger) {
+    YTKRequestCacheErrorExpired = -1,
+    YTKRequestCacheErrorVersionMismatch = -2,
+    YTKRequestCacheErrorSensitiveDataMismatch = -3,
+    YTKRequestCacheErrorAppVersionMismatch = -4,
+    YTKRequestCacheErrorInvalidCacheTime = -5,
+    YTKRequestCacheErrorInvalidMetadata = -6,
+    YTKRequestCacheErrorInvalidCacheData = -7,
+};
+
+///  YTKRequest is the base class you should inherit to create your own request class.
+///  Based on YTKBaseRequest, YTKRequest adds local caching feature. Note download
+///  request will not be cached whatsoever, because download request may involve complicated
+///  cache control policy controlled by `Cache-Control`, `If-Modified-Since`, etc.
 @interface YTKRequest : YTKBaseRequest
 
+///  Whether to use cache or not.
+///  Default is NO, which means caching will take effect with specific arguments.
+///  Note that `cacheTimeInSeconds` default is -1. As result caching is not actually
+///  enabled unless you return a positive value in `cacheTimeInSeconds`.
 @property (nonatomic) BOOL ignoreCache;
 
-/// 返回当前缓存的对象
-- (nullable id)cacheJson;
-
-/// 是否当前的数据从缓存获得
+///  Whether data is from local cache.
 - (BOOL)isDataFromCache;
 
-/// 返回是否当前缓存需要更新
-- (BOOL)isCacheVersionExpired;
+///  Manually load cache from storage.
+///
+///  @param error If an error occurred causing cache loading failed, an error object will be passed, otherwise NULL.
+///
+///  @return Whether cache is successfully loaded.
+- (BOOL)loadCacheWithError:(NSError * __autoreleasing *)error;
 
-/// 强制更新缓存
+///  Start request, completely ignores caching logic. Clear local cache if exists.
 - (void)startWithoutCache;
 
-/// 手动将其他请求的JsonResponse写入该请求的缓存
-- (void)saveJsonResponseToCacheFile:(id)jsonResponse;
+///  Save response data (probably from another request) to this request's cache location
+- (void)saveResponseDataToCacheFile:(NSData *)data;
 
-/// For subclass to overwrite
+#pragma mark - Subclass Override
+
+///  The max time duration that cache can stay in disk until it's considered expired.
+///  Default is -1, which means response is not actually saved as cache.
 - (NSInteger)cacheTimeInSeconds;
+
+///  Version can be used to identify and invalidate local cache. Default is 0.
 - (long long)cacheVersion;
+
+///  This can be used as additional identifier that tells the cache needs updating.
+///
+///  @discussion The `description` string of this object will be used as an identifier to verify whether cache
+///              is invalid. Using `NSArray` or `NSDictionary` as return value type is recommended. However,
+///              If you intend to use your custom class type, make sure that `description` is correctly implemented.
 - (nullable id)cacheSensitiveData;
+
+///  Whether cache is asynchronously written to storage. Default is YES.
+- (BOOL)writeCacheAsynchronously;
 
 @end
 
