@@ -68,8 +68,8 @@
 - (void)loadCacheData {
     NSString *userId = @"1";
     GetUserInfoApi *api = [[GetUserInfoApi alloc] initWithUserId:userId];
-    if ([api cacheJson]) {
-        NSDictionary *json = [api cacheJson];
+    if ([api loadCacheWithError:nil]) {
+        NSDictionary *json = [api responseJSONObject];
         NSLog(@"json = %@", json);
         // show cached data
     }

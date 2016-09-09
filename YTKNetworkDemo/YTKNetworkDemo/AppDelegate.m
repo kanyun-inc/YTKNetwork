@@ -18,7 +18,7 @@
 
 - (void)setupRequestFilters {
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
+    YTKNetworkConfig *config = [YTKNetworkConfig sharedConfig];
     YTKUrlArgumentsFilter *urlFilter = [YTKUrlArgumentsFilter filterWithArguments:@{@"version": appVersion}];
     [config addUrlFilter:urlFilter];
 }

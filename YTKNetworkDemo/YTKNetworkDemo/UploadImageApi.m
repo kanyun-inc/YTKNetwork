@@ -22,7 +22,7 @@
 }
 
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodPost;
+    return YTKRequestMethodPOST;
 }
 
 - (NSString *)requestUrl {
