@@ -167,7 +167,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 @property (nonatomic, readonly, getter=isCancelled) BOOL cancelled;
 
 ///  Executing state of request task.
-@property (nonatomic, readonly, getter=isExecuting) BOOL isExecuting;
+@property (nonatomic, readonly, getter=isExecuting) BOOL executing;
 
 
 #pragma mark - Request Configuration
