@@ -26,7 +26,7 @@
         @"son": [NSDictionary class],
         @"name": [NSString class]
     };
-    BOOL result = [self checkJson:json withValidator:validator];
+    BOOL result = [self validateJSON:json withValidator:validator];
     XCTAssertTrue(result);
 }
 
@@ -41,21 +41,21 @@
         @"son": [NSDictionary class],
         @"name": [NSNumber class]
     };
-    BOOL result = [self checkJson:json withValidator:validator];
+    BOOL result = [self validateJSON:json withValidator:validator];
     XCTAssertFalse(result);
 }
 
 - (void)testSimpleArrayValidatorShouldSucceed {
     NSArray *json = @[@1 , @2];
     NSArray *validator = @[[NSNumber class]];
-    BOOL result = [self checkJson:json withValidator:validator];
+    BOOL result = [self validateJSON:json withValidator:validator];
     XCTAssertTrue(result);
 }
 
 - (void)testSimpleArrayValidatorShouldFail {
     NSArray *json = @[@1 , @2];
     NSArray *validator = @[[NSString class]];
-    BOOL result = [self checkJson:json withValidator:validator];
+    BOOL result = [self validateJSON:json withValidator:validator];
     XCTAssertFalse(result);
 }
 
@@ -66,12 +66,12 @@
     NSArray *validator = @[@{
         @"values": @[]
     }];
-    BOOL result = [self checkJson:json withValidator:validator];
+    BOOL result = [self validateJSON:json withValidator:validator];
     XCTAssertTrue(result);
 }
 
-- (BOOL)checkJson:(id)json withValidator:(id)validatorJson {
-    return [YTKNetworkPrivate checkJson:json withValidator:validatorJson];
+- (BOOL)validateJSON:(id)json withValidator:(id)validator {
+    return [YTKNetworkUtils validateJSON:json withValidator:validator];
 }
 
 @end

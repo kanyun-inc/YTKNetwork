@@ -34,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
-@interface YTKNetworkPrivate : NSObject
+@interface YTKNetworkUtils : NSObject
 
-+ (BOOL)checkJson:(id)json withValidator:(id)validatorJson;
++ (BOOL)validateJSON:(id)json withValidator:(id)jsonValidator;
 
 + (NSString *)urlStringWithOriginUrlString:(NSString *)originUrlString
                           appendParameters:(NSDictionary<NSString *, NSString *> *)parameters;
@@ -49,7 +49,7 @@ FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
 + (NSStringEncoding)stringEncodingWithRequest:(YTKBaseRequest *)request;
 
-+ (BOOL)isResumeDataValid:(NSData *)data;
++ (BOOL)validateResumeData:(NSData *)data;
 
 @end
 

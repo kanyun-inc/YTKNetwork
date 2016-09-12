@@ -31,7 +31,7 @@
 }
 
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(YTKBaseRequest *)request {
-    return [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:_arguments];
+    return [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:_arguments];
 }
 
 @end

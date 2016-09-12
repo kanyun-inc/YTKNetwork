@@ -26,7 +26,7 @@
 - (void)testFullURLWithEmptyParameters {
     NSString *originUrl = @"http://www.yuantiku.com/";
     NSDictionary *parameters = nil;
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"http://www.yuantiku.com/"]);
 }
@@ -34,7 +34,7 @@
 - (void)testFullURLWithSlash {
     NSString *originUrl = @"http://www.yuantiku.com/";
     NSDictionary *parameters = @{@"key": @"value"};
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"http://www.yuantiku.com/?key=value"]);
 }
@@ -42,7 +42,7 @@
 - (void)testFullURLWithNoSlash {
     NSString *originUrl = @"http://www.yuantiku.com";
     NSDictionary *parameters = @{@"key": @"value"};
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"http://www.yuantiku.com?key=value"]);
 }
@@ -50,7 +50,7 @@
 - (void)testFullURLWithParameters {
     NSString *originUrl = @"http://www.yuantiku.com?key1=value1";
     NSDictionary *parameters = @{@"key2": @"value2"};
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"http://www.yuantiku.com?key1=value1&key2=value2"]);
 }
@@ -58,7 +58,7 @@
 - (void)testFullURLWithFragment {
     NSString *originUrl = @"http://www.yuantiku.com?key1=value1#frag1";
     NSDictionary *parameters = @{@"key2": @"value2"};
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"http://www.yuantiku.com?key1=value1&key2=value2#frag1"]);
 }
@@ -66,7 +66,7 @@
 - (void)testDetailURLWithEmptyParameters {
     NSString *originUrl = @"get/";
     NSDictionary *parameters = nil;
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"get/"]);
 }
@@ -74,7 +74,7 @@
 - (void)testDetailURLWithSlash {
     NSString *originUrl = @"get/";
     NSDictionary *parameters = @{@"key": @"value"};
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"get/?key=value"]);
 }
@@ -82,7 +82,7 @@
 - (void)testDetailURLWithNoSlash {
     NSString *originUrl = @"get";
     NSDictionary *parameters = @{@"key": @"value"};
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"get?key=value"]);
 }
@@ -90,7 +90,7 @@
 - (void)testDetailURLWithParameters {
     NSString *originUrl = @"get?key1=value1";
     NSDictionary *parameters = @{@"key2": @"value2"};
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"get?key1=value1&key2=value2"]);
 }
@@ -98,7 +98,7 @@
 - (void)testDetailURLWithFragment {
     NSString *originUrl = @"get?key1=value1#frag1";
     NSDictionary *parameters = @{@"key2": @"value2"};
-    NSString *resultUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:parameters];
+    NSString *resultUrl = [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:parameters];
 
     XCTAssertTrue([resultUrl isEqualToString:@"get?key1=value1&key2=value2#frag1"]);
 }

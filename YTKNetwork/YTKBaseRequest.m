@@ -197,7 +197,7 @@
 
 - (BOOL)statusCodeValidator {
     NSInteger statusCode = [self responseStatusCode];
-    if (statusCode >= 200 && statusCode <=299) {
+    if (statusCode >= 200 && statusCode <= 299) {
         return YES;
     } else {
         return NO;

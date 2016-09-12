@@ -39,13 +39,13 @@ void YTKLog(NSString *format, ...) {
 #endif
 }
 
-@implementation YTKNetworkPrivate
+@implementation YTKNetworkUtils
 
-+ (BOOL)checkJson:(id)json withValidator:(id)validatorJson {
++ (BOOL)validateJSON:(id)json withValidator:(id)jsonValidator {
     if ([json isKindOfClass:[NSDictionary class]] &&
-        [validatorJson isKindOfClass:[NSDictionary class]]) {
+        [jsonValidator isKindOfClass:[NSDictionary class]]) {
         NSDictionary * dict = json;
-        NSDictionary * validator = validatorJson;
+        NSDictionary * validator = jsonValidator;
         BOOL result = YES;
         NSEnumerator * enumerator = [validator keyEnumerator];
         NSString * key;
@@ -54,7 +54,7 @@ void YTKLog(NSString *format, ...) {
             id format = validator[key];
             if ([value isKindOfClass:[NSDictionary class]]
                 || [value isKindOfClass:[NSArray class]]) {
-                result = [self checkJson:value withValidator:format];
+                result = [self validateJSON:value withValidator:format];
                 if (!result) {
                     break;
                 }
@@ -68,20 +68,20 @@ void YTKLog(NSString *format, ...) {
         }
         return result;
     } else if ([json isKindOfClass:[NSArray class]] &&
-               [validatorJson isKindOfClass:[NSArray class]]) {
-        NSArray * validatorArray = (NSArray *)validatorJson;
+               [jsonValidator isKindOfClass:[NSArray class]]) {
+        NSArray * validatorArray = (NSArray *)jsonValidator;
         if (validatorArray.count > 0) {
             NSArray * array = json;
-            NSDictionary * validator = validatorJson[0];
+            NSDictionary * validator = jsonValidator[0];
             for (id item in array) {
-                BOOL result = [self checkJson:item withValidator:validator];
+                BOOL result = [self validateJSON:item withValidator:validator];
                 if (!result) {
                     return NO;
                 }
             }
         }
         return YES;
-    } else if ([json isKindOfClass:validatorJson]) {
+    } else if ([json isKindOfClass:jsonValidator]) {
         return YES;
     } else {
         return NO;
@@ -160,7 +160,7 @@ void YTKLog(NSString *format, ...) {
     return stringEncoding;
 }
 
-+ (BOOL)isResumeDataValid:(NSData *)data {
++ (BOOL)validateResumeData:(NSData *)data {
     // From http://stackoverflow.com/a/22137510/3562486
     if (!data || [data length] < 1) return NO;
 

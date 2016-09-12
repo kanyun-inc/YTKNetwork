@@ -230,7 +230,7 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
     }
 
     // Check if cache is still valid.
-    if (![self isCacheValidWithError:error]) {
+    if (![self validateCacheWithError:error]) {
         return NO;
     }
 
@@ -245,7 +245,7 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
     return YES;
 }
 
-- (BOOL)isCacheValidWithError:(NSError * _Nullable __autoreleasing *)error {
+- (BOOL)validateCacheWithError:(NSError * _Nullable __autoreleasing *)error {
     // Date
     NSDate *creationDate = self.cacheMetadata.creationDate;
     NSTimeInterval duration = -[creationDate timeIntervalSinceNow];
@@ -277,7 +277,7 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
     }
     // App version
     NSString *appVersionString = self.cacheMetadata.appVersionString;
-    NSString *currentAppVersionString = [YTKNetworkPrivate appVersionString];
+    NSString *currentAppVersionString = [YTKNetworkUtils appVersionString];
     if (appVersionString || currentAppVersionString) {
         if (appVersionString.length != currentAppVersionString.length || ![appVersionString isEqualToString:currentAppVersionString]) {
             if (error) {
@@ -338,9 +338,9 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
                 YTKCacheMetadata *metadata = [[YTKCacheMetadata alloc] init];
                 metadata.version = [self cacheVersion];
                 metadata.sensitiveDataString = ((NSObject *)[self cacheSensitiveData]).description;
-                metadata.stringEncoding = [YTKNetworkPrivate stringEncodingWithRequest:self];
+                metadata.stringEncoding = [YTKNetworkUtils stringEncodingWithRequest:self];
                 metadata.creationDate = [NSDate date];
-                metadata.appVersionString = [YTKNetworkPrivate appVersionString];
+                metadata.appVersionString = [YTKNetworkUtils appVersionString];
                 [NSKeyedArchiver archiveRootObject:metadata toFile:[self cacheMetadataFilePath]];
             } @catch (NSException *exception) {
                 YTKLog(@"Save cache failed, reason = %@", exception.reason);
@@ -381,7 +381,7 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
     if (error) {
         YTKLog(@"create cache directory failed, error = %@", error);
     } else {
-        [YTKNetworkPrivate addDoNotBackupAttribute:path];
+        [YTKNetworkUtils addDoNotBackupAttribute:path];
     }
 }
 
@@ -407,7 +407,7 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
     id argument = [self cacheFileNameFilterForRequestArgument:[self requestArgument]];
     NSString *requestInfo = [NSString stringWithFormat:@"Method:%ld Host:%@ Url:%@ Argument:%@",
                              (long)[self requestMethod], baseUrl, requestUrl, argument];
-    NSString *cacheFileName = [YTKNetworkPrivate md5StringFromString:requestInfo];
+    NSString *cacheFileName = [YTKNetworkUtils md5StringFromString:requestInfo];
     return cacheFileName;
 }
 

@@ -179,7 +179,7 @@
         if (method == YTKRequestMethodGET) {
             if (request.resumableDownloadPath) {
                 // add parameters to URL;
-                NSString *filteredUrl = [YTKNetworkPrivate urlStringWithOriginUrlString:url appendParameters:param];
+                NSString *filteredUrl = [YTKNetworkUtils urlStringWithOriginUrlString:url appendParameters:param];
                 NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:filteredUrl]];
                 urlRequest.timeoutInterval = [request requestTimeoutInterval];
                 urlRequest.allowsCellularAccess = [request allowsCellularAccess];
@@ -200,7 +200,7 @@
 
                 BOOL resumeDataFileExists = [[NSFileManager defaultManager] fileExistsAtPath:[self incompleteDownloadTempPathForDownloadRequest:request].path];
                 NSData *data = [NSData dataWithContentsOfURL:[self incompleteDownloadTempPathForDownloadRequest:request]];
-                BOOL resumeDataIsValid = [YTKNetworkPrivate isResumeDataValid:data];
+                BOOL resumeDataIsValid = [YTKNetworkUtils validateResumeData:data];
 
                 BOOL canBeResumed = resumeDataFileExists && resumeDataIsValid;
                 BOOL resumeSucceeded = NO;
@@ -327,7 +327,7 @@
     if (validator) {
         id json = [request responseJSONObject];
         if (json) {
-            result = [YTKNetworkPrivate checkJson:json withValidator:validator];
+            result = [YTKNetworkUtils validateJSON:json withValidator:validator];
         }
     }
     return result;
@@ -347,7 +347,7 @@
         request.responseObject = responseObject;
         if ([request.responseObject isKindOfClass:[NSData class]]) {
             request.responseData = responseObject;
-            request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkPrivate stringEncodingWithRequest:request]];
+            request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
 
             switch (request.responseSerializerType) {
                 case YTKResponseSerializerTypeHTTP:
@@ -479,7 +479,7 @@
 
 - (NSURL *)incompleteDownloadTempPathForDownloadRequest:(YTKBaseRequest *)request {
     NSString *tempPath = nil;
-    NSString *md5URLString = [YTKNetworkPrivate md5StringFromString:request.resumableDownloadPath];
+    NSString *md5URLString = [YTKNetworkUtils md5StringFromString:request.resumableDownloadPath];
     tempPath = [[self incompleteDownloadTempCacheFolder] stringByAppendingPathComponent:md5URLString];
     return [NSURL fileURLWithPath:tempPath];
 }
