@@ -43,10 +43,13 @@ NS_ENUM(NSInteger) {
 ///  cache control policy controlled by `Cache-Control`, `If-Modified-Since`, etc.
 @interface YTKRequest : YTKBaseRequest
 
-///  Whether to use cache or not.
+///  Whether to use cache as response or not.
 ///  Default is NO, which means caching will take effect with specific arguments.
-///  Note that `cacheTimeInSeconds` default is -1. As result caching is not actually
-///  enabled unless you return a positive value in `cacheTimeInSeconds`.
+///  Note that `cacheTimeInSeconds` default is -1. As a result cache data is not actually
+///  used as response unless you return a positive value in `cacheTimeInSeconds`.
+///
+///  Also note that this option does not affect storing the response, which means response will always be saved
+///  even `ignoreCache` is YES.
 @property (nonatomic) BOOL ignoreCache;
 
 ///  Whether data is from local cache.
@@ -59,7 +62,7 @@ NS_ENUM(NSInteger) {
 ///  @return Whether cache is successfully loaded.
 - (BOOL)loadCacheWithError:(NSError * __autoreleasing *)error;
 
-///  Start request, completely ignores caching logic. Clear local cache if exists.
+///  Start request without reading local cache even if it exists. Use this to update local cache.
 - (void)startWithoutCache;
 
 ///  Save response data (probably from another request) to this request's cache location

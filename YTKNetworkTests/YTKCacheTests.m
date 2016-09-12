@@ -99,6 +99,14 @@
     [req2 startWithoutCache];
 
     [self waitForExpectationsWithCommonTimeout];
+
+    // Starting without cache does not affect the storage of cache data.
+    YTKCustomCacheRequest *req3 = [[YTKCustomCacheRequest alloc] initWithRequestUrl:@"get" cacheTimeInSeconds:5 cacheVersion:0 cacheSensitiveData:nil];
+    [self expectSuccess:req3 withAssertion:^(YTKBaseRequest *request) {
+        YTKRequest *_req = (YTKRequest *)request;
+        // This time data should be from cache.
+        XCTAssertTrue(_req.isDataFromCache);
+    }];
 }
 
 - (void)testCacheVersion {
@@ -125,7 +133,7 @@
         XCTAssertFalse(_req.isDataFromCache);
     }];
 
-    // Request again with newer version
+    // Request again with newer version.
     [self expectSuccess:req2 withAssertion:^(YTKBaseRequest *request) {
         YTKRequest *_req = (YTKRequest *)request;
         // This time data should be from cache.
@@ -166,7 +174,7 @@
         XCTAssertFalse(_req.isDataFromCache);
     }];
 
-    // Request again with newer sensitive data. This time previous cache is deleted.
+    // Request again with newer sensitive data. This time previous cache is considered invalid.
     YTKCustomCacheRequest *req4 = [[YTKCustomCacheRequest alloc] initWithRequestUrl:@"get" cacheTimeInSeconds:5 cacheVersion:0 cacheSensitiveData:@{@"userId": @"456789"}];
 
     [self expectSuccess:req4 withAssertion:^(YTKBaseRequest *request) {

@@ -135,7 +135,6 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
 
 - (void)startWithoutCache {
     [self clearCacheVariables];
-    [self clearInvalidCacheIfNeeded];
     [super start];
 }
 
@@ -333,8 +332,9 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
     if ([self cacheTimeInSeconds] > 0 && ![self isDataFromCache]) {
         if (data != nil) {
             @try {
+                // New data will always overwrite old data.
                 [data writeToFile:[self cacheFilePath] atomically:YES];
-                // Write metadata.
+
                 YTKCacheMetadata *metadata = [[YTKCacheMetadata alloc] init];
                 metadata.version = [self cacheVersion];
                 metadata.sensitiveDataString = ((NSObject *)[self cacheSensitiveData]).description;
@@ -345,26 +345,6 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
             } @catch (NSException *exception) {
                 YTKLog(@"Save cache failed, reason = %@", exception.reason);
             }
-        }
-    }
-}
-
-- (void)clearInvalidCacheIfNeeded {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:[self cacheFilePath] isDirectory:nil]) {
-        return;
-    }
-    NSError *error;
-    if ([fileManager isDeletableFileAtPath:[self cacheFilePath]]) {
-        BOOL success = [[NSFileManager defaultManager] removeItemAtPath:[self cacheFilePath] error:&error];
-        if (!success) {
-            YTKLog(@"Error removing cache at path: %@", error.localizedDescription);
-        }
-    }
-    if ([fileManager isDeletableFileAtPath:[self cacheMetadataFilePath]]) {
-        BOOL success = [[NSFileManager defaultManager] removeItemAtPath:[self cacheMetadataFilePath] error:&error];
-        if (!success) {
-            YTKLog(@"Error removing cache metadata at path: %@", error.localizedDescription);
         }
     }
 }
