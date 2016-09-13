@@ -59,6 +59,7 @@
     [self toggleAccessoriesWillStartCallBack];
     for (YTKRequest * req in _requestArray) {
         req.delegate = self;
+        [req clearCompletionBlock];
         [req start];
     }
 }

@@ -90,6 +90,7 @@
         YTKBaseRequest *request = _requestArray[_nextRequestIndex];
         _nextRequestIndex++;
         request.delegate = self;
+        [request clearCompletionBlock];
         [request start];
         return YES;
     } else {

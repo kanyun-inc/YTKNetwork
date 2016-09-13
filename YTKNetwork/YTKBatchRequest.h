@@ -48,7 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-///  YTKBatchRequest can be used to batch several YTKRequest.
+///  YTKBatchRequest can be used to batch several YTKRequest. Note that when used inside YTKBatchRequest, a single
+///  YTKRequest will have its own callback and delegate cleared, in favor of the batch request callback.
 @interface YTKBatchRequest : NSObject
 
 ///  All the requests are stored in this array.

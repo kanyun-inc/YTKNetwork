@@ -151,14 +151,20 @@
         YTKRequest *req1 = batchRequest.requestArray[0];
         NSDictionary<NSString *, NSString *> *responseArgs1 = req1.responseJSONObject[@"args"];
         XCTAssertTrue([responseArgs1[@"key1"] isEqualToString:@"value1"]);
+        XCTAssertNil(req1.successCompletionBlock);
+        XCTAssertNil(req1.failureCompletionBlock);
 
         YTKRequest *req2 = batchRequest.requestArray[1];
         NSDictionary<NSString *, NSString *> *responseArgs2 = req2.responseJSONObject[@"args"];
         XCTAssertTrue([responseArgs2[@"key2"] isEqualToString:@"value2"]);
+        XCTAssertNil(req2.successCompletionBlock);
+        XCTAssertNil(req2.failureCompletionBlock);
 
         YTKRequest *req3 = batchRequest.requestArray[2];
         NSDictionary<NSString *, NSString *> *responseArgs3 = req3.responseJSONObject[@"args"];
         XCTAssertTrue([responseArgs3[@"key3"] isEqualToString:@"value3"]);
+        XCTAssertNil(req3.successCompletionBlock);
+        XCTAssertNil(req3.failureCompletionBlock);
 
         [exp fulfill];
     } failure:^(YTKBatchRequest * _Nonnull batchRequest) {
@@ -179,14 +185,20 @@
     [chain addRequest:req1 callback:^(YTKChainRequest * _Nonnull chainRequest, YTKBaseRequest * _Nonnull baseRequest) {
         NSDictionary<NSString *, NSString *> *responseArgs1 = baseRequest.responseJSONObject[@"args"];
         XCTAssertTrue([responseArgs1[@"key1"] isEqualToString:@"value1"]);
+        XCTAssertNil(baseRequest.successCompletionBlock);
+        XCTAssertNil(baseRequest.failureCompletionBlock);
 
         [chainRequest addRequest:req2 callback:^(YTKChainRequest * _Nonnull chainRequest, YTKBaseRequest * _Nonnull baseRequest) {
             NSDictionary<NSString *, NSString *> *responseArgs2 = baseRequest.responseJSONObject[@"args"];
             XCTAssertTrue([responseArgs2[@"key2"] isEqualToString:@"value2"]);
+            XCTAssertNil(baseRequest.successCompletionBlock);
+            XCTAssertNil(baseRequest.failureCompletionBlock);
 
             [chainRequest addRequest:req3 callback:^(YTKChainRequest * _Nonnull chainRequest, YTKBaseRequest * _Nonnull baseRequest) {
                 NSDictionary<NSString *, NSString *> *responseArgs3 = baseRequest.responseJSONObject[@"args"];
                 XCTAssertTrue([responseArgs3[@"key3"] isEqualToString:@"value3"]);
+                XCTAssertNil(baseRequest.successCompletionBlock);
+                XCTAssertNil(baseRequest.failureCompletionBlock);
 
                 [exp fulfill];
             }];
