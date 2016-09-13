@@ -48,8 +48,11 @@
     [self _testBuildRequestURLWithBaseURL:@"https://www.example.com" detailURL:@"get" resultURL:@"https://www.example.com/get"];
     [self _testBuildRequestURLWithBaseURL:@"http://www.example.com" detailURL:@"get/val" resultURL:@"http://www.example.com/get/val"];
     [self _testBuildRequestURLWithBaseURL:@"http://www.example.com" detailURL:@"get/val/" resultURL:@"http://www.example.com/get/val/"];
+    [self _testBuildRequestURLWithBaseURL:@"https://www.example.com" detailURL:@"httpEndpoint" resultURL:@"https://www.example.com/httpEndpoint"];
+
     [self _testBuildRequestURLWithBaseURL:@"" detailURL:@"http://www.example.com" resultURL:@"http://www.example.com"];
     [self _testBuildRequestURLWithBaseURL:@"" detailURL:@"https://www.example.com" resultURL:@"https://www.example.com"];
+    [self _testBuildRequestURLWithBaseURL:@"http://www.something.com" detailURL:@"https://www.example.com" resultURL:@"https://www.example.com"];
 }
 
 - (void)testBasicHTTPRequest {
@@ -103,7 +106,11 @@
     [self expectSuccess:validateSuccess];
 
     YTKJSONValidatorRequest *validateFailure = [[YTKJSONValidatorRequest alloc] initWithJSONValidator:@{@"headers": [NSDictionary class], @"args": [NSString class]} requestUrl:@"get?key1=value&key2=123456"];
-    [self expectFailure:validateFailure];
+    [self expectFailure:validateFailure withAssertion:^(YTKBaseRequest *request) {
+        NSError *error = request.error;
+        XCTAssertTrue([error.domain isEqualToString:YTKRequestValidationErrorDomain]);
+        XCTAssertTrue(error.code == YTKRequestValidationErrorInvalidJSONFormat);
+    }];
 }
 
 - (void)testXMLRequest {
@@ -112,6 +119,9 @@
         XCTAssertNotNil(request);
         XCTAssertTrue([request.responseObject isMemberOfClass:[NSXMLParser class]]);
     }];
+
+    YTKXMLRequest *req2 = [[YTKXMLRequest alloc] initWithRequestUrl:@"get"];
+    [self expectFailure:req2];
 }
 
 - (void)testStatusCodeValidator {
@@ -119,7 +129,11 @@
     [self expectSuccess:validateSuccess];
 
     YTKStatusCodeValidatorRequest *validateFailure = [[YTKStatusCodeValidatorRequest alloc] initWithRequestUrl:@"status/200"];
-    [self expectFailure:validateFailure];
+    [self expectFailure:validateFailure withAssertion:^(YTKBaseRequest *request) {
+        NSError *error = request.error;
+        XCTAssertTrue([error.domain isEqualToString:YTKRequestValidationErrorDomain]);
+        XCTAssertTrue(error.code == YTKRequestValidationErrorInvalidStatusCode);
+    }];
 }
 
 - (void)testBatchRequest {

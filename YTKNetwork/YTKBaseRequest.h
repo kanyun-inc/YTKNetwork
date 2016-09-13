@@ -25,6 +25,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT NSString *const YTKRequestValidationErrorDomain;
+
+NS_ENUM(NSInteger) {
+    YTKRequestValidationErrorInvalidStatusCode = -8,
+    YTKRequestValidationErrorInvalidJSONFormat = -9,
+};
+
 ///  HTTP Request method.
 typedef NS_ENUM(NSInteger, YTKRequestMethod) {
     YTKRequestMethodGET = 0,
@@ -261,14 +268,23 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///  Called on the main thread when request failed.
 - (void)requestFailedFilter;
 
-///  The URL of request.
+///  The baseURL of request. This should only contain the host part of URL, e.g., http://www.example.com.
+///  See also `requestUrl`
+- (NSString *)baseUrl;
+
+///  The URL path of request. This should only contain the path part of URL, e.g., /v1/user. See alse `baseUrl`.
+///
+///  @discussion This will be concated with `baseUrl` using [NSURL URLWithString:relativeToURL].
+///              Because of this, it is recommended that the usage should stick to rules stated above.
+///              Otherwise the result URL may not be correctly formed. See also `URLString:relativeToURL`
+///              for more information.
+///
+///              Additionaly, if `requestUrl` itself is a valid URL, it will be used as the result URL and
+///              `baseUrl` will be ignored.
 - (NSString *)requestUrl;
 
 ///  Optional CDN URL for request.
 - (NSString *)cdnUrl;
-
-///  The baseURL of request.
-- (NSString *)baseUrl;
 
 ///  Requset timeout interval. Default is 60s.
 ///

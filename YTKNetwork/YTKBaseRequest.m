@@ -31,6 +31,8 @@
 #import "AFNetworking.h"
 #endif
 
+NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validation";
+
 @interface YTKBaseRequest ()
 
 @property (nonatomic, strong, readwrite) NSURLSessionTask *requestTask;
