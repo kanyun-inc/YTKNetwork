@@ -32,6 +32,9 @@
 
 void YTKLog(NSString *format, ...) {
 #ifdef DEBUG
+    if (![YTKNetworkConfig sharedConfig].debugLogEnabled) {
+        return;
+    }
     va_list argptr;
     va_start(argptr, format);
     NSLogv(format, argptr);

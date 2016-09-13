@@ -52,6 +52,7 @@
         _urlFilters = [NSMutableArray array];
         _cacheDirPathFilters = [NSMutableArray array];
         _securityPolicy = [AFSecurityPolicy defaultPolicy];
+        _debugLogEnabled = NO;
     }
     return self;
 }

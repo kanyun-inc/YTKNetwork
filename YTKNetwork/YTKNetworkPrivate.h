@@ -27,6 +27,7 @@
 #import "YTKBatchRequest.h"
 #import "YTKChainRequest.h"
 #import "YTKNetworkAgent.h"
+#import "YTKNetworkConfig.h"
 
 @class AFHTTPSessionManager;
 

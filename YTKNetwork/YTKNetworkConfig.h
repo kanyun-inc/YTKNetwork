@@ -61,15 +61,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (YTKNetworkConfig *)sharedConfig;
 
 ///  Request base URL, such as "http://www.yuantiku.com". Default is empty string.
-@property (strong, nonatomic) NSString *baseUrl;
+@property (nonatomic, strong) NSString *baseUrl;
 ///  Request CDN URL. Default is empty string.
-@property (strong, nonatomic) NSString *cdnUrl;
+@property (nonatomic, strong) NSString *cdnUrl;
 ///  URL filters. See also `YTKUrlFilterProtocol`.
-@property (strong, nonatomic, readonly) NSArray<id<YTKUrlFilterProtocol>> *urlFilters;
+@property (nonatomic, strong, readonly) NSArray<id<YTKUrlFilterProtocol>> *urlFilters;
 ///  Cache path filters. See also `YTKCacheDirPathFilterProtocol`.
-@property (strong, nonatomic, readonly) NSArray<id<YTKCacheDirPathFilterProtocol>> *cacheDirPathFilters;
+@property (nonatomic, strong, readonly) NSArray<id<YTKCacheDirPathFilterProtocol>> *cacheDirPathFilters;
 ///  Security policy will be used by AFNetworking. See also `AFSecurityPolicy`.
-@property (strong, nonatomic) AFSecurityPolicy *securityPolicy;
+@property (nonatomic, strong) AFSecurityPolicy *securityPolicy;
+///  Whether to log debug info. Default is NO;
+@property (nonatomic) BOOL debugLogEnabled;
 
 ///  Add a new URL filter.
 - (void)addUrlFilter:(id<YTKUrlFilterProtocol>)filter;
