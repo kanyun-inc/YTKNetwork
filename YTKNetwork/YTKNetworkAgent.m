@@ -42,7 +42,7 @@
     YTKNetworkConfig *_config;
     AFJSONResponseSerializer *_jsonResponseSerializer;
     AFXMLParserResponseSerializer *_xmlParserResponseSerialzier;
-    NSMutableDictionary<NSString *, YTKBaseRequest *> *_requestsRecord;
+    NSMutableDictionary<NSNumber *, YTKBaseRequest *> *_requestsRecord;
 
     dispatch_queue_t _processingQueue;
     pthread_mutex_t _lock;
@@ -244,7 +244,7 @@
     Unlock();
     if (allKeys && allKeys.count > 0) {
         NSArray *copiedKeys = [allKeys copy];
-        for (NSString *key in copiedKeys) {
+        for (NSNumber *key in copiedKeys) {
             Lock();
             YTKBaseRequest *request = _requestsRecord[key];
             Unlock();
@@ -280,9 +280,8 @@
 }
 
 - (void)handleRequestResult:(NSURLSessionTask *)task responseObject:(id)responseObject error:(NSError *)error {
-    NSString *key = [self requestHashKey:task];
     Lock();
-    YTKBaseRequest *request = _requestsRecord[key];
+    YTKBaseRequest *request = _requestsRecord[@(task.taskIdentifier)];
     Unlock();
 
     if (!request) {
@@ -384,25 +383,17 @@
     });
 }
 
-- (NSString *)requestHashKey:(NSURLSessionTask *)task {
-    return [NSString stringWithFormat:@"%zd", [task hash]];
-}
-
 - (void)addRequestToRecord:(YTKBaseRequest *)request {
     if (request.requestTask != nil) {
-        NSString *key = [self requestHashKey:request.requestTask];
         Lock();
-        _requestsRecord[key] = request;
+        _requestsRecord[@(request.requestTask.taskIdentifier)] = request;
         Unlock();
     }
 }
 
 - (void)removeRequestFromRecord:(YTKBaseRequest *)request {
-    NSString *key = [self requestHashKey:request.requestTask];
     Lock();
-    if (key) {
-        [_requestsRecord removeObjectForKey:key];
-    }
+    [_requestsRecord removeObjectForKey:@(request.requestTask.taskIdentifier)];
     YTKLog(@"Request queue size = %zd", [_requestsRecord count]);
     Unlock();
 }
