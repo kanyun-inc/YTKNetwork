@@ -30,6 +30,28 @@
     [super tearDown];
 }
 
+- (void)_testBuildRequestURLWithBaseURL:(NSString *)baseURL detailURL:(NSString *)detailURL resultURL:(NSString *)resultURL{
+    YTKNetworkConfig *config = [YTKNetworkConfig sharedConfig];
+    YTKNetworkAgent *agent = [YTKNetworkAgent sharedAgent];
+
+    config.baseUrl = baseURL;
+
+    YTKBasicHTTPRequest *request = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:detailURL];
+    NSString *url = [agent buildRequestUrl:request];
+
+    XCTAssertTrue([url isEqualToString:resultURL]);
+}
+
+- (void)testBuildRequestURL {
+    [self _testBuildRequestURLWithBaseURL:@"http://www.example.com" detailURL:@"get" resultURL:@"http://www.example.com/get"];
+    [self _testBuildRequestURLWithBaseURL:@"http://www.example.com/" detailURL:@"get" resultURL:@"http://www.example.com/get"];
+    [self _testBuildRequestURLWithBaseURL:@"https://www.example.com" detailURL:@"get" resultURL:@"https://www.example.com/get"];
+    [self _testBuildRequestURLWithBaseURL:@"http://www.example.com" detailURL:@"get/val" resultURL:@"http://www.example.com/get/val"];
+    [self _testBuildRequestURLWithBaseURL:@"http://www.example.com" detailURL:@"get/val/" resultURL:@"http://www.example.com/get/val/"];
+    [self _testBuildRequestURLWithBaseURL:@"" detailURL:@"http://www.example.com" resultURL:@"http://www.example.com"];
+    [self _testBuildRequestURLWithBaseURL:@"" detailURL:@"https://www.example.com" resultURL:@"https://www.example.com"];
+}
+
 - (void)testBasicHTTPRequest {
     YTKBasicHTTPRequest *get = [[YTKBasicHTTPRequest alloc] initWithRequestUrl:@"get" method:YTKRequestMethodGET];
     [self expectSuccess:get];

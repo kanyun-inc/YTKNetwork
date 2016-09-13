@@ -32,22 +32,24 @@
     __block NSInteger callbackCount = 0;
     for (NSUInteger i = 0; i < dispatchTarget; i++) {
         dispatch_async(queue, ^{
-            YTKBasicHTTPRequest *req = [[YTKBasicHTTPRequest alloc] init];
-            req.tag = i;
+            @autoreleasepool {
+                YTKBasicHTTPRequest *req = [[YTKBasicHTTPRequest alloc] init];
+                req.tag = i;
 
-            [req startWithCompletionBlockWithSuccess:nil failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-                // Left is from callback, right is captured by block.
-                XCTAssertTrue(request.tag == i);
-                callbackCount ++;
-            }];
+                [req startWithCompletionBlockWithSuccess:nil failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+                    // Left is from callback, right is captured by block.
+                    XCTAssertTrue(request.tag == i);
+                    callbackCount ++;
+                }];
 
-            // We just need to simulate concurrent request creation here.
-            [req.requestTask cancel];
+                // We just need to simulate concurrent request creation here.
+                [req.requestTask cancel];
 
-            NSLog(@"Current req number: %zd", i);
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                completionCount++;
-            });
+                NSLog(@"Current req number: %zd", i);
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    completionCount++;
+                });
+            }
         });
     }
 

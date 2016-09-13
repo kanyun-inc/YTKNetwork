@@ -40,7 +40,23 @@ typedef NS_ENUM(NSInteger, YTKResponseSerializerType) {
 };
 ```
 
-默认的序列化选项是 `YTKResponseSerializerTypeHTTP`。
+默认的序列化选项是 `YTKResponseSerializerTypeJSON`。
+
+需要注意的是，YTKNetwork 1.0 没有对响应序列化进行控制，并且主动忽略了 AFN 返回的响应序列化错误。AFN 默认进行的是 JSON 序列化，而在 YTKNetwork 1.0 中即使序列化结果是错误的（例如 Content-Type 不正确，或者返回的是二进制数据），仍然会认为请求是成功的，并且调用 YTKRequest 的成功回调。这一行为在 YTKNetwork 2.0 当中被修正了。如果发现在升级 YTKNetwork 2.0 之后某些之前正常的请求报错，请检查是否是由于响应的类型不正确。
+
+## URL 拼接
+
+YTKNetwork 2.0 中 `baseUrl` 和 `requestUrl` 的拼接实现发生了变化。在 1.X 中这两个 URL 是作为字符串直接拼接起来的，而在 2.0 中改为使用 `[NSURL URLWithString:relativeToURL]` 方法进行拼接，以提升可靠性和兼容性。
+
+这一实现可能导致和之前不同的 URL 拼接结果。当 `requestUrl` 带有 `/` 前缀，同时 `baseUrl` 包含除 Host 之外的内容， `requestUrl` 仍然会被拼接到最顶级，这一差距来源于 `NSURL` 本身的实现：
+
+```Objective-C
+NSURL *baseURL = [NSURL URLWithString:@"http://example.com/v1/"];
+NSURL *resultURL = [NSURL URLWithString:@"/foo" relativeToURL:baseURL];
+// resultURL : http://example.com/foo
+```
+
+因此请注意如果 `baseUrl` 包含 Path 那么 `requestUrl` 的前缀不要在加入 `/` ，以免产生错误的的拼接结果。
 
 ## 下载请求
 
@@ -48,7 +64,7 @@ typedef NS_ENUM(NSInteger, YTKResponseSerializerType) {
 
 对于下载请求来说，响应属性的获取行为如下：
 
-* `responseData`：可以获取
+* `responseData`：不能获取
 * `responseString`：不能获取
 * `responseObject`：为 NSURL，是下载文件在本地所存储的路径。
 
@@ -64,7 +80,7 @@ typedef void (^AFURLSessionTaskProgressBlock)(NSProgress *);
 
 ## YTKNetworkPrivate 不再暴露
 
-`YTKNetworkPrivate.h` 将会成为私有头文件，所以依赖于此头文件的方法将不再可用。
+`YTKNetworkPrivate.h` 将会成为私有头文件，所有依赖于此头文件的方法将不再可用。
 
 ## Cache API 更新
 
@@ -97,7 +113,7 @@ YTKNetwork 2.0 中加入了用于控制是否进行异步写缓存的接口：
 
 ## 响应前向处理
 
-与 `- (void)requestCompleteFilter` 和 `- (void)requestFailedFilter` 对应， YTKNetwork 2.0 中加入了用于在响应结束，但是切换回主线程之前执行操作的函数 `- (void)requestCompletePreprocessor` 和 `- (void)requestFailedPreprocessor`，在这里执行的操作，可以避免卡顿主线程。
+与 `- (void)requestCompleteFilter` 和 `- (void)requestFailedFilter` 对应， YTKNetwork 2.0 中加入了用于在响应结束，但是切换回主线程之前执行操作的函数 `- (void)requestCompletePreprocessor` 和 `- (void)requestFailedPreprocessor`，在这里执行的操作，可以避免阻塞主线程。
 
 ## 命名变更
 

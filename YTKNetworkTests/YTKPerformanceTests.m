@@ -28,12 +28,14 @@
     // The measure block will be called several times.
     [self measureBlock:^{
         for (NSUInteger i = 0; i < targetCount; i++) {
-            YTKBasicHTTPRequest *req = [[YTKBasicHTTPRequest alloc] init];
-            [req startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-                NSNumber *result = request.responseObject;
-                XCTAssertTrue([result isEqualToNumber:@(i)]);
-            } failure:nil];
-            [req stop];
+            @autoreleasepool {
+                YTKBasicHTTPRequest *req = [[YTKBasicHTTPRequest alloc] init];
+                [req startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+                    NSNumber *result = request.responseObject;
+                    XCTAssertTrue([result isEqualToNumber:@(i)]);
+                } failure:nil];
+                [req.requestTask cancel];
+            }
         }
     }];
 }
