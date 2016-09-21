@@ -13,7 +13,7 @@ YTKNetwork is is a high level request util based on [AFNetworking][AFNetworking]
 
 YTKNetwork is used in all products of YuanTiKu, including: [YuanTiKu][YuanTiKu], [YuanSoTi][YuanSoTi], [YuanFuDao][YuanFuDao], [FenBiZhiBoKe][FenBiZhiBoKe].
 
-[中文说明]
+[中文说明][README-CN]
 
 ## Features
 
