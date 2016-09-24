@@ -1,5 +1,5 @@
 YTKNetwork 使用基础教程
-===
+=====================
 
 本教程将讲解 YTKNetwork 的基本功能的使用。
 
@@ -27,11 +27,11 @@ YTKNetworkConfig 类有两个作用：
  
 具体的用法是，在程序刚启动的回调中，设置好 YTKNetworkConfig 的信息，如下所示：
 
-```
+```objectivec
 - (BOOL)application:(UIApplication *)application 
    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-   YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
+   YTKNetworkConfig *config = [YTKNetworkConfig sharedConfig];
    config.baseUrl = @"http://yuantiku.com";
    config.cdnUrl = @"http://fen.bi";
 }
@@ -51,7 +51,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 假如我们要向网址 `http://www.yuantiku.com/iphone/register` 发送一个`POST`请求，请求参数是 username 和 password。那么，这个类应该如下所示：
 
-```
+```objectivec
 // RegisterApi.h
 #import "YTKRequest.h"
 
@@ -63,7 +63,6 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 
 // RegisterApi.m
-
 
 #import "RegisterApi.h"
 
@@ -87,7 +86,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 }
 
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodPost;
+    return YTKRequestMethodPOST;
 }
 
 - (id)requestArgument {
@@ -111,7 +110,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 在构造完成 RegisterApi 之后，具体如何使用呢？我们可以在登录的 ViewController中，调用 RegisterApi，并用block的方式来取得网络请求结果：
 
-```
+```objectivec
 - (void)loginButtonPressed:(id)sender {
     NSString *username = self.UserNameTextField.text;
     NSString *password = self.PasswordTextField.text;
@@ -134,7 +133,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 除了block的回调方式外，YTKRequest 也支持 delegate 方式的回调：
 
-```
+```objectivec
 - (void)loginButtonPressed:(id)sender {
     NSString *username = self.UserNameTextField.text;
     NSString *password = self.PasswordTextField.text;
@@ -162,7 +161,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 例如，我们要向网址 `http://www.yuantiku.com/iphone/users` 发送一个`GET`请求，请求参数是 `userId` 。我们想获得某一个用户的信息，包括他的昵称和等级，我们需要服务器必须返回昵称（字符串类型）和等级信息（数值类型），则可以覆盖`jsonValidator`方法，实现简单的验证。
 
-```
+```objectivec
 - (id)jsonValidator {
     return @{
         @"nick": [NSString class],
@@ -173,7 +172,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 完整的代码如下：
 
-```
+```objectivec
 // GetUserInfoApi.h
 #import "YTKRequest.h"
 
@@ -222,7 +221,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
  * 要求返回String数组：
 
-```
+```objectivec
 - (id)jsonValidator {
     return @[ [NSString class] ];
 }
@@ -230,7 +229,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
  * 来自猿题库线上环境的一个复杂的例子：
  
-```
+```objectivec
 - (id)jsonValidator {
     return @[@{
         @"id": [NSNumber class],
@@ -253,7 +252,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 例如我们有一个取图片的接口，地址是 `http://fen.bi/image/imageId` ，则我们可以这么写代码:
 
-```
+```objectivec
 // GetImageApi.h
 #import "YTKRequest.h"
 
@@ -289,9 +288,9 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 ## 断点续传
 
-要启动断点续传功能，只需要覆盖 `resumableDownloadPath`方法，指定断点续传时文件的暂存路径即可。如下代码将刚刚的取图片的接口改造成了支持断点续传：
+要启动断点续传功能，只需要覆盖 `resumableDownloadPath`方法，指定断点续传时文件的存储路径即可，文件会被自动保存到此路径。如下代码将刚刚的取图片的接口改造成了支持断点续传：
 
-```
+```objectivec
 @implementation GetImageApi {
     NSString *_imageId;
 }
@@ -330,7 +329,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
 
 在如下示例中，我们通过覆盖 `cacheTimeInSeconds`方法，给 GetUserInfoApi 增加了一个3分钟的缓存，3分钟内调用调Api的start方法，实际上并不会发送真正的请求。
 
-```
+```objectivec
 @implementation GetUserInfoApi {
     NSString *_userId;
 }

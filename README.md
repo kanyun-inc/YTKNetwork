@@ -13,7 +13,7 @@ YTKNetwork is is a high level request util based on [AFNetworking][AFNetworking]
 
 YTKNetwork is used in all products of YuanTiKu, including: [YuanTiKu][YuanTiKu], [YuanSoTi][YuanSoTi], [YuanFuDao][YuanFuDao], [FenBiZhiBoKe][FenBiZhiBoKe].
 
-[中文说明][README-CN]
+[**中文说明**](Docs/README_cn.md)
 
 ## Features
 
@@ -63,12 +63,12 @@ Or add this in your Cartfile:
 | 2.x | 3.x | iOS 7 | Xcode 7+ is required. |
 | 1.x | 2.x | iOS 6 | n/a |
 
-YTKNetwork depends on AFNetworking. You can find more detail about version compability on [AFNetworking README](https://github.com/AFNetworking/AFNetworking).
+YTKNetwork is based on AFNetworking. You can find more detail about version compability at [AFNetworking README](https://github.com/AFNetworking/AFNetworking).
 
 ## Guide & Demo
 
- * [Basic Usage Guide][BasicGuide-EN]
- * [YTKNetwork 2.0 Migration Guide][MigrationGuide]
+ * [Basic Usage Guide](Docs/BasicGuide_en.md)
+ * [YTKNetwork 2.0 Migration Guide(Simplified Chinese)](Docs/2.0_MigrationGuide_cn.md)
 
 ## Contributors
 
@@ -88,14 +88,11 @@ Thanks for their great work.
 
 YTKNetwork is available under the MIT license. See the LICENSE file for more info.
 
+<!-- external links -->
+
 [AFNetworking]:https://github.com/AFNetworking/AFNetworking
 [AFDownloadRequestOperation]:https://github.com/steipete/AFDownloadRequestOperation
 
-<!-- external links -->
-
-[README-CN]: README_cn.md
-[BasicGuide-EN]: BasicGuide_en.md
-[MigrationGuide]: MigrationGuide.md
 [YuanTiKu]:http://www.yuantiku.com
 [YuanSoTi]:http://www.yuansouti.com/
 [YuanFuDao]:http://www.yuanfudao.com

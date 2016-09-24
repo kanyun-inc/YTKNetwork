@@ -1,5 +1,5 @@
 YTKNetwork Basic Guide 
-===
+======================
 
 In the article, we will introduce the basic usage of YTKNetwork.
 
@@ -30,7 +30,7 @@ We should set YTKNetworkConfig's property at the beggining of app launching, the
 - (BOOL)application:(UIApplication *)application 
    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-   YTKNetworkConfig *config = [YTKNetworkConfig sharedInstance];
+   YTKNetworkConfig *config = [YTKNetworkConfig sharedConfig];
    config.baseUrl = @"http://yuantiku.com";
    config.cdnUrl = @"http://fen.bi";
 }
@@ -81,7 +81,7 @@ For example, if we want to send a POST request to `http://www.yuantiku.com/iphon
 }
 
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodPost;
+    return YTKRequestMethodPOST;
 }
 
 - (id)requestArgument {
@@ -285,7 +285,7 @@ For example, if we have a interface for image downloading, and the address is `h
 
 ## Resumable Downloading
 
-If you want to enable resumable downloading, you just need to overwrite the  `resumableDownloadPath` method and provide a temporary path to save the half-downloaded data.
+If you want to enable resumable downloading, you just need to overwrite the  `resumableDownloadPath` method and provide a the path you want to save the downloaded file. The file will be automatically saved to that path.
 
 We can modify above example to support resumable downloading.
 
