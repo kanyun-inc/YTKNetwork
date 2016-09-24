@@ -1,6 +1,6 @@
 ## YTKNetwork 是什么
 
-YTKNetwork 是猿题库 iOS 研发团队基于 [AFNetworking][AFNetworking] 封装的 iOS 网络库，其实现了一套 High Level 的 API，提供了更高层次的网络访问抽象。YTKNetwork 现在同时被使用在猿题库公司的所有产品的 iOS 端，包括：[猿题库][YuanTiKu]、 [小猿搜题][YuanSoTi]、 [猿辅导][YuanFuDao] 、 [粉笔直播课][FenBiZhiBoKe] 。
+YTKNetwork 是猿题库 iOS 研发团队基于 [AFNetworking][AFNetworking] 封装的 iOS 网络库，其实现了一套 High Level 的 API，提供了更高层次的网络访问抽象。YTKNetwork 现在同时被使用在猿题库公司的所有产品的 iOS 端，包括：[猿题库][YuanTiKu]、[小猿搜题][YuanSoTi]、[猿辅导][YuanFuDao]、[粉笔直播课][FenBiZhiBoKe] 。
 
 ## YTKNetwork 提供了哪些功能
 
@@ -60,7 +60,7 @@ YTKNetwork 依赖于 AFNetworking，可以在 [AFNetworking README](https://gith
 
  * [基础使用教程](BasicGuide_cn.md)
  * [高级使用教程](ProGuide_cn.md)
- * [YTKNetwork 2 迁移指南](MigrationGuide_cn.md)
+ * [YTKNetwork 2 迁移指南](2.0_MigrationGuide_cn.md)
 
 ## 作者
 
