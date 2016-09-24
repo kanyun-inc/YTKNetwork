@@ -26,7 +26,7 @@ We use YTKNetworkConfig to set global network host address because:
  
 We should set YTKNetworkConfig's property at the beggining of app launching, the sample is below:
 
-```
+```objectivec
 - (BOOL)application:(UIApplication *)application 
    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -35,6 +35,7 @@ We should set YTKNetworkConfig's property at the beggining of app launching, the
    config.cdnUrl = @"http://fen.bi";
 }
 ```
+
 After setting, all network requests will use YTKNetworkConfig's `baseUrl` property as their host addresses, and they will use the `cdnUrl` property of YTKNetworkConfig as their CDN addresses.
 
 If we want to switch server address, we can just change YTKNetworkConfig's `baseUrl` property.
@@ -45,7 +46,7 @@ The design idea of YTKNetwork is that every specific network request should be a
 
 For example, if we want to send a POST request to `http://www.yuantiku.com/iphone/register`，with username and password as arguments, then the class should be as following:：
 
-```
+```objectivec
 // RegisterApi.h
 #import "YTKRequest.h"
 
@@ -92,7 +93,6 @@ For example, if we want to send a POST request to `http://www.yuantiku.com/iphon
 }
 
 @end
-
 ```
 
 In above example:
@@ -107,7 +107,7 @@ OK, how can we use the `RegisterApi`? We can call it in the login view controlle
 
 Then we can get network response by `block` or `delegate` mechanism.
 
-```
+```objectivec
 - (void)loginButtonPressed:(id)sender {
     NSString *username = self.UserNameTextField.text;
     NSString *password = self.PasswordTextField.text;
@@ -123,14 +123,13 @@ Then we can get network response by `block` or `delegate` mechanism.
         }];
     }
 }
-
 ```
 
 Kindly be noted that you can use `self` directly in the block where the retain cycle won't happen. Because YTKRequest will set callback block to nil, so the block will be released right after the network request completed.
 
 Besides the `block` callback, YTKRequest also support `delegate` callback method. The example is below:
 
-```
+```objectivec
 - (void)loginButtonPressed:(id)sender {
     NSString *username = self.UserNameTextField.text;
     NSString *password = self.PasswordTextField.text;
@@ -158,7 +157,7 @@ YTKRequest provides a simple way to verity the respose JSON.
 
 For example, let's say we need to send a `GET` request to `http://www.yuantiku.com/iphone/users` address with a argument named `userId`. The server will return the target user's information, including nickname and level. We shall guarantee that the response type of nickname is string and the type of level is number. To ensure this, we can overwrite the `jsonValidator` as following:
 
-```
+```objectivec
 - (id)jsonValidator {
     return @{
         @"nick": [NSString class],
@@ -169,7 +168,7 @@ For example, let's say we need to send a `GET` request to `http://www.yuantiku.c
 
 The whole code sample is below:
 
-```
+```objectivec
 // GetUserInfoApi.h
 #import "YTKRequest.h"
 
@@ -211,14 +210,13 @@ The whole code sample is below:
 }
 
 @end
-
 ```
 
 Here is some other samples：
 
  * Require return String array:
 
-```
+```objectivec
 - (id)jsonValidator {
     return @[ [NSString class] ];
 }
@@ -226,7 +224,7 @@ Here is some other samples：
 
  * Here is one complex sample from our company:
  
-```
+```objectivec
 - (id)jsonValidator {
     return @[@{
         @"id": [NSNumber class],
@@ -242,14 +240,13 @@ Here is some other samples：
 } 
 ```
 
-
 ## Use CDN address
 
 If you need to use CDN address in some of your requests, just overwrite the `- (BOOL)useCDN;` method, and return `YES` in the method.
 
 For example, if we have a interface for image downloading, and the address is `http://fen.bi/image/imageId` with the host `http://fen.bi` as the CDN address. Then the code should be below:
 
-```
+```objectivec
 // GetImageApi.h
 #import "YTKRequest.h"
 
@@ -289,7 +286,7 @@ If you want to enable resumable downloading, you just need to overwrite the  `re
 
 We can modify above example to support resumable downloading.
 
-```
+```objectivec
 @implementation GetImageApi {
     NSString *_imageId;
 }
@@ -326,7 +323,7 @@ We've implemented the `GetUserInfoApi` before, which is used for getting user in
 
 We may want to cache the response. In the following example, we overwrite  the `cacheTimeInSeconds` method, then our API will automatically cache data for specified amount of time. If the cached data is not expired, the api's `start` and `startWithCompletionBlockWithSuccess` will return cached data as a result directly.
 
-```
+```objectivec
 @implementation GetUserInfoApi {
     NSString *_userId;
 }
