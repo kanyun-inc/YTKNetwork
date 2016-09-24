@@ -58,9 +58,9 @@ YTKNetwork 依赖于 AFNetworking，可以在 [AFNetworking README](https://gith
 
 ## 相关的使用教程和 Demo
 
- * [基础使用教程](Docs/BasicGuide_cn.md)
- * [高级使用教程](Docs/ProGuide_cn.md)
- * [YTKNetwork 2 迁移指南](Docs/MigrationGuide_cn.md)
+ * [基础使用教程](BasicGuide_cn.md)
+ * [高级使用教程](ProGuide_cn.md)
+ * [YTKNetwork 2 迁移指南](MigrationGuide_cn.md)
 
 ## 作者
 
