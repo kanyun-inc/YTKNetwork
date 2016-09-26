@@ -70,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSArray<id<YTKCacheDirPathFilterProtocol>> *cacheDirPathFilters;
 ///  Security policy will be used by AFNetworking. See also `AFSecurityPolicy`.
 @property (strong, nonatomic) AFSecurityPolicy *securityPolicy;
+///  SessionConfiguration will be used to initialize AFHTTPSessionManager. Default is nil.
+@property (strong, nonatomic) NSURLSessionConfiguration* sessionConfiguration;
 
 ///  Add a new URL filter.
 - (void)addUrlFilter:(id<YTKUrlFilterProtocol>)filter;
