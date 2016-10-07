@@ -11,7 +11,7 @@
 #import "YTKNetworkAgent.h"
 #import "YTKRequest.h"
 
-NSString * const YTKNetworkingTestsBaseURLString = @"http://127.0.0.1:8000/";
+NSString * const YTKNetworkingTestsBaseURLString = @"https://httpbin.org/";
 
 @implementation YTKTestCase
 
