@@ -39,9 +39,6 @@ FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
 + (BOOL)validateJSON:(id)json withValidator:(id)jsonValidator;
 
-+ (NSString *)urlStringWithOriginUrlString:(NSString *)originUrlString
-                          appendParameters:(NSDictionary<NSString *, NSString *> *)parameters;
-
 + (void)addDoNotBackupAttribute:(NSString *)path;
 
 + (NSString *)md5StringFromString:(NSString *)string;
