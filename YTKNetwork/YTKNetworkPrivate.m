@@ -131,8 +131,7 @@ void YTKLog(NSString *format, ...) {
 }
 
 + (NSString *)md5StringFromString:(NSString *)string {
-    if(string == nil || [string length] == 0)
-        return nil;
+    NSParameterAssert(string != nil && [string length] > 0);
 
     const char *value = [string UTF8String];
 

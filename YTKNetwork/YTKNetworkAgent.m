@@ -97,6 +97,8 @@
 #pragma mark -
 
 - (NSString *)buildRequestUrl:(YTKBaseRequest *)request {
+    NSParameterAssert(request != nil);
+
     NSString *detailUrl = [request requestUrl];
     NSURL *temp = [NSURL URLWithString:detailUrl];
     // If detailUrl is valid URL
@@ -190,6 +192,8 @@
 }
 
 - (void)addRequest:(YTKBaseRequest *)request {
+    NSParameterAssert(request != nil);
+
     NSError * __autoreleasing requestSerializationError = nil;
 
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];
@@ -207,6 +211,8 @@
         [self requestDidFailWithRequest:request error:requestSerializationError];
         return;
     }
+
+    NSAssert(request.requestTask != nil, @"requestTask should not be nil");
 
     // Set request task priority
     // !!Available on iOS 8 +
@@ -233,6 +239,8 @@
 }
 
 - (void)cancelRequest:(YTKBaseRequest *)request {
+    NSParameterAssert(request != nil);
+
     [request.requestTask cancel];
     [self removeRequestFromRecord:request];
     [request clearCompletionBlock];
@@ -263,17 +271,15 @@
         }
         return result;
     }
+    id json = [request responseJSONObject];
     id validator = [request jsonValidator];
-    if (validator) {
-        id json = [request responseJSONObject];
-        if (json) {
-            result = [YTKNetworkUtils validateJSON:json withValidator:validator];
-            if (!result) {
-                if (error) {
-                    *error = [NSError errorWithDomain:YTKRequestValidationErrorDomain code:YTKRequestValidationErrorInvalidJSONFormat userInfo:@{NSLocalizedDescriptionKey:@"Invalid JSON format"}];
-                }
-                return result;
+    if (json && validator) {
+        result = [YTKNetworkUtils validateJSON:json withValidator:validator];
+        if (!result) {
+            if (error) {
+                *error = [NSError errorWithDomain:YTKRequestValidationErrorDomain code:YTKRequestValidationErrorInvalidJSONFormat userInfo:@{NSLocalizedDescriptionKey:@"Invalid JSON format"}];
             }
+            return result;
         }
     }
     return YES;
@@ -284,6 +290,11 @@
     YTKBaseRequest *request = _requestsRecord[@(task.taskIdentifier)];
     Unlock();
 
+    // When the request is cancelled and removed from records, the underlying
+    // AFNetworking failure callback will still kicks in, resulting in a nil `request`.
+    //
+    // Here we choose to completely ignore cancelled tasks. Neither success or failure
+    // callback will be called.
     if (!request) {
         return;
     }
@@ -324,7 +335,6 @@
         succeed = [self validateResult:request error:&validationError];
         requestError = validationError;
     }
-
 
     if (succeed) {
         [self requestDidSucceedWithRequest:request];
@@ -384,11 +394,9 @@
 }
 
 - (void)addRequestToRecord:(YTKBaseRequest *)request {
-    if (request.requestTask != nil) {
-        Lock();
-        _requestsRecord[@(request.requestTask.taskIdentifier)] = request;
-        Unlock();
-    }
+    Lock();
+    _requestsRecord[@(request.requestTask.taskIdentifier)] = request;
+    Unlock();
 }
 
 - (void)removeRequestFromRecord:(YTKBaseRequest *)request {

@@ -47,6 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cancelAllRequests;
 
 ///  Return the constructed URL of request.
+///
+///  @param request The request to parse. Should not be nil.
+///
+///  @return The result URL.
 - (NSString *)buildRequestUrl:(YTKBaseRequest *)request;
 
 @end

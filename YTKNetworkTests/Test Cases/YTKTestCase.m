@@ -39,6 +39,7 @@ NSString * const YTKNetworkingTestsBaseURLString = @"http://127.0.0.1:8000/";
 
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         XCTAssertNotNil(request);
+        XCTAssertNil(request.error);
         if (assertion) {
             assertion(request);
         }
@@ -63,6 +64,7 @@ NSString * const YTKNetworkingTestsBaseURLString = @"http://127.0.0.1:8000/";
         [exp fulfill];
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         XCTAssertNotNil(request);
+        XCTAssertNotNil(request.error);
         if (assertion) {
             assertion(request);
         }

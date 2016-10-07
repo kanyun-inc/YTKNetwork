@@ -213,7 +213,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///
 ///  @discussion NSURLSessionDownloadTask is used when this value is not nil. If request succeed, file will
 ///              be saved to this path automatically. For this to work, server must support `Range` and response
-///              with proper `If-Modified-Since` and/or `Etag`. See `NSURLSessionDownloadTask` for more detail.
+///              with proper `Last-Modified` and/or `Etag`. See `NSURLSessionDownloadTask` for more detail.
 @property (nonatomic, strong, nullable) NSString *resumableDownloadPath;
 
 ///  You can use this block to track the download progress. See also `resumableDownloadPath`.

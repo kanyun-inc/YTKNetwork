@@ -29,11 +29,11 @@
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkConfig.h"
 
-@class AFHTTPSessionManager;
-
 NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT void YTKLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
+
+@class AFHTTPSessionManager;
 
 @interface YTKNetworkUtils : NSObject
 
