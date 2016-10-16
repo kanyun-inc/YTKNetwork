@@ -40,7 +40,7 @@ NS_ENUM(NSInteger) {
 ///  YTKRequest is the base class you should inherit to create your own request class.
 ///  Based on YTKBaseRequest, YTKRequest adds local caching feature. Note download
 ///  request will not be cached whatsoever, because download request may involve complicated
-///  cache control policy controlled by `Cache-Control`, `If-Modified-Since`, etc.
+///  cache control policy controlled by `Cache-Control`, `Last-Modified`, etc.
 @interface YTKRequest : YTKBaseRequest
 
 ///  Whether to use cache as response or not.
