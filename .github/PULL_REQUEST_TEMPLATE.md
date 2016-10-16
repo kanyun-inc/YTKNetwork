@@ -2,7 +2,7 @@
 
 * [ ] 我已经阅读过 [贡献指南](CONTRIBUTING.md) I have read and understood the [CONTRIBUTING guide](CONTRIBUTING.md)
 * [ ] 我已经阅读过 [程序文档]((http://cocoadocs.org/docsets/YTKNetwork)) I have read the [Documentation](http://cocoadocs.org/docsets/YTKNetwork)
-* [ ] 我已经在项目的 [Pull Request列表](https://github.com/yuantiku/YTKNetwork/pulls) 中搜索过并且没有找到类似的 Pull request I have searched for a similar pull request in the [project issue list](https://github.com/yuantiku/YTKNetwork/pulls) and found none
+* [ ] 我已经在项目的 [Pull Request列表](https://github.com/yuantiku/YTKNetwork/pulls) 中搜索过并且没有找到类似的 Pull request I have searched for a similar pull request in the [project](https://github.com/yuantiku/YTKNetwork/pulls) and found none
 * [ ] 我已经添加了必要的测试以证明我的修改是正确的 I have added the required tests to prove the fix/feature I am adding
 * [ ] 我已经更新了有关文档（如必要）I have updated the documentation (if necesarry)
 
