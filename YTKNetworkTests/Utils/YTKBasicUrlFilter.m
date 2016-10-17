@@ -8,7 +8,7 @@
 
 #import "YTKBasicUrlFilter.h"
 #import "YTKNetworkConfig.h"
-#import "YTKNetworkPrivate.h"
+#import "NSString+YTKUrlUtils.h"
 
 @interface YTKBasicUrlFilter ()
 
@@ -31,7 +31,7 @@
 }
 
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(YTKBaseRequest *)request {
-    return [YTKNetworkUtils urlStringWithOriginUrlString:originUrl appendParameters:_arguments];
+    return [originUrl ytk_stringByAppendURLParameters:_arguments];
 }
 
 @end
