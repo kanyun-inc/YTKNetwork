@@ -29,7 +29,7 @@
     YTKBatchRequest *batchRequest = [[YTKBatchRequest alloc] initWithRequestArray:@[a, b, c, d]];
     [batchRequest startWithCompletionBlockWithSuccess:^(YTKBatchRequest *batchRequest) {
         NSLog(@"succeed");
-        NSArray<__kindof YTKRequest*> *requests = batchRequest.requestArray;
+        NSArray<__kindof YTKRequest *> *requests = batchRequest.requestArray;
         GetImageApi *a = requests[0];
         GetImageApi *b = requests[1];
         GetImageApi *c = requests[2];
