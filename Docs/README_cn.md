@@ -70,6 +70,7 @@ YTKNetwork 的主要作者是：
 * [maojj][maojjGithub]
 * [veecci][veecciGithub]
 * [tangqiaoboy][tangqiaoboyGithub]
+* [skyline75489][skyline75489Github]
 
 ## 感谢
 
@@ -92,3 +93,4 @@ YTKNetwork 被许可在 MIT 协议下使用。查阅 LICENSE 文件来获得更�
 [lancyGithub]:https://github.com/lancy
 [maojjGithub]:https://github.com/maojj
 [veecciGithub]:https://github.com/veecci
+[skyline75489Github]:https://github.com/skyline75489

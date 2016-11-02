@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 
 NSString *const kTestDownloadURL = @"https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk";
+NSString *const kTestFailDownloadURL = @"https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apkfail";
 
 @interface YTKResumableDownloadTests : YTKTestCase
 
@@ -97,5 +98,38 @@ NSString *const kTestDownloadURL = @"https://qd.myapp.com/myapp/qqteam/AndroidQQ
     [self expectSuccess:req2];
 }
 
+- (void)testResumableDownloadOverwriteAndCleanup {
+    [[YTKNetworkAgent sharedAgent] resetURLSessionManager];
+    [[YTKNetworkAgent sharedAgent] manager].responseSerializer.acceptableContentTypes = nil;
+    NSString *path = [[self saveBasePath] stringByAppendingPathComponent:@"downloaded.bin"];
+
+    // Create a exist file
+    NSString *testString = @"TEST";
+    NSData *stringData = [testString dataUsingEncoding:NSUTF8StringEncoding];
+    [stringData writeToFile:path atomically:YES];
+
+    // Download req file
+    YTKDownloadRequest *req = [[YTKDownloadRequest alloc] initWithTimeout:self.networkTimeout requestUrl:kTestDownloadURL];
+    req.resumableDownloadPath = path;
+    req.resumableDownloadProgressBlock = ^(NSProgress *progress) {
+        XCTAssertTrue(progress.completedUnitCount > 0);
+        NSLog(@"Downloading: %lld / %lld", progress.completedUnitCount, progress.totalUnitCount);
+    };
+
+    [self expectSuccess:req];
+    XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:path]);
+    XCTAssertTrue(([[NSFileManager defaultManager] contentsAtPath:path].length > stringData.length));
+
+    YTKDownloadRequest *req2 = [[YTKDownloadRequest alloc] initWithTimeout:self.networkTimeout requestUrl:kTestFailDownloadURL];
+    req2.resumableDownloadPath = path;
+    req2.resumableDownloadProgressBlock = ^(NSProgress *progress) {
+        XCTAssertTrue(progress.completedUnitCount > 0);
+        NSLog(@"Downloading: %lld / %lld", progress.completedUnitCount, progress.totalUnitCount);
+    };
+
+    [self expectFailure:req2];
+    XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:path]);
+    XCTAssertTrue(req2.responseData.length > 0 && req2.responseString.length > 0);
+}
 
 @end

@@ -371,9 +371,22 @@
     YTKLog(@"Request %@ failed, status code = %ld, error = %@",
            NSStringFromClass([request class]), (long)request.responseStatusCode, error.localizedDescription);
 
+    // Save incomplete download data.
     NSData *incompleteDownloadData = error.userInfo[NSURLSessionDownloadTaskResumeData];
     if (incompleteDownloadData) {
         [incompleteDownloadData writeToURL:[self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath] atomically:YES];
+    }
+
+    // Load response from file and clean up if download task failed.
+    if ([request.responseObject isKindOfClass:[NSURL class]]) {
+        NSURL *url = request.responseObject;
+        if (url.isFileURL && [[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
+            request.responseData = [NSData dataWithContentsOfURL:url];
+            request.responseString = [[NSString alloc] initWithData:request.responseData encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
+
+            [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+        }
+        request.responseObject = nil;
     }
 
     @autoreleasepool {
@@ -460,6 +473,14 @@
         downloadTargetPath = [NSString pathWithComponents:@[downloadPath, fileName]];
     } else {
         downloadTargetPath = downloadPath;
+    }
+
+    // AFN use `moveItemAtURL` to move downloaded file to target path,
+    // this method aborts the move attempt if a file already exist at the path.
+    // So we remove the exist file before we start the download task.
+    // https://github.com/AFNetworking/AFNetworking/issues/3775
+    if ([[NSFileManager defaultManager] fileExistsAtPath:downloadTargetPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:downloadTargetPath error:nil];
     }
 
     BOOL resumeDataFileExists = [[NSFileManager defaultManager] fileExistsAtPath:[self incompleteDownloadTempPathForDownloadPath:downloadPath].path];

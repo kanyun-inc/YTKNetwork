@@ -159,7 +159,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///  `YTKResponseSerializerType`. Note this value can be nil if request failed.
 ///
 ///  @discussion If `resumableDownloadPath` and DownloadTask is using, this value will
-///              be the path to which file is successfully saved (NSURL).
+///              be the path to which file is successfully saved (NSURL), or nil if request failed.
 @property (nonatomic, strong, readonly, nullable) id responseObject;
 
 ///  If you use `YTKResponseSerializerTypeJSON`, this is a convenience (and sematic) getter
@@ -211,9 +211,11 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 ///  This value is used to perform resumable download request. Default is nil.
 ///
-///  @discussion NSURLSessionDownloadTask is used when this value is not nil. If request succeed, file will
-///              be saved to this path automatically. For this to work, server must support `Range` and response
-///              with proper `Last-Modified` and/or `Etag`. See `NSURLSessionDownloadTask` for more detail.
+///  @discussion NSURLSessionDownloadTask is used when this value is not nil.
+///              The exist file at the path will be removed before the request starts. If request succeed, file will
+///              be saved to this path automatically, otherwise the response will be saved to `responseData`
+///              and `responseString`. For this to work, server must support `Range` and response with
+///              proper `Last-Modified` and/or `Etag`. See `NSURLSessionDownloadTask` for more detail.
 @property (nonatomic, strong, nullable) NSString *resumableDownloadPath;
 
 ///  You can use this block to track the download progress. See also `resumableDownloadPath`.
