@@ -202,6 +202,11 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return (statusCode >= 200 && statusCode <= 299);
 }
 
+- (id)jsonToModelWithData:(NSDictionary *)dataDict
+{
+    return nil;
+}
+
 #pragma mark - NSObject
 
 - (NSString *)description {
