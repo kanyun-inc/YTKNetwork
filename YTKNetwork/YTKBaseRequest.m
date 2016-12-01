@@ -39,6 +39,7 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
 @property (nonatomic, strong, readwrite) NSData *responseData;
 @property (nonatomic, strong, readwrite) id responseJSONObject;
 @property (nonatomic, strong, readwrite) id responseObject;
+@property (nonatomic, strong, readwrite) id responseModel;
 @property (nonatomic, strong, readwrite) NSString *responseString;
 @property (nonatomic, strong, readwrite) NSError *error;
 
