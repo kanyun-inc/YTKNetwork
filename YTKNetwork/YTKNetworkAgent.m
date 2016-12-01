@@ -297,15 +297,24 @@
         NSDictionary *dataDict = [_config.responseFilterProtocol extractDataWithRequest:request];
         if (dataDict != nil && [dataDict isKindOfClass:[NSDictionary class]])
         {
-            request.responseModel = [request jsonToModelWithData:dataDict];
+            if ([request respondsToSelector:@selector(jsonToModelWithData:)])
+            {
+                request.responseModel = [request jsonToModelWithData:dataDict];
+            }
         }
         else
         {
-            request.responseModel = [request jsonToModelWithData:request.responseJSONObject];
+            if ([request respondsToSelector:@selector(jsonToModelWithData:)])
+            {
+                request.responseModel = [request jsonToModelWithData:request.responseJSONObject];
+            }
         }
     }else
     {
-        request.responseModel = [request jsonToModelWithData:request.responseJSONObject];
+        if ([request respondsToSelector:@selector(jsonToModelWithData:)])
+        {
+            request.responseModel = [request jsonToModelWithData:request.responseJSONObject];
+        }
     }
     
     
