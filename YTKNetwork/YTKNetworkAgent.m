@@ -271,6 +271,12 @@
         }
         return result;
     }
+    
+    result = [request customValidatorWithError:error];
+    if (!result) {
+        return result;
+    }
+
     id json = [request responseJSONObject];
     id validator = [request jsonValidator];
     if (json && validator) {
