@@ -403,7 +403,7 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
 
 - (NSString *)cacheFileName {
     NSString *requestUrl = [self requestUrl];
-    NSString *baseUrl = [YTKNetworkConfig sharedConfig].baseUrl;
+    NSString *baseUrl = ([self baseUrl].length > 0) ? [self baseUrl] : [YTKNetworkConfig sharedConfig].baseUrl;
     id argument = [self cacheFileNameFilterForRequestArgument:[self requestArgument]];
     NSString *requestInfo = [NSString stringWithFormat:@"Method:%ld Host:%@ Url:%@ Argument:%@",
                              (long)[self requestMethod], baseUrl, requestUrl, argument];
