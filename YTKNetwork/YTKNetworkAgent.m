@@ -351,6 +351,8 @@
         switch (request.responseSerializerType) {
             case YTKResponseSerializerTypeHTTP:
                 // Default serializer. Do nothing.
+                request.responseObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&serializationError];
+                request.responseJSONObject = request.responseObject;
                 break;
             case YTKResponseSerializerTypeJSON:
                 request.responseObject = [self.jsonResponseSerializer responseObjectForResponse:task.response data:request.responseData error:&serializationError];
@@ -364,10 +366,10 @@
     if (error) {
         succeed = NO;
         requestError = error;
-    }/* else if (serializationError) {
+    }else if (serializationError) {
         succeed = NO;
         requestError = serializationError;
-    }*/ else {
+    }else {
         succeed = [self validateResult:request error:&validationError];
         requestError = validationError;
     }
