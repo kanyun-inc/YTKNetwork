@@ -364,10 +364,10 @@
     if (error) {
         succeed = NO;
         requestError = error;
-    } else if (serializationError) {
+    }/* else if (serializationError) {
         succeed = NO;
         requestError = serializationError;
-    } else {
+    }*/ else {
         succeed = [self validateResult:request error:&validationError];
         requestError = validationError;
     }
