@@ -295,7 +295,7 @@
     if (_config.responseFilterProtocol != nil && [_config.responseFilterProtocol respondsToSelector:@selector(extractDataWithRequest:)])
     {
         NSDictionary *dataDict = [_config.responseFilterProtocol extractDataWithRequest:request];
-        if (dataDict != nil && [dataDict isKindOfClass:[NSDictionary class]])
+        if (dataDict != nil)
         {
             if ([request respondsToSelector:@selector(jsonToModelWithData:)])
             {
