@@ -51,9 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^YTKChainCallback)(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest);
 
-///  YTKBatchRequest can be used to chain several YTKRequest so that one will only starts after another finishes.
+///  YTKChainRequest can be used to chain several YTKRequest so that one will only starts after another finishes.
 ///  Note that when used inside YTKChainRequest, a single YTKRequest will have its own callback and delegate
-///  cleared, in favor of the batch request callback.
+///  cleared, in favor of the chain request callback.
 @interface YTKChainRequest : NSObject
 
 ///  All the requests are stored in this array.
