@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "YYBaseResponseData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -331,6 +332,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 ///  This validator will be used to test if `responseStatusCode` is valid.
 - (BOOL)statusCodeValidator;
+
+///  我自定义的基本返回类型
+@property (nonatomic, strong) YYBaseResponseData *responseBaseData;
 
 @end
 

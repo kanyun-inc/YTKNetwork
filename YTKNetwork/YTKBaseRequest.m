@@ -25,6 +25,12 @@
 #import "YTKNetworkAgent.h"
 #import "YTKNetworkPrivate.h"
 
+#if __has_include(<YYModel/YYModel.h>)
+#import <YYModel/YYModel.h>
+#else
+#import "YYModel.h"
+#endif
+
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
 #else
@@ -206,6 +212,15 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@: %p>{ URL: %@ } { method: %@ } { arguments: %@ }", NSStringFromClass([self class]), self, self.currentRequest.URL, self.currentRequest.HTTPMethod, self.requestArgument];
+}
+
+#pragma mark - 统一解析
+
+- (YYBaseResponseData *)responseBaseData
+{
+    YYBaseResponseData *response = [YYBaseResponseData yy_modelWithDictionary:self.responseObject];
+    
+    return response;
 }
 
 @end
