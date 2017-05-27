@@ -12,7 +12,10 @@
 #import "YYModel.h"
 #endif
 
+//成功
 #define kSuccessCode 200
+//余额不足
+#define kMoneyNotEnoughCode 9
 
 @interface YYBaseResponseData : NSObject
 
@@ -21,5 +24,6 @@
 @property (nonatomic, strong) id data; //数据
 
 @property (nonatomic, assign, readonly, getter=isSuccess) BOOL isSuccess; //请求是否成功
+@property (nonatomic, assign, readonly, getter=isMoneyNotEnough) BOOL isMoneyNotEnough; //是否是余额不足
 
 @end

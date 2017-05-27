@@ -20,4 +20,8 @@
     return self.code == kSuccessCode;
 }
 
+- (BOOL)isMoneyNotEnough {
+    return self.code == kMoneyNotEnoughCode;
+}
+
 @end
