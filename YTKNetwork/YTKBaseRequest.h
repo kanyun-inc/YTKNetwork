@@ -176,6 +176,8 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///  Executing state of request task.
 @property (nonatomic, readonly, getter=isExecuting) BOOL executing;
 
+///  Record  which target use this request
+@property (nonatomic, strong, nullable) id target;
 
 #pragma mark - Request Configuration
 ///=============================================================================
