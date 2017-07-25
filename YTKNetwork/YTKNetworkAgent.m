@@ -246,6 +246,26 @@
     [request clearCompletionBlock];
 }
 
+- (void)cancelRequestsWithTarget:(id)target
+{
+    if (!target) {
+        return;
+    }
+    Lock();
+    NSArray *allKeys = [_requestsRecord allKeys];
+    Unlock();
+    if (allKeys && allKeys.count > 0) {
+        NSArray *copiedKeys = [allKeys copy];
+        for (NSNumber *key in copiedKeys) {
+            Lock();
+            YTKBaseRequest *request = _requestsRecord[key];
+            Unlock();
+            if ([request.target isEqual:target]) {
+                [request stop];
+            }
+        }
+    }
+}
 - (void)cancelAllRequests {
     Lock();
     NSArray *allKeys = [_requestsRecord allKeys];

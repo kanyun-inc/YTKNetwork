@@ -46,6 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///  Cancel all requests that were previously added.
 - (void)cancelAllRequests;
 
+/// Cancel  target's requests
+- (void)cancelRequestsWithTarget:(id)target;
+
 ///  Return the constructed URL of request.
 ///
 ///  @param request The request to parse. Should not be nil.
