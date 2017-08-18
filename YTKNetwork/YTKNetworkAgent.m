@@ -540,7 +540,10 @@
     NSString *tempPath = nil;
     NSString *md5URLString = [YTKNetworkUtils md5StringFromString:downloadPath];
     tempPath = [[self incompleteDownloadTempCacheFolder] stringByAppendingPathComponent:md5URLString];
-    return [NSURL fileURLWithPath:tempPath];
+    if (tempPath) {
+        return [NSURL fileURLWithPath:tempPath];
+    }
+    return nil;
 }
 
 #pragma mark - Testing
