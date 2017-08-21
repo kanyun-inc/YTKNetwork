@@ -173,6 +173,16 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return YTKResponseSerializerTypeJSON;
 }
 
+- (nullable NSSet<NSString *> *)responseContentTypes
+{
+    return [NSSet setWithArray:@[@"application/json",
+                                 @"text/html",
+                                 @"text/json",
+                                 @"text/plain",
+                                 @"text/javascript",
+                                 @"text/xml"]];
+}
+
 - (NSArray *)requestAuthorizationHeaderFieldArray {
     return nil;
 }

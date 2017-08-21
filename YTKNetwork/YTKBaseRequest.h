@@ -310,6 +310,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///  Response serializer type. See also `responseObject`.
 - (YTKResponseSerializerType)responseSerializerType;
 
+//  The response content types.
+- (nullable NSSet <NSString *> *)responseContentTypes;
+
 ///  Username and password used for HTTP authorization. Should be formed as @[@"Username", @"Password"].
 - (nullable NSArray<NSString *> *)requestAuthorizationHeaderFieldArray;
 
