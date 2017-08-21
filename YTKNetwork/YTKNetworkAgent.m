@@ -193,7 +193,9 @@
 
 - (void)addRequest:(YTKBaseRequest *)request {
     NSParameterAssert(request != nil);
-
+    if (request.responseContentTypes) {
+        _manager.responseSerializer.acceptableContentTypes = request.responseContentTypes;
+    }
     NSError * __autoreleasing requestSerializationError = nil;
 
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];
