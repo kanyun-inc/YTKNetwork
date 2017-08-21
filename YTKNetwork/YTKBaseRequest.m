@@ -179,7 +179,8 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
                                  @"text/html",
                                  @"text/json",
                                  @"text/plain",
-                                 @"text/javascript"]];
+                                 @"text/javascript",
+                                 @"text/xml"]];
 }
 
 - (NSArray *)requestAuthorizationHeaderFieldArray {
