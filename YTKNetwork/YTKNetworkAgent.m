@@ -241,7 +241,16 @@
 - (void)cancelRequest:(YTKBaseRequest *)request {
     NSParameterAssert(request != nil);
 
-    [request.requestTask cancel];
+    if (request.resumableDownloadPath) {
+        NSURLSessionDownloadTask *requestTask = (NSURLSessionDownloadTask *)request.requestTask;
+        [requestTask cancelByProducingResumeData:^(NSData *resumeData) {
+            NSURL *localUrl = [self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath];
+            [resumeData writeToURL:localUrl atomically:YES];
+        }];
+    } else {
+        [request.requestTask cancel];
+    }
+
     [self removeRequestFromRecord:request];
     [request clearCompletionBlock];
 }
