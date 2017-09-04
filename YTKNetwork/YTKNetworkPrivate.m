@@ -110,7 +110,7 @@ void YTKLog(NSString *format, ...) {
 
     NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
-        [outputString appendFormat:@"%02x",outputBuffer[count]];
+        [outputString appendFormat:@"%02x", outputBuffer[count]];
     }
 
     return outputString;
