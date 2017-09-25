@@ -92,6 +92,9 @@ void YTKLog(NSString *format, ...) {
 }
 
 + (void)addDoNotBackupAttribute:(NSString *)path {
+    if (!path) {
+        return ;
+    }
     NSURL *url = [NSURL fileURLWithPath:path];
     NSError *error = nil;
     [url setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:&error];
