@@ -37,7 +37,17 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 ///  @return A new url which will be used as a new `requestUrl`
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(YTKBaseRequest *)request;
+
 @end
+
+@protocol YTKResponseFilterProtocol <NSObject>
+
+- (BOOL)checkErrorCodeWithRequest:(YTKBaseRequest *)request;
+
+- (NSDictionary *)extractDataWithRequest:(YTKBaseRequest *)request;
+
+@end
+
 
 ///  YTKCacheDirPathFilterProtocol can be used to append common path components when caching response results
 @protocol YTKCacheDirPathFilterProtocol <NSObject>
@@ -74,6 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL debugLogEnabled;
 ///  SessionConfiguration will be used to initialize AFHTTPSessionManager. Default is nil.
 @property (nonatomic, strong) NSURLSessionConfiguration* sessionConfiguration;
+
+@property (nonatomic,strong) id<YTKResponseFilterProtocol> responseFilterProtocol;
 
 ///  Add a new URL filter.
 - (void)addUrlFilter:(id<YTKUrlFilterProtocol>)filter;
