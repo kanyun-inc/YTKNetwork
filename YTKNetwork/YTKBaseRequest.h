@@ -338,7 +338,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 -(void)requestStart;
 
--(void)requestFinish
+-(void)requestFinish;
 
 @end
 
