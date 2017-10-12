@@ -374,8 +374,6 @@
         }
     }
     
-    [request requestFinish];
-    
     if (error) {
         succeed = NO;
         requestError = error;
@@ -388,6 +386,7 @@
     }
 
     if (succeed) {
+        [request requestFinish];
         [self requestDidSucceedWithRequest:request];
     } else {
         [self requestDidFailWithRequest:request error:requestError];
