@@ -348,8 +348,6 @@
     }
 
     YTKLog(@"Finished Request: %@", NSStringFromClass([request class]));
-
-    [request requestFinish];
     
     NSError * __autoreleasing serializationError = nil;
     NSError * __autoreleasing validationError = nil;
@@ -375,6 +373,9 @@
                 break;
         }
     }
+    
+    [request requestFinish];
+    
     if (error) {
         succeed = NO;
         requestError = error;
