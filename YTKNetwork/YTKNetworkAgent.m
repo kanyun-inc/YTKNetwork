@@ -235,6 +235,9 @@
     // Retain request
     YTKLog(@"Add request: %@", NSStringFromClass([request class]));
     [self addRequestToRecord:request];
+    
+    [request requestStart];
+    
     [request.requestTask resume];
 }
 
@@ -346,6 +349,8 @@
 
     YTKLog(@"Finished Request: %@", NSStringFromClass([request class]));
 
+    [request requestFinish];
+    
     NSError * __autoreleasing serializationError = nil;
     NSError * __autoreleasing validationError = nil;
 

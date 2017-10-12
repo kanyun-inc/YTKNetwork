@@ -208,6 +208,13 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return nil;
 }
 
+-(void)requestStart
+{
+}
+
+-(void)requestFinish
+{
+}
 #pragma mark - NSObject
 
 - (NSString *)description {

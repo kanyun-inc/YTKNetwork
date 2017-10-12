@@ -336,6 +336,10 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 - (id)jsonToModelWithData:(NSDictionary *)dataDict;
 
+-(void)requestStart;
+
+-(void)requestFinish
+
 @end
 
 NS_ASSUME_NONNULL_END
