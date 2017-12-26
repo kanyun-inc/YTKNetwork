@@ -69,8 +69,9 @@
         pthread_mutex_init(&_lock, NULL);
 
         _manager.securityPolicy = _config.securityPolicy;
-        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        _manager.responseSerializer = [AFJSONResponseSerializer serializer];
         // Take over the status code validation
+        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json", @"text/json", @"text/javascript",@"text/html", @"text/plain",@"application/atom+xml",@"application/xml",@"text/xml",@"image/jpeg", @"image/png"]];
         _manager.responseSerializer.acceptableStatusCodes = _allStatusCodes;
         _manager.completionQueue = _processingQueue;
     }

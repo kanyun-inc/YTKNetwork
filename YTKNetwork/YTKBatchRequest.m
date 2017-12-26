@@ -59,7 +59,7 @@
     [self toggleAccessoriesWillStartCallBack];
     for (YTKRequest * req in _requestArray) {
         req.delegate = self;
-        [req clearCompletionBlock];
+//        [req clearCompletionBlock];
         [req start];
     }
 }
@@ -109,6 +109,10 @@
 
 - (void)requestFinished:(YTKRequest *)request {
     _finishedCount++;
+    if (request.successCompletionBlock) {
+        request.successCompletionBlock(request);
+        [request clearCompletionBlock];
+    }
     if (_finishedCount == _requestArray.count) {
         [self toggleAccessoriesWillStopCallBack];
         if ([_delegate respondsToSelector:@selector(batchRequestFinished:)]) {
@@ -125,6 +129,10 @@
 
 - (void)requestFailed:(YTKRequest *)request {
     _failedRequest = request;
+    if (request.failureCompletionBlock) {
+        request.failureCompletionBlock(request);
+        [request clearCompletionBlock];
+    }
     [self toggleAccessoriesWillStopCallBack];
     // Stop
     for (YTKRequest *req in _requestArray) {
