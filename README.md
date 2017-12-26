@@ -9,7 +9,7 @@ YTKNetwork
 
 ## What
 
-YTKNetwork is is a high level request util based on [AFNetworking][AFNetworking]. It's developed by the iOS Team of YuanTiKu. It provides a High Level API for network request.
+YTKNetwork is a high level request util based on [AFNetworking][AFNetworking]. It's developed by the iOS Team of YuanTiKu. It provides a High Level API for network request.
 
 YTKNetwork is used in all products of YuanTiKu, including: [YuanTiKu][YuanTiKu], [YuanSoTi][YuanSoTi], [YuanFuDao][YuanFuDao], [FenBiZhiBoKe][FenBiZhiBoKe].
 
@@ -76,6 +76,7 @@ YTKNetwork is based on AFNetworking. You can find more detail about version comp
  * [maojj][maojjGithub]
  * [veecci][veecciGithub]
  * [tangqiaoboy][tangqiaoboyGithub]
+ * [skyline75489][skyline75489Github]
 
 ## Acknowledgements
 
@@ -101,3 +102,4 @@ YTKNetwork is available under the MIT license. See the LICENSE file for more inf
 [lancyGithub]:https://github.com/lancy
 [maojjGithub]:https://github.com/maojj
 [veecciGithub]:https://github.com/veecci
+[skyline75489Github]:https://github.com/skyline75489

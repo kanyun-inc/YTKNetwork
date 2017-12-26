@@ -34,7 +34,7 @@ YTKNetwork 的基本的思想是把每一个网络请求封装成对象。所以
  * 方便在基类中处理缓存逻辑，以及其它一些公共逻辑。
  * 方便做对象的持久化。
 
-当然，如果说它有什么不好，那就是如果你的工程非常简单，这么写会显得没有直接用 AFNetworking 将请求逻辑写在 Controller 中方便，所以 YTKNetwork 并不合适特别简单的项目。
+当然，如果说它有什么不好，那就是如果你的工程非常简单，这么写会显得没有直接用 AFNetworking 将请求逻辑写在 Controller 中方便，所以 YTKNetwork 并不适合特别简单的项目。
 
 ## 安装
 
@@ -70,6 +70,7 @@ YTKNetwork 的主要作者是：
 * [maojj][maojjGithub]
 * [veecci][veecciGithub]
 * [tangqiaoboy][tangqiaoboyGithub]
+* [skyline75489][skyline75489Github]
 
 ## 感谢
 
@@ -92,3 +93,4 @@ YTKNetwork 被许可在 MIT 协议下使用。查阅 LICENSE 文件来获得更�
 [lancyGithub]:https://github.com/lancy
 [maojjGithub]:https://github.com/maojj
 [veecciGithub]:https://github.com/veecci
+[skyline75489Github]:https://github.com/skyline75489

@@ -62,15 +62,16 @@
     self = [super init];
     if (self) {
         _config = [YTKNetworkConfig sharedConfig];
-        _manager = [AFHTTPSessionManager manager];
+        _manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_config.sessionConfiguration];
         _requestsRecord = [NSMutableDictionary dictionary];
         _processingQueue = dispatch_queue_create("com.yuantiku.networkagent.processing", DISPATCH_QUEUE_CONCURRENT);
         _allStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(100, 500)];
         pthread_mutex_init(&_lock, NULL);
 
         _manager.securityPolicy = _config.securityPolicy;
-        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        _manager.responseSerializer = [AFJSONResponseSerializer serializer];
         // Take over the status code validation
+        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json", @"text/json", @"text/javascript",@"text/html", @"text/plain",@"application/atom+xml",@"application/xml",@"text/xml",@"image/jpeg", @"image/png"]];
         _manager.responseSerializer.acceptableStatusCodes = _allStatusCodes;
         _manager.completionQueue = _processingQueue;
     }
@@ -97,6 +98,8 @@
 #pragma mark -
 
 - (NSString *)buildRequestUrl:(YTKBaseRequest *)request {
+    NSParameterAssert(request != nil);
+
     NSString *detailUrl = [request requestUrl];
     NSURL *temp = [NSURL URLWithString:detailUrl];
     // If detailUrl is valid URL
@@ -190,6 +193,8 @@
 }
 
 - (void)addRequest:(YTKBaseRequest *)request {
+    NSParameterAssert(request != nil);
+
     NSError * __autoreleasing requestSerializationError = nil;
 
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];
@@ -207,6 +212,8 @@
         [self requestDidFailWithRequest:request error:requestSerializationError];
         return;
     }
+
+    NSAssert(request.requestTask != nil, @"requestTask should not be nil");
 
     // Set request task priority
     // !!Available on iOS 8 +
@@ -233,7 +240,18 @@
 }
 
 - (void)cancelRequest:(YTKBaseRequest *)request {
-    [request.requestTask cancel];
+    NSParameterAssert(request != nil);
+
+    if (request.resumableDownloadPath) {
+        NSURLSessionDownloadTask *requestTask = (NSURLSessionDownloadTask *)request.requestTask;
+        [requestTask cancelByProducingResumeData:^(NSData *resumeData) {
+            NSURL *localUrl = [self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath];
+            [resumeData writeToURL:localUrl atomically:YES];
+        }];
+    } else {
+        [request.requestTask cancel];
+    }
+
     [self removeRequestFromRecord:request];
     [request clearCompletionBlock];
 }
@@ -263,17 +281,15 @@
         }
         return result;
     }
+    id json = [request responseJSONObject];
     id validator = [request jsonValidator];
-    if (validator) {
-        id json = [request responseJSONObject];
-        if (json) {
-            result = [YTKNetworkUtils validateJSON:json withValidator:validator];
-            if (!result) {
-                if (error) {
-                    *error = [NSError errorWithDomain:YTKRequestValidationErrorDomain code:YTKRequestValidationErrorInvalidJSONFormat userInfo:@{NSLocalizedDescriptionKey:@"Invalid JSON format"}];
-                }
-                return result;
+    if (json && validator) {
+        result = [YTKNetworkUtils validateJSON:json withValidator:validator];
+        if (!result) {
+            if (error) {
+                *error = [NSError errorWithDomain:YTKRequestValidationErrorDomain code:YTKRequestValidationErrorInvalidJSONFormat userInfo:@{NSLocalizedDescriptionKey:@"Invalid JSON format"}];
             }
+            return result;
         }
     }
     return YES;
@@ -284,6 +300,11 @@
     YTKBaseRequest *request = _requestsRecord[@(task.taskIdentifier)];
     Unlock();
 
+    // When the request is cancelled and removed from records, the underlying
+    // AFNetworking failure callback will still kicks in, resulting in a nil `request`.
+    //
+    // Here we choose to completely ignore cancelled tasks. Neither success or failure
+    // callback will be called.
     if (!request) {
         return;
     }
@@ -325,7 +346,6 @@
         requestError = validationError;
     }
 
-
     if (succeed) {
         [self requestDidSucceedWithRequest:request];
     } else {
@@ -361,9 +381,22 @@
     YTKLog(@"Request %@ failed, status code = %ld, error = %@",
            NSStringFromClass([request class]), (long)request.responseStatusCode, error.localizedDescription);
 
+    // Save incomplete download data.
     NSData *incompleteDownloadData = error.userInfo[NSURLSessionDownloadTaskResumeData];
     if (incompleteDownloadData) {
         [incompleteDownloadData writeToURL:[self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath] atomically:YES];
+    }
+
+    // Load response from file and clean up if download task failed.
+    if ([request.responseObject isKindOfClass:[NSURL class]]) {
+        NSURL *url = request.responseObject;
+        if (url.isFileURL && [[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
+            request.responseData = [NSData dataWithContentsOfURL:url];
+            request.responseString = [[NSString alloc] initWithData:request.responseData encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
+
+            [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+        }
+        request.responseObject = nil;
     }
 
     @autoreleasepool {
@@ -384,11 +417,9 @@
 }
 
 - (void)addRequestToRecord:(YTKBaseRequest *)request {
-    if (request.requestTask != nil) {
-        Lock();
-        _requestsRecord[@(request.requestTask.taskIdentifier)] = request;
-        Unlock();
-    }
+    Lock();
+    _requestsRecord[@(request.requestTask.taskIdentifier)] = request;
+    Unlock();
 }
 
 - (void)removeRequestFromRecord:(YTKBaseRequest *)request {
@@ -452,6 +483,14 @@
         downloadTargetPath = [NSString pathWithComponents:@[downloadPath, fileName]];
     } else {
         downloadTargetPath = downloadPath;
+    }
+
+    // AFN use `moveItemAtURL` to move downloaded file to target path,
+    // this method aborts the move attempt if a file already exist at the path.
+    // So we remove the exist file before we start the download task.
+    // https://github.com/AFNetworking/AFNetworking/issues/3775
+    if ([[NSFileManager defaultManager] fileExistsAtPath:downloadTargetPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:downloadTargetPath error:nil];
     }
 
     BOOL resumeDataFileExists = [[NSFileManager defaultManager] fileExistsAtPath:[self incompleteDownloadTempPathForDownloadPath:downloadPath].path];

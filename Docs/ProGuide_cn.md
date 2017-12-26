@@ -221,7 +221,7 @@ YTKBatchRequest 类：用于方便地发送批量的网络请求，YTKBatchReque
 
 ## 定制 `buildCustomUrlRequest`
 
-通过覆盖 `buildCustomUrlRequest` 方法，返回一个 `NSUrlRequest` 对象来达到完全自定义请求的需求。该方法定义在 `YTKBaseRequest` 类，如下：
+通过覆盖 `buildCustomUrlRequest` 方法，返回一个 `NSURLRequest` 对象来达到完全自定义请求的需求。该方法定义在 `YTKBaseRequest` 类，如下：
 
 ```objectivec
 // 构建自定义的 UrlRequest，
