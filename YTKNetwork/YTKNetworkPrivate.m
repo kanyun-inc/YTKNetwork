@@ -148,7 +148,7 @@ void YTKLog(NSString *format, ...) {
     return [[NSFileManager defaultManager] fileExistsAtPath:localFilePath];
 #endif
     // After iOS 9 we can not actually detects if the cache file exists. This plist file has a somehow
-    // complicated structue. Besides, the plist structure is different between iOS 9 and iOS 10.
+    // complicated structure. Besides, the plist structure is different between iOS 9 and iOS 10.
     // We can only assume that the plist being successfully parsed means the resume data is valid.
     return YES;
 }
