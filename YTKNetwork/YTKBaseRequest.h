@@ -316,6 +316,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///  Additional HTTP request header field.
 - (nullable NSDictionary<NSString *, NSString *> *)requestHeaderFieldValueDictionary;
 
+/// HTTP methods for which serialized requests will encode parameters as a query string. `GET`, `HEAD`, and `DELETE` by default.
+- (nullable NSSet<NSString *> *)HTTPMethodsEncodingParametersInURI;
+
 ///  Use this to build custom request. If this method return non-nil value, `requestUrl`, `requestTimeoutInterval`,
 ///  `requestArgument`, `allowsCellularAccess`, `requestMethod` and `requestSerializerType` will all be ignored.
 - (nullable NSURLRequest *)buildCustomUrlRequest;

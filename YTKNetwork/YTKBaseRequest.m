@@ -181,6 +181,16 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return nil;
 }
 
+- (NSSet *)HTTPMethodsEncodingParametersInURI {
+    static NSSet *set = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        set = [NSSet setWithObjects:@"GET", @"HEAD", @"DELETE", nil];
+    });
+
+    return set;
+}
+
 - (NSURLRequest *)buildCustomUrlRequest {
     return nil;
 }

@@ -145,6 +145,8 @@
 
     requestSerializer.timeoutInterval = [request requestTimeoutInterval];
     requestSerializer.allowsCellularAccess = [request allowsCellularAccess];
+    requestSerializer.HTTPMethodsEncodingParametersInURI = [request HTTPMethodsEncodingParametersInURI];
+
 
     // If api needs server username and password
     NSArray<NSString *> *authorizationHeaderFieldArray = [request requestAuthorizationHeaderFieldArray];
