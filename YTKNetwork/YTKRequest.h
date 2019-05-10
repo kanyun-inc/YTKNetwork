@@ -52,6 +52,10 @@ NS_ENUM(NSInteger) {
 ///  even `ignoreCache` is YES.
 @property (nonatomic) BOOL ignoreCache;
 
+// Whether the app version consistent fields need to be checked when obtaining the cache.
+// The default is no.
+@property (nonatomic) BOOL ignoreAppSameVersionCheck;
+
 ///  Whether data is from local cache.
 - (BOOL)isDataFromCache;
 
