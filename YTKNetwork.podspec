@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
 
   s.name         = "YTKNetwork"
-  s.version      = "2.0.4"
+  s.version      = "2.1.0.1"
   s.summary      = "YTKNetwork is a high level request util based on AFNetworking."
-  s.homepage     = "https://github.com/yuantiku/YTKNetwork"
+  s.homepage     = "https://github.com/lcccch/YTKNetwork"
   s.license      = "MIT"
   s.author       = {
                     "tangqiao" => "tangqiao@fenbi.com",
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                     "maojj" => "maojj@fenbi.com",
                     "liujl" => "liujl@fenbi.com"
  }
-  s.source        = { :git => "https://github.com/yuantiku/YTKNetwork.git", :tag => s.version.to_s }
+  s.source        = { :git => "https://github.com/lcccch/YTKNetwork.git", :tag => s.version.to_s }
   s.source_files  = "YTKNetwork/*.{h,m}"
   s.requires_arc  = true
 
@@ -25,3 +25,6 @@ Pod::Spec.new do |s|
 
   s.dependency "AFNetworking", "~> 3.0"
 end
+
+
+# pod repo push NLSpecs YTKNetwork.podspec --allow-warnings --use-libraries
