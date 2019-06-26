@@ -179,11 +179,11 @@
                 return [self dataTaskWithHTTPMethod:@"GET" requestSerializer:requestSerializer URLString:url parameters:param error:error];
             }
         case YTKRequestMethodPOST:
-            return [self dataTaskWithHTTPMethod:@"POST" requestSerializer:requestSerializer URLString:url parameters:param constructingBodyWithBlock:constructingBlock error:error];
+            return [self dataTaskWithHTTPMethod:@"POST" requestSerializer:requestSerializer URLString:url parameters:param constructingBodyWithBlock:constructingBlock uploadProgressBlock:request.uploadProgressBlock error:error];
         case YTKRequestMethodHEAD:
             return [self dataTaskWithHTTPMethod:@"HEAD" requestSerializer:requestSerializer URLString:url parameters:param error:error];
         case YTKRequestMethodPUT:
-            return [self dataTaskWithHTTPMethod:@"PUT" requestSerializer:requestSerializer URLString:url parameters:param error:error];
+            return [self dataTaskWithHTTPMethod:@"PUT" requestSerializer:requestSerializer URLString:url parameters:param constructingBodyWithBlock:constructingBlock uploadProgressBlock:request.uploadProgressBlock error:error];
         case YTKRequestMethodDELETE:
             return [self dataTaskWithHTTPMethod:@"DELETE" requestSerializer:requestSerializer URLString:url parameters:param error:error];
         case YTKRequestMethodPATCH:
@@ -435,7 +435,7 @@
                                        URLString:(NSString *)URLString
                                       parameters:(id)parameters
                                            error:(NSError * _Nullable __autoreleasing *)error {
-    return [self dataTaskWithHTTPMethod:method requestSerializer:requestSerializer URLString:URLString parameters:parameters constructingBodyWithBlock:nil error:error];
+    return [self dataTaskWithHTTPMethod:method requestSerializer:requestSerializer URLString:URLString parameters:parameters constructingBodyWithBlock:nil uploadProgressBlock:nil error:error];
 }
 
 - (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
@@ -443,6 +443,7 @@
                                        URLString:(NSString *)URLString
                                       parameters:(id)parameters
                        constructingBodyWithBlock:(nullable void (^)(id <AFMultipartFormData> formData))block
+                             uploadProgressBlock:(AFURLSessionTaskProgressBlock)uploadProgressBlock
                                            error:(NSError * _Nullable __autoreleasing *)error {
     NSMutableURLRequest *request = nil;
 
@@ -453,11 +454,19 @@
     }
 
     __block NSURLSessionDataTask *dataTask = nil;
-    dataTask = [_manager dataTaskWithRequest:request
-                           completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *_error) {
-                               [self handleRequestResult:dataTask responseObject:responseObject error:_error];
-                           }];
-
+    if (uploadProgressBlock) {
+        dataTask = [_manager dataTaskWithRequest:request
+                                  uploadProgress:uploadProgressBlock
+                                downloadProgress:nil
+                               completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *_error) {
+                                   [self handleRequestResult:dataTask responseObject:responseObject error:_error];
+                               }];
+    } else {
+        dataTask = [_manager dataTaskWithRequest:request
+                               completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *_error) {
+                                   [self handleRequestResult:dataTask responseObject:responseObject error:_error];
+                               }];
+    }
     return dataTask;
 }
 
