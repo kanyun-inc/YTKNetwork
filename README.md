@@ -63,7 +63,7 @@ Or add this in your Cartfile:
 | 2.x | 3.x | iOS 7 | Xcode 7+ is required. |
 | 1.x | 2.x | iOS 6 | n/a |
 
-YTKNetwork is based on AFNetworking. You can find more detail about version compability at [AFNetworking README](https://github.com/AFNetworking/AFNetworking).
+YTKNetwork is based on AFNetworking. You can find more detail about version compatibility at [AFNetworking README](https://github.com/AFNetworking/AFNetworking).
 
 ## Guide & Demo
 
