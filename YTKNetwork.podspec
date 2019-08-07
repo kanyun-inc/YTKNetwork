@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "YTKNetwork"
-  s.version      = "2.0.5"
+  s.version      = "2.1.0"
   s.summary      = "YTKNetwork is a high level request util based on AFNetworking."
   s.homepage     = "https://github.com/yuantiku/YTKNetwork"
   s.license      = "MIT"
@@ -24,4 +24,17 @@ Pod::Spec.new do |s|
   s.framework = "CFNetwork"
 
   s.dependency "AFNetworking", "~> 3.0"
+
+  s.default_subspecs = "Core"
+
+  s.subspec "Core" do |ss|
+    ss.source_files = "YTKNetwork/Core/**/*.{h,m,mm}"
+    ss.requires_arc = true
+  end
+  s.subspec "Additional" do |ss|
+    ss.source_files = "YTKNetwork/Additional/**/*.{h,m,mm}"
+    ss.requires_arc = true
+    ss.dependency "MBProgressHUD", "~> 0.9.2"
+  end
+
 end
