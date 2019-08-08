@@ -11,11 +11,8 @@ Pod::Spec.new do |s|
                     "maojj" => "maojj@fenbi.com",
                     "liujl" => "liujl@fenbi.com"
  }
-  s.source        = { :git => "https://github.com/yuantiku/YTKNetwork.git", :tag => s.version.to_s }
-  s.source_files  = "YTKNetwork/*.{h,m}"
+  s.source        = { :git => "ssh://gerrit.zhenguanyu.com/YTKNetwork", :tag => s.version.to_s }
   s.requires_arc  = true
-
-  s.private_header_files = "YTKNetwork/YTKNetworkPrivate.h"
 
   s.ios.deployment_target = "7.0"
   s.osx.deployment_target = "10.9"
@@ -29,11 +26,14 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |ss|
     ss.source_files = "YTKNetwork/Core/**/*.{h,m,mm}"
+    ss.private_header_files = "YTKNetwork/Core/YTKNetworkPrivate.h"
     ss.requires_arc = true
   end
+
   s.subspec "Additional" do |ss|
     ss.source_files = "YTKNetwork/Additional/**/*.{h,m,mm}"
     ss.requires_arc = true
+    ss.platform = :ios, '7.0'
     ss.dependency "MBProgressHUD", "~> 0.9.2"
   end
 
