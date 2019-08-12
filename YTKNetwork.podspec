@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                     "maojj" => "maojj@fenbi.com",
                     "liujl" => "liujl@fenbi.com"
  }
-  s.source        = { :git => "ssh://gerrit.zhenguanyu.com/YTKNetwork", :tag => s.version.to_s }
+  s.source        = { :git => "ssh://gerrit.zhenguanyu.com:29418/YTKNetwork", :tag => s.version.to_s }
   s.requires_arc  = true
 
   s.ios.deployment_target = "7.0"
