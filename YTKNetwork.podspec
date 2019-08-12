@@ -34,6 +34,7 @@ Pod::Spec.new do |s|
     ss.source_files = "YTKNetwork/Additional/**/*.{h,m,mm}"
     ss.requires_arc = true
     ss.platform = :ios, '7.0'
+    ss.dependency "YTKNetwork/Core"
     ss.dependency "MBProgressHUD", "~> 0.9.2"
   end
 
