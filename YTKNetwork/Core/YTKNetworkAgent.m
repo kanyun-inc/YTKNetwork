@@ -382,7 +382,10 @@
 
     // Save incomplete download data.
     NSData *incompleteDownloadData = error.userInfo[NSURLSessionDownloadTaskResumeData];
-    NSURL *localUrl = [self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath];
+    NSURL *localUrl = nil;
+    if (request.resumableDownloadPath) {
+        localUrl = [self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath];
+    }
     if (incompleteDownloadData && localUrl != nil) {
         [incompleteDownloadData writeToURL:localUrl atomically:YES];
     }
