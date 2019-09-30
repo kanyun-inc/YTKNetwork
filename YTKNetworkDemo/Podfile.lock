@@ -6,7 +6,7 @@ PODS:
   - AFNetworking/Reachability (3.2.1)
   - AFNetworking/Security (3.2.1)
   - AFNetworking/Serialization (3.2.1)
-  - YTKNetwork (2.0.4):
+  - YTKNetwork (2.0.5):
     - AFNetworking/NSURLSession (~> 3.0)
 
 DEPENDENCIES:
@@ -23,7 +23,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  YTKNetwork: 380bab4859874837418477c92d84384c04a4bb74
+  YTKNetwork: 05f6e5fe003c57d5c8a214b3b4ac55c443916a1c
 
 PODFILE CHECKSUM: e13467c20b95e7f35a99e80f224a36cabe8eaaff
 
