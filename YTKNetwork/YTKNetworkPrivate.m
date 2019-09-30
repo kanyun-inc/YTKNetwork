@@ -24,7 +24,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "YTKNetworkPrivate.h"
 
-#if __has_include(<AFNetworking/AFNetworking.h>)
+#if __has_include(<AFNetworking/AFURLRequestSerialization.h>)
 #import <AFNetworking/AFURLRequestSerialization.h>
 #else
 #import "AFURLRequestSerialization.h"

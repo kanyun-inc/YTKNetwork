@@ -7,7 +7,7 @@
 //
 
 #import "UploadImageApi.h"
-#import "AFNetworking.h"
+#import "AFHTTPSessionManager.h"
 
 @implementation UploadImageApi {
     UIImage *_image;
