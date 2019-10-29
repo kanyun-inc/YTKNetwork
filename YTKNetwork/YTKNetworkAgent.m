@@ -26,10 +26,10 @@
 #import "YTKNetworkPrivate.h"
 #import <pthread/pthread.h>
 
-#if __has_include(<AFNetworking/AFNetworking.h>)
-#import <AFNetworking/AFNetworking.h>
+#if __has_include(<AFNetworking/AFHTTPSessionManager.h>)
+#import <AFNetworking/AFHTTPSessionManager.h>
 #else
-#import "AFNetworking.h"
+#import "AFHTTPSessionManager.h"
 #endif
 
 #define Lock() pthread_mutex_lock(&_lock)
