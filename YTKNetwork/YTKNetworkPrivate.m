@@ -24,7 +24,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "YTKNetworkPrivate.h"
 
-#if __has_include(<AFNetworking/AFNetworking.h>)
+#if __has_include(<AFNetworking/AFURLRequestSerialization.h>)
 #import <AFNetworking/AFURLRequestSerialization.h>
 #else
 #import "AFURLRequestSerialization.h"
@@ -123,8 +123,9 @@ void YTKLog(NSString *format, ...) {
 + (NSStringEncoding)stringEncodingWithRequest:(YTKBaseRequest *)request {
     // From AFNetworking 2.6.3
     NSStringEncoding stringEncoding = NSUTF8StringEncoding;
-    if (request.response.textEncodingName) {
-        CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)request.response.textEncodingName);
+    NSString *encodingName = [request.response.textEncodingName copy];
+    if (encodingName) {
+        CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)encodingName);
         if (encoding != kCFStringEncodingInvalidId) {
             stringEncoding = CFStringConvertEncodingToNSStringEncoding(encoding);
         }
