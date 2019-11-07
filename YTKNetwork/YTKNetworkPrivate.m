@@ -27,7 +27,7 @@
 #if __has_include(<AFNetworking/AFURLRequestSerialization.h>)
 #import <AFNetworking/AFURLRequestSerialization.h>
 #else
-#import "AFURLRequestSerialization.h"
+#import <AFNetworking/AFURLRequestSerialization.h>
 #endif
 
 void YTKLog(NSString *format, ...) {

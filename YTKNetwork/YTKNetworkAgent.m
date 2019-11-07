@@ -29,7 +29,7 @@
 #if __has_include(<AFNetworking/AFHTTPSessionManager.h>)
 #import <AFNetworking/AFHTTPSessionManager.h>
 #else
-#import "AFHTTPSessionManager.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 #endif
 
 #define Lock() pthread_mutex_lock(&_lock)

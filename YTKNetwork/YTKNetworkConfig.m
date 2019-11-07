@@ -27,7 +27,7 @@
 #if __has_include(<AFNetworking/AFSecurityPolicy.h>)
 #import <AFNetworking/AFSecurityPolicy.h>
 #else
-#import "AFSecurityPolicy.h"
+#import <AFNetworking/AFSecurityPolicy.h>
 #endif
 
 @implementation YTKNetworkConfig {
