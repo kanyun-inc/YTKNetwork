@@ -199,7 +199,10 @@
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];
     if (customUrlRequest) {
         __block NSURLSessionDataTask *dataTask = nil;
-        dataTask = [_manager dataTaskWithRequest:customUrlRequest completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        dataTask = [_manager dataTaskWithRequest:customUrlRequest
+                                  uploadProgress:nil
+                                downloadProgress:nil
+                               completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
             [self handleRequestResult:dataTask responseObject:responseObject error:error];
         }];
         request.requestTask = dataTask;
@@ -458,10 +461,11 @@
 
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [_manager dataTaskWithRequest:request
-                           completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *_error) {
-                               [self handleRequestResult:dataTask responseObject:responseObject error:_error];
-                           }];
-
+                              uploadProgress:nil
+                            downloadProgress:nil
+                           completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        [self handleRequestResult:dataTask responseObject:responseObject error:error];
+    }];
     return dataTask;
 }
 
