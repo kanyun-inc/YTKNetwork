@@ -18,11 +18,11 @@ Pod::Spec.new do |s|
 
   s.private_header_files = "YTKNetwork/YTKNetworkPrivate.h"
 
-  s.ios.deployment_target = "7.0"
-  s.osx.deployment_target = "10.9"
+  s.ios.deployment_target = "9.0"
+  s.osx.deployment_target = "10.10"
   s.watchos.deployment_target = "2.0"
   s.tvos.deployment_target = "9.0"
   s.framework = "CFNetwork"
 
-  s.dependency "AFNetworking/NSURLSession", "~> 3.0"
+  s.dependency "AFNetworking/NSURLSession"
 end

@@ -1,34 +1,38 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
+  - AFNetworking (4.0.0):
+    - AFNetworking/NSURLSession (= 4.0.0)
+    - AFNetworking/Reachability (= 4.0.0)
+    - AFNetworking/Security (= 4.0.0)
+    - AFNetworking/Serialization (= 4.0.0)
+    - AFNetworking/UIKit (= 4.0.0)
+  - AFNetworking/NSURLSession (4.0.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
+  - AFNetworking/Reachability (4.0.0)
+  - AFNetworking/Security (4.0.0)
+  - AFNetworking/Serialization (4.0.0)
+  - AFNetworking/UIKit (4.0.0):
     - AFNetworking/NSURLSession
-  - YTKNetwork (2.0.1):
-    - AFNetworking (~> 3.0)
+  - YTKNetwork (2.1.4):
+    - AFNetworking/NSURLSession
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.1)
+  - AFNetworking (~> 4.0.0)
   - YTKNetwork (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
 
 EXTERNAL SOURCES:
   YTKNetwork:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  YTKNetwork: f21ad2073b3353a11d257593a2859f2904bbec75
+  AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
+  YTKNetwork: a87d8bf6c341c137032819aa54a847e11797d4e2
 
-PODFILE CHECKSUM: fac6c10b171443ed76dffcc019afa1046783a5cd
+PODFILE CHECKSUM: ce9a4bbf23c85f00dc8999c160555bd945e34a2a
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.7.3
