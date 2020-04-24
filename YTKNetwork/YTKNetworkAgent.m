@@ -169,6 +169,7 @@
     NSString *url = [self buildRequestUrl:request];
     id param = request.requestArgument;
     AFConstructingBlock constructingBlock = [request constructingBodyBlock];
+    AFURLSessionTaskProgressBlock uploadProgressBlock = [request uploadProgressBlock];
     AFHTTPRequestSerializer *requestSerializer = [self requestSerializerForRequest:request];
 
     switch (method) {
@@ -192,6 +193,7 @@
                               requestSerializer:requestSerializer
                                       URLString:url
                                      parameters:param
+                                 uploadProgress:uploadProgressBlock
                       constructingBodyWithBlock:constructingBlock
                                           error:error];
         case YTKRequestMethodHEAD:
@@ -205,6 +207,7 @@
                               requestSerializer:requestSerializer
                                       URLString:url
                                      parameters:param
+                                 uploadProgress:uploadProgressBlock
                       constructingBodyWithBlock:constructingBlock
                                           error:error];
         case YTKRequestMethodDELETE:
@@ -477,6 +480,7 @@
                       requestSerializer:requestSerializer
                               URLString:URLString
                              parameters:parameters
+                         uploadProgress:nil
               constructingBodyWithBlock:nil
                                   error:error];
 }
@@ -485,6 +489,7 @@
                                requestSerializer:(AFHTTPRequestSerializer *)requestSerializer
                                        URLString:(NSString *)URLString
                                       parameters:(id)parameters
+                                  uploadProgress:(AFURLSessionTaskProgressBlock)uploadProgress
                        constructingBodyWithBlock:(nullable void (^)(id <AFMultipartFormData> formData))block
                                            error:(NSError * _Nullable __autoreleasing *)error {
     NSMutableURLRequest *request = nil;
@@ -497,7 +502,7 @@
 
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [_manager dataTaskWithRequest:request
-                              uploadProgress:nil
+                              uploadProgress:uploadProgress
                             downloadProgress:nil
                            completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *_error) {
                                [self handleRequestResult:dataTask responseObject:responseObject error:_error];

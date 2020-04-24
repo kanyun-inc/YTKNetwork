@@ -88,6 +88,7 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     // nil out to break the retain cycle.
     self.successCompletionBlock = nil;
     self.failureCompletionBlock = nil;
+    self.uploadProgressBlock = nil;
 }
 
 - (void)addAccessory:(id<YTKRequestAccessory>)accessory {
