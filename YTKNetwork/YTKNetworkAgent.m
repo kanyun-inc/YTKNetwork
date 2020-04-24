@@ -73,6 +73,7 @@
         // Take over the status code validation
         _manager.responseSerializer.acceptableStatusCodes = _allStatusCodes;
         _manager.completionQueue = _processingQueue;
+        [_manager setTaskDidFinishCollectingMetricsBlock:_config.collectingMetricsBlock];
     }
     return self;
 }
