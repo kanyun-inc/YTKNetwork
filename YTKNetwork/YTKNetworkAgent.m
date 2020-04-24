@@ -174,20 +174,51 @@
     switch (method) {
         case YTKRequestMethodGET:
             if (request.resumableDownloadPath) {
-                return [self downloadTaskWithDownloadPath:request.resumableDownloadPath requestSerializer:requestSerializer URLString:url parameters:param progress:request.resumableDownloadProgressBlock error:error];
+                return [self downloadTaskWithDownloadPath:request.resumableDownloadPath
+                                        requestSerializer:requestSerializer
+                                                URLString:url
+                                               parameters:param
+                                                 progress:request.resumableDownloadProgressBlock
+                                                    error:error];
             } else {
-                return [self dataTaskWithHTTPMethod:@"GET" requestSerializer:requestSerializer URLString:url parameters:param error:error];
+                return [self dataTaskWithHTTPMethod:@"GET"
+                                  requestSerializer:requestSerializer
+                                          URLString:url
+                                         parameters:param
+                                              error:error];
             }
         case YTKRequestMethodPOST:
-            return [self dataTaskWithHTTPMethod:@"POST" requestSerializer:requestSerializer URLString:url parameters:param constructingBodyWithBlock:constructingBlock error:error];
+            return [self dataTaskWithHTTPMethod:@"POST"
+                              requestSerializer:requestSerializer
+                                      URLString:url
+                                     parameters:param
+                      constructingBodyWithBlock:constructingBlock
+                                          error:error];
         case YTKRequestMethodHEAD:
-            return [self dataTaskWithHTTPMethod:@"HEAD" requestSerializer:requestSerializer URLString:url parameters:param error:error];
+            return [self dataTaskWithHTTPMethod:@"HEAD"
+                              requestSerializer:requestSerializer
+                                      URLString:url
+                                     parameters:param
+                                          error:error];
         case YTKRequestMethodPUT:
-            return [self dataTaskWithHTTPMethod:@"PUT" requestSerializer:requestSerializer URLString:url parameters:param error:error];
+            return [self dataTaskWithHTTPMethod:@"PUT"
+                              requestSerializer:requestSerializer
+                                      URLString:url
+                                     parameters:param
+                      constructingBodyWithBlock:constructingBlock
+                                          error:error];
         case YTKRequestMethodDELETE:
-            return [self dataTaskWithHTTPMethod:@"DELETE" requestSerializer:requestSerializer URLString:url parameters:param error:error];
+            return [self dataTaskWithHTTPMethod:@"DELETE"
+                              requestSerializer:requestSerializer
+                                      URLString:url
+                                     parameters:param
+                                          error:error];
         case YTKRequestMethodPATCH:
-            return [self dataTaskWithHTTPMethod:@"PATCH" requestSerializer:requestSerializer URLString:url parameters:param error:error];
+            return [self dataTaskWithHTTPMethod:@"PATCH"
+                              requestSerializer:requestSerializer
+                                      URLString:url
+                                     parameters:param
+                                          error:error];
     }
 }
 
