@@ -24,10 +24,10 @@
 #import "YTKNetworkConfig.h"
 #import "YTKBaseRequest.h"
 
-#if __has_include(<AFNetworking/AFNetworking.h>)
-#import <AFNetworking/AFNetworking.h>
+#if __has_include(<AFNetworking/AFSecurityPolicy.h>)
+#import <AFNetworking/AFSecurityPolicy.h>
 #else
-#import "AFNetworking.h"
+#import <AFNetworking/AFSecurityPolicy.h>
 #endif
 
 @implementation YTKNetworkConfig {

@@ -24,10 +24,10 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "YTKNetworkPrivate.h"
 
-#if __has_include(<AFNetworking/AFNetworking.h>)
+#if __has_include(<AFNetworking/AFURLRequestSerialization.h>)
 #import <AFNetworking/AFURLRequestSerialization.h>
 #else
-#import "AFURLRequestSerialization.h"
+#import <AFNetworking/AFURLRequestSerialization.h>
 #endif
 
 void YTKLog(NSString *format, ...) {
@@ -110,7 +110,7 @@ void YTKLog(NSString *format, ...) {
 
     NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
-        [outputString appendFormat:@"%02x",outputBuffer[count]];
+        [outputString appendFormat:@"%02x", outputBuffer[count]];
     }
 
     return outputString;
@@ -123,8 +123,9 @@ void YTKLog(NSString *format, ...) {
 + (NSStringEncoding)stringEncodingWithRequest:(YTKBaseRequest *)request {
     // From AFNetworking 2.6.3
     NSStringEncoding stringEncoding = NSUTF8StringEncoding;
-    if (request.response.textEncodingName) {
-        CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)request.response.textEncodingName);
+    NSString *encodingName = [request.response.textEncodingName copy];
+    if (encodingName) {
+        CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)encodingName);
         if (encoding != kCFStringEncodingInvalidId) {
             stringEncoding = CFStringConvertEncodingToNSStringEncoding(encoding);
         }

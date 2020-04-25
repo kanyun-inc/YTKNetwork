@@ -26,10 +26,10 @@
 #import "YTKNetworkPrivate.h"
 #import <pthread/pthread.h>
 
-#if __has_include(<AFNetworking/AFNetworking.h>)
-#import <AFNetworking/AFNetworking.h>
+#if __has_include(<AFNetworking/AFHTTPSessionManager.h>)
+#import <AFNetworking/AFHTTPSessionManager.h>
 #else
-#import "AFNetworking.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 #endif
 
 #define Lock() pthread_mutex_lock(&_lock)
@@ -242,7 +242,16 @@
 - (void)cancelRequest:(YTKBaseRequest *)request {
     NSParameterAssert(request != nil);
 
-    [request.requestTask cancel];
+    if (request.resumableDownloadPath && [self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath] != nil) {
+        NSURLSessionDownloadTask *requestTask = (NSURLSessionDownloadTask *)request.requestTask;
+        [requestTask cancelByProducingResumeData:^(NSData *resumeData) {
+            NSURL *localUrl = [self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath];
+            [resumeData writeToURL:localUrl atomically:YES];
+        }];
+    } else {
+        [request.requestTask cancel];
+    }
+
     [self removeRequestFromRecord:request];
     [request clearCompletionBlock];
 }
@@ -374,8 +383,12 @@
 
     // Save incomplete download data.
     NSData *incompleteDownloadData = error.userInfo[NSURLSessionDownloadTaskResumeData];
-    if (incompleteDownloadData) {
-        [incompleteDownloadData writeToURL:[self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath] atomically:YES];
+    NSURL *localUrl = nil;
+    if (request.resumableDownloadPath) {
+        localUrl = [self incompleteDownloadTempPathForDownloadPath:request.resumableDownloadPath];
+    }
+    if (incompleteDownloadData && localUrl != nil) {
+        [incompleteDownloadData writeToURL:localUrl atomically:YES];
     }
 
     // Load response from file and clean up if download task failed.
@@ -484,27 +497,30 @@
         [[NSFileManager defaultManager] removeItemAtPath:downloadTargetPath error:nil];
     }
 
-    BOOL resumeDataFileExists = [[NSFileManager defaultManager] fileExistsAtPath:[self incompleteDownloadTempPathForDownloadPath:downloadPath].path];
-    NSData *data = [NSData dataWithContentsOfURL:[self incompleteDownloadTempPathForDownloadPath:downloadPath]];
-    BOOL resumeDataIsValid = [YTKNetworkUtils validateResumeData:data];
-
-    BOOL canBeResumed = resumeDataFileExists && resumeDataIsValid;
     BOOL resumeSucceeded = NO;
     __block NSURLSessionDownloadTask *downloadTask = nil;
-    // Try to resume with resumeData.
-    // Even though we try to validate the resumeData, this may still fail and raise excecption.
-    if (canBeResumed) {
-        @try {
-            downloadTask = [_manager downloadTaskWithResumeData:data progress:downloadProgressBlock destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-                return [NSURL fileURLWithPath:downloadTargetPath isDirectory:NO];
-            } completionHandler:
-                            ^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-                                [self handleRequestResult:downloadTask responseObject:filePath error:error];
-                            }];
-            resumeSucceeded = YES;
-        } @catch (NSException *exception) {
-            YTKLog(@"Resume download failed, reason = %@", exception.reason);
-            resumeSucceeded = NO;
+    NSURL *localUrl = [self incompleteDownloadTempPathForDownloadPath:downloadPath];
+    if (localUrl != nil) {
+        BOOL resumeDataFileExists = [[NSFileManager defaultManager] fileExistsAtPath:localUrl.path];
+        NSData *data = [NSData dataWithContentsOfURL:localUrl];
+        BOOL resumeDataIsValid = [YTKNetworkUtils validateResumeData:data];
+
+        BOOL canBeResumed = resumeDataFileExists && resumeDataIsValid;
+        // Try to resume with resumeData.
+        // Even though we try to validate the resumeData, this may still fail and raise excecption.
+        if (canBeResumed) {
+            @try {
+                downloadTask = [_manager downloadTaskWithResumeData:data progress:downloadProgressBlock destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+                    return [NSURL fileURLWithPath:downloadTargetPath isDirectory:NO];
+                } completionHandler:
+                                ^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+                                    [self handleRequestResult:downloadTask responseObject:filePath error:error];
+                                }];
+                resumeSucceeded = YES;
+            } @catch (NSException *exception) {
+                YTKLog(@"Resume download failed, reason = %@", exception.reason);
+                resumeSucceeded = NO;
+            }
         }
     }
     if (!resumeSucceeded) {
@@ -541,7 +557,7 @@
     NSString *tempPath = nil;
     NSString *md5URLString = [YTKNetworkUtils md5StringFromString:downloadPath];
     tempPath = [[self incompleteDownloadTempCacheFolder] stringByAppendingPathComponent:md5URLString];
-    return [NSURL fileURLWithPath:tempPath];
+    return tempPath == nil ? nil : [NSURL fileURLWithPath:tempPath];
 }
 
 #pragma mark - Testing
