@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///  Tag can be used to identify batch request. Default value is 0.
 @property (nonatomic) NSInteger tag;
 
-///  This can be used to add several accossories object. Note if you use `addAccessory` to add acceesory
+///  This can be used to add several accessories object. Note if you use `addAccessory` to add acceesory
 ///  this array will be automatically created. Default is nil.
 @property (nonatomic, strong, nullable) NSMutableArray<id<YTKRequestAccessory>> *requestAccessories;
 

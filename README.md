@@ -54,16 +54,17 @@ To use YTKNetwork add the following to your Podfile
 
 Or add this in your Cartfile:
 
-    github "yuantiku/YTKNetwork" ~> 2.0
+    github "yuantiku/YTKNetwork" ~> 3.0
 
 ## Requirements
 
 | YTKNetwork Version | AFNetworking Version |  Minimum iOS Target | Note |
 |:------------------:|:--------------------:|:-------------------:|:-----|
+| 3.x | 4.x | iOS 9 | Xcode 11+ is required. |
 | 2.x | 3.x | iOS 7 | Xcode 7+ is required. |
 | 1.x | 2.x | iOS 6 | n/a |
 
-YTKNetwork is based on AFNetworking. You can find more detail about version compability at [AFNetworking README](https://github.com/AFNetworking/AFNetworking).
+YTKNetwork is based on AFNetworking. You can find more detail about version compatibility at [AFNetworking README](https://github.com/AFNetworking/AFNetworking).
 
 ## Guide & Demo
 
@@ -77,6 +78,7 @@ YTKNetwork is based on AFNetworking. You can find more detail about version comp
  * [veecci][veecciGithub]
  * [tangqiaoboy][tangqiaoboyGithub]
  * [skyline75489][skyline75489Github]
+ * [joeshang][joeshangGithub]
 
 ## Acknowledgements
 
@@ -84,7 +86,7 @@ YTKNetwork is based on AFNetworking. You can find more detail about version comp
  * [AFDownloadRequestOperation]
 
 Thanks for their great work.
- 
+
 ## License
 
 YTKNetwork is available under the MIT license. See the LICENSE file for more info.
@@ -103,3 +105,4 @@ YTKNetwork is available under the MIT license. See the LICENSE file for more inf
 [maojjGithub]:https://github.com/maojj
 [veecciGithub]:https://github.com/veecci
 [skyline75489Github]:https://github.com/skyline75489
+[joeshangGithub]:https://github.com/joeshang

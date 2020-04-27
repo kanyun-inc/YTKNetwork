@@ -126,7 +126,7 @@
             baseUrl = [_config baseUrl];
         }
     }
-    // URL slash compability
+    // URL slash compatibility
     NSURL *url = [NSURL URLWithString:baseUrl];
 
     if (baseUrl.length > 0 && ![baseUrl hasSuffix:@"/"]) {

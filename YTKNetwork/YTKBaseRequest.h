@@ -202,7 +202,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///  will be called on the main queue.
 @property (nonatomic, copy, nullable) YTKRequestCompletionBlock failureCompletionBlock;
 
-///  This can be used to add several accossories object. Note if you use `addAccessory` to add acceesory
+///  This can be used to add several accessories object. Note if you use `addAccessory` to add accessory
 ///  this array will be automatically created. Default is nil.
 @property (nonatomic, strong, nullable) NSMutableArray<id<YTKRequestAccessory>> *requestAccessories;
 
@@ -259,7 +259,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 /// @name Subclass Override
 ///=============================================================================
 
-///  Called on background thread after request succeded but before switching to main thread. Note if
+///  Called on background thread after request succeeded but before switching to main thread. Note if
 ///  cache is loaded, this method WILL be called on the main thread, just like `requestCompleteFilter`.
 - (void)requestCompletePreprocessor;
 
@@ -284,14 +284,14 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///              Otherwise the result URL may not be correctly formed. See also `URLString:relativeToURL`
 ///              for more information.
 ///
-///              Additionaly, if `requestUrl` itself is a valid URL, it will be used as the result URL and
+///              Additionally, if `requestUrl` itself is a valid URL, it will be used as the result URL and
 ///              `baseUrl` will be ignored.
 - (NSString *)requestUrl;
 
 ///  Optional CDN URL for request.
 - (NSString *)cdnUrl;
 
-///  Requset timeout interval. Default is 60s.
+///  Request timeout interval. Default is 60s.
 ///
 ///  @discussion When using `resumableDownloadPath`(NSURLSessionDownloadTask), the session seems to completely ignore
 ///              `timeoutInterval` property of `NSURLRequest`. One effective way to set timeout would be using
