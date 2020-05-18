@@ -553,6 +553,9 @@
 }
 
 - (NSURL *)incompleteDownloadTempPathForDownloadPath:(NSString *)downloadPath {
+    if (!downloadPath || downloadPath.length == 0) {
+        return nil;
+    }
     NSString *tempPath = nil;
     NSString *md5URLString = [YTKNetworkUtils md5StringFromString:downloadPath];
     tempPath = [[self incompleteDownloadTempCacheFolder] stringByAppendingPathComponent:md5URLString];
