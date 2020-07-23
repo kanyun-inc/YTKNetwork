@@ -26,10 +26,10 @@
 #import "YTKNetworkPrivate.h"
 #import <pthread/pthread.h>
 
-#if __has_include(<AFNetworking/AFHTTPSessionManager.h>)
-#import <AFNetworking/AFHTTPSessionManager.h>
+#if __has_include(<AFNetworking/AFURLSessionManager.h>)
+#import <AFNetworking/AFURLSessionManager.h>
 #else
-#import <AFNetworking/AFHTTPSessionManager.h>
+#import <AFNetworking/AFURLSessionManager.h>
 #endif
 
 #define Lock() pthread_mutex_lock(&_lock)
@@ -38,7 +38,7 @@
 #define kYTKNetworkIncompleteDownloadFolderName @"Incomplete"
 
 @implementation YTKNetworkAgent {
-    AFHTTPSessionManager *_manager;
+    AFURLSessionManager *_manager;
     YTKNetworkConfig *_config;
     AFJSONResponseSerializer *_jsonResponseSerializer;
     AFXMLParserResponseSerializer *_xmlParserResponseSerialzier;
@@ -62,7 +62,7 @@
     self = [super init];
     if (self) {
         _config = [YTKNetworkConfig sharedConfig];
-        _manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_config.sessionConfiguration];
+        _manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:_config.sessionConfiguration];
         _requestsRecord = [NSMutableDictionary dictionary];
         _processingQueue = dispatch_queue_create("com.yuantiku.networkagent.processing", DISPATCH_QUEUE_CONCURRENT);
         _allStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(100, 500)];
@@ -71,7 +71,10 @@
         _manager.securityPolicy = _config.securityPolicy;
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         // Take over the status code validation
-        _manager.responseSerializer.acceptableStatusCodes = _allStatusCodes;
+        AFHTTPResponseSerializer *responseSerializer = _manager.responseSerializer;
+        if (responseSerializer && [responseSerializer isKindOfClass:AFHTTPResponseSerializer.class]) {
+            responseSerializer.acceptableStatusCodes = _allStatusCodes;
+        }
         _manager.completionQueue = _processingQueue;
         [_manager setTaskDidFinishCollectingMetricsBlock:_config.collectingMetricsBlock];
     }
@@ -610,16 +613,16 @@
 
 #pragma mark - Testing
 
-- (AFHTTPSessionManager *)manager {
+- (AFURLSessionManager *)manager {
     return _manager;
 }
 
 - (void)resetURLSessionManager {
-    _manager = [AFHTTPSessionManager manager];
+    _manager = [AFURLSessionManager init];
 }
 
 - (void)resetURLSessionManagerWithConfiguration:(NSURLSessionConfiguration *)configuration {
-    _manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
+    _manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
 }
 
 @end
