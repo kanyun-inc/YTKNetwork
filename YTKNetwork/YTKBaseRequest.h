@@ -224,7 +224,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///  You can use this block to track the upload progress.
 @property (nonatomic, copy, nullable) AFURLSessionTaskProgressBlock uploadProgressBlock;
 
-///  The priority of the request. Effective only on iOS 8+. Default is `YTKRequestPriorityDefault`.
+///  The priority of the request. Default is `YTKRequestPriorityDefault`.
 @property (nonatomic) YTKRequestPriority requestPriority;
 
 ///  Set completion callbacks

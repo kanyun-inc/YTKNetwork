@@ -252,7 +252,6 @@
     NSAssert(request.requestTask != nil, @"requestTask should not be nil");
 
     // Set request task priority
-    // !!Available on iOS 8 +
     if ([request.requestTask respondsToSelector:@selector(priority)]) {
         switch (request.requestPriority) {
             case YTKRequestPriorityHigh:
