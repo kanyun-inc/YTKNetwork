@@ -75,6 +75,8 @@
         if (responseSerializer && [responseSerializer isKindOfClass:AFHTTPResponseSerializer.class]) {
             responseSerializer.acceptableStatusCodes = _allStatusCodes;
         }
+        [self jsonResponseSerializer];
+        [self xmlParserResponseSerialzier];
         _manager.completionQueue = _processingQueue;
         [_manager setTaskDidFinishCollectingMetricsBlock:_config.collectingMetricsBlock];
     }
