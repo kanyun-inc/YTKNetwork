@@ -79,18 +79,20 @@
 }
 
 - (AFJSONResponseSerializer *)jsonResponseSerializer {
-    if (!_jsonResponseSerializer) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         _jsonResponseSerializer = [AFJSONResponseSerializer serializer];
         _jsonResponseSerializer.acceptableStatusCodes = _allStatusCodes;
-    }
+    });
     return _jsonResponseSerializer;
 }
 
 - (AFXMLParserResponseSerializer *)xmlParserResponseSerialzier {
-    if (!_xmlParserResponseSerialzier) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         _xmlParserResponseSerialzier = [AFXMLParserResponseSerializer serializer];
         _xmlParserResponseSerialzier.acceptableStatusCodes = _allStatusCodes;
-    }
+    });
     return _xmlParserResponseSerialzier;
 }
 
