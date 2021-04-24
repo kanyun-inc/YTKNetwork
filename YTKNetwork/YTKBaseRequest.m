@@ -33,6 +33,7 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
 @property (nonatomic, strong, readwrite) NSData *responseData;
 @property (nonatomic, strong, readwrite) id responseJSONObject;
 @property (nonatomic, strong, readwrite) id responseObject;
+@property (nonatomic, strong, readwrite) id responseModel;
 @property (nonatomic, strong, readwrite) NSString *responseString;
 @property (nonatomic, strong, readwrite) NSError *error;
 
@@ -197,6 +198,18 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return (statusCode >= 200 && statusCode <= 299);
 }
 
+- (id)jsonToModelWithData:(NSDictionary *)dataDict
+{
+    return nil;
+}
+
+-(void)requestStart
+{
+}
+
+-(void)requestFinish
+{
+}
 #pragma mark - NSObject
 
 - (NSString *)description {

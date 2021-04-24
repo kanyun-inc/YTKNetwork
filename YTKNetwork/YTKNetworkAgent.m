@@ -273,6 +273,9 @@
     // Retain request
     YTKLog(@"Add request: %@", NSStringFromClass([request class]));
     [self addRequestToRecord:request];
+    
+    [request requestStart];
+    
     [request.requestTask resume];
 }
 
@@ -311,6 +314,15 @@
 }
 
 - (BOOL)validateResult:(YTKBaseRequest *)request error:(NSError * _Nullable __autoreleasing *)error {
+    
+    if (_config.responseFilterProtocol != nil && [_config.responseFilterProtocol respondsToSelector:@selector(checkErrorCodeWithRequest:)])
+    {
+        if (![_config.responseFilterProtocol checkErrorCodeWithRequest:request])
+        {
+            return NO;
+        }
+    }
+    
     BOOL result = [request statusCodeValidator];
     if (!result) {
         if (error) {
@@ -330,6 +342,33 @@
             return result;
         }
     }
+    
+    if (_config.responseFilterProtocol != nil && [_config.responseFilterProtocol respondsToSelector:@selector(extractDataWithRequest:)])
+    {
+        NSDictionary *dataDict = [_config.responseFilterProtocol extractDataWithRequest:request];
+        if (dataDict != nil)
+        {
+            if ([request respondsToSelector:@selector(jsonToModelWithData:)])
+            {
+                request.responseModel = [request jsonToModelWithData:dataDict];
+            }
+        }
+        else
+        {
+            if ([request respondsToSelector:@selector(jsonToModelWithData:)])
+            {
+                request.responseModel = [request jsonToModelWithData:request.responseJSONObject];
+            }
+        }
+    }else
+    {
+        if ([request respondsToSelector:@selector(jsonToModelWithData:)])
+        {
+            request.responseModel = [request jsonToModelWithData:request.responseJSONObject];
+        }
+    }
+    
+    
     return YES;
 }
 
@@ -348,7 +387,7 @@
     }
 
     YTKLog(@"Finished Request: %@", NSStringFromClass([request class]));
-
+    
     NSError * __autoreleasing serializationError = nil;
     NSError * __autoreleasing validationError = nil;
 
@@ -373,18 +412,20 @@
                 break;
         }
     }
+    
     if (error) {
         succeed = NO;
         requestError = error;
-    } else if (serializationError) {
+    }else if (serializationError) {
         succeed = NO;
         requestError = serializationError;
-    } else {
+    }else {
         succeed = [self validateResult:request error:&validationError];
         requestError = validationError;
     }
 
     if (succeed) {
+        [request requestFinish];
         [self requestDidSucceedWithRequest:request];
     } else {
         [self requestDidFailWithRequest:request error:requestError];

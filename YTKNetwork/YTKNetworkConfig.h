@@ -39,7 +39,17 @@ typedef void (^AFURLSessionTaskDidFinishCollectingMetricsBlock)(NSURLSession *se
 ///
 ///  @return A new url which will be used as a new `requestUrl`
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(YTKBaseRequest *)request;
+
 @end
+
+@protocol YTKResponseFilterProtocol <NSObject>
+
+- (BOOL)checkErrorCodeWithRequest:(YTKBaseRequest *)request;
+
+- (NSDictionary *)extractDataWithRequest:(YTKBaseRequest *)request;
+
+@end
+
 
 ///  YTKCacheDirPathFilterProtocol can be used to append common path components when caching response results
 @protocol YTKCacheDirPathFilterProtocol <NSObject>
@@ -78,6 +88,8 @@ typedef void (^AFURLSessionTaskDidFinishCollectingMetricsBlock)(NSURLSession *se
 @property (nonatomic, strong, nullable) NSURLSessionConfiguration* sessionConfiguration;
 ///  NSURLSessionTaskMetrics
 @property (nonatomic, strong) AFURLSessionTaskDidFinishCollectingMetricsBlock collectingMetricsBlock API_AVAILABLE(ios(10), macosx(10.12), watchos(3), tvos(10));
+
+@property (nonatomic,strong) id<YTKResponseFilterProtocol> responseFilterProtocol;
 
 ///  Add a new URL filter.
 - (void)addUrlFilter:(id<YTKUrlFilterProtocol>)filter;
