@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YTKBatchRequest : NSObject
 
 ///  All the requests are stored in this array.
-@property (nonatomic, strong, readonly) NSArray<YTKRequest *> *requestArray;
+@property (nonatomic, strong, readonly) NSArray<__kindof YTKRequest *> *requestArray;
 
 ///  The delegate object of the batch request. Default is nil.
 @property (nonatomic, weak, nullable) id<YTKBatchRequestDelegate> delegate;
