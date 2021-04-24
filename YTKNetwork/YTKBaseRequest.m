@@ -197,6 +197,10 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return (statusCode >= 200 && statusCode <= 299);
 }
 
+- (BOOL)customValidatorWithError:(NSError * _Nullable __autoreleasing *)error {
+    return YES;
+}
+
 #pragma mark - NSObject
 
 - (NSString *)description {
