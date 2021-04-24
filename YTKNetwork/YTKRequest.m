@@ -279,6 +279,10 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
     NSString *appVersionString = self.cacheMetadata.appVersionString;
     NSString *currentAppVersionString = [YTKNetworkUtils appVersionString];
     if (appVersionString || currentAppVersionString) {
+        if (self.ignoreAppSameVersionCheck) {
+            return YES;
+        }
+
         if (appVersionString.length != currentAppVersionString.length || ![appVersionString isEqualToString:currentAppVersionString]) {
             if (error) {
                 *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorAppVersionMismatch userInfo:@{ NSLocalizedDescriptionKey:@"App version mismatch"}];
